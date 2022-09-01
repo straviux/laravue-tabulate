@@ -309,7 +309,7 @@
               data-aos="zoom-y-out"
               data-aos-delay="150"
             >
-              An Organization started by Jose Chavez Alvares to help the
+              An Organization founded by Jose Chavez Alvares to help the
               community to have better way of living.
             </p>
           </div>
@@ -358,7 +358,8 @@
   </div> -->
 </template>
 
-<script setup>
+<script>
+import { mapState } from "vuex";
 import {
   Popover,
   PopoverButton,
@@ -430,4 +431,35 @@ const resources = [
     icon: ShieldCheckIcon,
   },
 ];
+
+export default {
+  computed: {
+    ...mapState(["user"]),
+  },
+  components: {
+    Popover,
+    PopoverButton,
+    PopoverGroup,
+    PopoverPanel,
+    ArrowPathIcon,
+    Bars3Icon,
+    BookmarkSquareIcon,
+    CalendarIcon,
+    ChartBarIcon,
+    CursorArrowRaysIcon,
+    LifebuoyIcon,
+    PhoneIcon,
+    PlayIcon,
+    ShieldCheckIcon,
+    Squares2X2Icon,
+    XMarkIcon,
+    ChevronDownIcon,
+  },
+  setup() {
+    return {
+      resources,
+      solutions,
+    };
+  },
+};
 </script>
