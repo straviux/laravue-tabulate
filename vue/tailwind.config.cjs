@@ -3,7 +3,12 @@ module.exports = {
   content: ["./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",],
   theme: {
-    extend: {},
+    extend: {
+        backgroundImage: {
+        'footer': "url('src/assets/img/footer_bg.gif')",
+        },
+    },
+
   },
   plugins: [require('@tailwindcss/typography'),require("daisyui")],
   daisyui: {

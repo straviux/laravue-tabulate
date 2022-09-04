@@ -2,24 +2,54 @@
   <div
     class="bg-no-repeat bg-cover bg-center relative"
     style="
-      background-image: url(https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80);
+      background-image: url(https://img.freepik.com/free-vector/abstract-motion-wave-line-gradient-line-background-vector-design_8048-515.jpg?w=1380&t=st=1662296393~exp=1662296993~hmac=58f20042238d63df8065f90cd5c46753723fbe3ba71f77c4169b55802c16b7fc);
     "
   >
     <div
-      class="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-75 inset-0 z-0"
+      class="absolute bg-gradient-to-b from-blue-600 to-green-400 opacity-75 inset-0 z-0"
     ></div>
     <div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
       <div
         class="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10"
       >
         <div class="self-start hidden lg:flex flex-col text-white">
-          <img src="" class="mb-3" />
-          <h1 class="mb-3 font-bold text-5xl">Hi ! Welcome Back</h1>
+          <!--Banner-->
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="text-center pb-3 pt-4">
+              <h1
+                className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+                data-aos="zoom-y-out"
+              >
+                JCA for Progress
+                <span
+                  className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400"
+                  >Movement</span
+                >
+              </h1>
+              <div className="max-w-3xl mx-auto">
+                <p
+                  className="text-xl text-gray-100 mb-8"
+                  data-aos="zoom-y-out"
+                  data-aos-delay="150"
+                >
+                  An Organization founded by Jose Chaves Alvarez to help the
+                  community to have better way of living.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- /End Banner-->
         </div>
       </div>
       <div class="flex justify-center self-center z-10">
         <div class="p-12 bg-white mx-auto rounded-2xl w-100">
           <div class="mb-4">
+            <a
+              href="#"
+              @click="$router.go(-1)"
+              class="float-right mt-2 underline cursor-pointer text-green-600"
+              >Go Back</a
+            >
             <h3 class="font-semibold text-2xl text-gray-800">Sign In</h3>
             <p class="text-gray-500">Please sign in to your account.</p>
           </div>
@@ -77,8 +107,7 @@
             </div>
           </div>
           <div class="pt-5 text-center text-gray-400 text-xs">
-            <span>
-              Copyright © 2022-2023</span>
+            <span> Copyright © 2022-2023</span>
           </div>
         </div>
       </div>
