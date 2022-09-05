@@ -8,7 +8,18 @@
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
       <!-- Replace with your content -->
       <div class="px-4 py-6 sm:px-0">
-        <div class="h-96 rounded-lg border-4 border-dashed border-gray-200" />
+        <div class="grid grid-cols-2 gap-2">
+          <div
+            class="block p-6 max-w-sm bg-white rounded-sm border border-gray-200 shadow-md"
+          >
+            1
+          </div>
+          <div
+            class="block p-6 max-w-sm bg-white rounded-sm border border-gray-200 shadow-md"
+          >
+            2
+          </div>
+        </div>
       </div>
       <!-- /End replace -->
     </div>
@@ -17,10 +28,8 @@
 
 <script>
 export default {
-  name: "News"
-}
+  name: "News",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

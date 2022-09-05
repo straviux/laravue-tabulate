@@ -51,7 +51,126 @@
       </div>
       <!-- /End replace -->
     </div>
-    <div class="py-12 bg-gray-100">test</div>
+    <div class="py-4 bg-gray-100 px-6">
+      <div class="grid grid-cols-3 gap-6">
+        <div class="col-span-2 container px-8 py-2">
+          <div class="grid grid-cols-2 gap-6 bg-gray-100 p-5">
+            <div class="col-span-2 px-3">
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Latest News
+              </h5>
+            </div>
+            <a
+              href="#"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+            >
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p class="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </a>
+            <a
+              href="#"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+            >
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p class="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </a>
+            <a
+              href="#"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+            >
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p class="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </a>
+            <a
+              href="#"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+            >
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p class="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </a>
+            <a
+              href="#"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+            >
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p class="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </a>
+            <a
+              href="#"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+            >
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Noteworthy technology acquisitions 2021
+              </h5>
+              <p class="font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="px-2 py-5">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Upcoming Events
+          </h5>
+          <br />
+          <div
+            class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md"
+          >
+            <h5
+              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              Event Title
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              Here are the biggest enterprise technology acquisitions of 2021 so
+              far, in reverse chronological order.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <footer class="p-4 md:px-6 md:py-8 bg-footer">
     <div class="sm:flex sm:items-center sm:justify-between">

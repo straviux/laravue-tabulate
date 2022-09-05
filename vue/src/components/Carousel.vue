@@ -56,7 +56,7 @@
 import { ref, onMounted } from "vue";
 const props = defineProps({
   startAutoPlay: Boolean,
-  timeout: String,
+  timeout: Number,
   navigation: Boolean,
   pagination: Boolean,
 });
