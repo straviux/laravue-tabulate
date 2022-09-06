@@ -54,20 +54,20 @@
     <div class="py-4 bg-gray-100 px-6">
       <div class="grid grid-cols-3 gap-6">
         <div class="col-span-2 container px-8 py-2">
-          <div class="grid grid-cols-2 gap-6 bg-gray-100 p-5">
+          <div class="grid grid-cols-2 gap-6 p-5">
             <div class="col-span-2 px-3">
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white"
               >
                 Latest News
               </h5>
             </div>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
             >
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
               >
                 Noteworthy technology acquisitions 2021
               </h5>
@@ -78,10 +78,10 @@
             </a>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
             >
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
               >
                 Noteworthy technology acquisitions 2021
               </h5>
@@ -92,10 +92,10 @@
             </a>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
             >
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
               >
                 Noteworthy technology acquisitions 2021
               </h5>
@@ -106,10 +106,10 @@
             </a>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
             >
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
               >
                 Noteworthy technology acquisitions 2021
               </h5>
@@ -120,10 +120,10 @@
             </a>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
             >
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
               >
                 Noteworthy technology acquisitions 2021
               </h5>
@@ -134,10 +134,10 @@
             </a>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100"
+              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
             >
               <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
               >
                 Noteworthy technology acquisitions 2021
               </h5>
@@ -146,29 +146,127 @@
                 so far, in reverse chronological order.
               </p>
             </a>
+            <div class="btn-group">
+              <a
+                href="#"
+                class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="mr-2 w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Previous
+              </a>
+              <a
+                href="#"
+                class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Next
+                <svg
+                  aria-hidden="true"
+                  class="ml-2 w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="px-2 py-5">
+
+        <section
+          class="h-fit font-bold tracking-tight bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3"
+        >
           <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            class="mb-2 mt-2 text-xl font-bold tracking-tight text-gray-800 dark:text-white"
           >
-            Upcoming Events
+            Featured
           </h5>
-          <br />
-          <div
-            class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md"
+
+          <a
+            href="#"
+            class="block p-3 border-b-2 border-gray-200 mb-1 hover:bg-blue-100"
           >
             <h5
-              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              class="mb-2 text-lg font-bold tracking-tight text-gray-700 dark:text-white"
             >
-              Event Title
+              News Title
             </h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
               Here are the biggest enterprise technology acquisitions of 2021 so
               far, in reverse chronological order.
             </p>
+          </a>
+          <a
+            href="#"
+            class="block p-3 border-b-2 border-gray-200 mb-1 hover:bg-blue-100"
+          >
+            <h5
+              class="mb-2 text-lg font-bold tracking-tight text-gray-700 dark:text-white"
+            >
+              News Title
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              Here are the biggest enterprise technology acquisitions of 2021 so
+              far, in reverse chronological order.
+            </p>
+          </a>
+          <div class="btn-group mt-6">
+            <a
+              href="#"
+              class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              <svg
+                aria-hidden="true"
+                class="mr-2 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Previous
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Next
+              <svg
+                aria-hidden="true"
+                class="ml-2 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   </main>
