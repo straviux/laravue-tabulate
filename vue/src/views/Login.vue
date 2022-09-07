@@ -2,7 +2,7 @@
   <div
     class="bg-no-repeat bg-cover bg-center relative"
     style="
-      background-image: url(https://img.freepik.com/free-vector/abstract-motion-wave-line-gradient-line-background-vector-design_8048-515.jpg?w=1380&t=st=1662296393~exp=1662296993~hmac=58f20042238d63df8065f90cd5c46753723fbe3ba71f77c4169b55802c16b7fc);
+      background-image: url(https://img.wallpapersafari.com/desktop/1680/1050/60/67/BhYL58.jpg);
     "
   >
     <div

@@ -66,7 +66,7 @@
               leave-to-class="opacity-0 translate-y-1"
             >
               <PopoverPanel
-                class="absolute -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2"
+                class="absolute -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 z-30"
               >
                 <div
                   class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
@@ -102,7 +102,7 @@
           <router-link
             :to="'/'"
             class="text-base font-medium text-gray-500 hover:text-gray-900"
-          >Home</router-link
+            >Home</router-link
           >
           <router-link
             :to="'news'"
@@ -184,7 +184,8 @@
           <router-link
             :to="'login'"
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >Sign in</router-link>
+            >Sign in</router-link
+          >
           <a
             href="#"
             class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
@@ -274,7 +275,6 @@
               >
             </div>
             <div>
-
               <p class="mt-6 text-center text-base font-medium text-gray-500">
                 Existing user?
                 {{ " " }}
@@ -289,6 +289,48 @@
     </transition>
   </Popover>
   <router-view></router-view>
+  <footer class="p-4 md:px-6 md:py-8 bg-footer">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a href="#" class="flex items-center mb-4 sm:mb-0">
+        <img
+          src="../assets/img/hor_logo.gif"
+          class="mr-3 h-16"
+          alt="House of Representative Logo"
+        />
+        <img
+          src="../assets/img/province_logo.gif"
+          class="mr-3 h-16"
+          alt="House of Representative Logo"
+        />
+        <img
+          src="../assets/img/jpm_logo.gif"
+          class="mr-3 h-16"
+          alt="House of Representative Logo"
+        />
+      </a>
+      <ul
+        class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400"
+      >
+        <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
+        </li>
+        <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
+      >© 2022 <a href="#" class="hover:underline">JPM Palawan</a>. All Rights
+      Reserved.
+    </span>
+  </footer>
 </template>
 
 <script>

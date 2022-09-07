@@ -51,149 +51,125 @@
       </div>
       <!-- /End replace -->
     </div>
-    <div class="py-4 bg-gray-100 px-6">
-      <div class="grid grid-cols-3 gap-6">
-        <div class="col-span-2 container px-8 py-2">
-          <div class="grid grid-cols-2 gap-6 p-5">
-            <div class="col-span-2 px-3">
-              <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white"
-              >
-                Latest News
-              </h5>
-            </div>
+    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+        <section
+          class="col-span-2 h-fit font-bold tracking-tight bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3"
+        >
+          <h5
+            class="mb-2 mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white border-b py-2 mb-4"
+          >
+            Latest News
+          </h5>
+
+          <a
+            href="#"
+            class="block p-3 border-b-2 border-gray-200 mb-1 hover:bg-blue-100"
+          >
+            <h5
+              class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white"
+            >
+              COMELEC opens registration for political parties, partylists
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              All groups and organizations that intend to register as political
+              parties for the 2025 National and Local Elections (NLE) may now do
+              so with the Commission on Elections.
+            </p>
+          </a>
+          <a
+            href="#"
+            class="block p-3 border-b-2 border-gray-200 mb-1 hover:bg-blue-100"
+          >
+            <h5
+              class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
+            >
+              PSA encourages parents to register kids for national ID
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              Getting a national ID could eventually ensure a smoother
+              enrollment process for children aged 5 and up, the Philippine
+              Statistics Authority (PSA) said Sunday.
+            </p>
+          </a>
+          <a
+            href="#"
+            class="block p-3 border-b-2 border-gray-200 mb-1 hover:bg-blue-100"
+          >
+            <h5
+              class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
+            >
+              DOH warns public vs fake messages involving organ trafficking
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              The regional office of the Department of Health (DOH) in MIMAROPA
+              alerted the public to fake messages involving organ trafficking.
+            </p>
+          </a>
+          <a
+            href="#"
+            class="block p-3 border-b-2 border-gray-200 mb-1 hover:bg-blue-100"
+          >
+            <h5
+              class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
+            >
+              Review of provincial administrative code urged
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              As local government units (LGU) get ready for more
+              responsibilities because of the Mandanas-Garcia ruling of the
+              Supreme Court, 2nd District Board Member Ryan D. Maminta said that
+              the Provincial Administrative Code (PAC) of Palawan also needs to
+              be looked at again and changed.
+            </p>
+          </a>
+          <div class="btn-group mt-6">
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
+              class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
-              <h5
-                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
+              <svg
+                aria-hidden="true"
+                class="mr-2 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
+                <path
+                  fill-rule="evenodd"
+                  d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Previous
             </a>
             <a
               href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
+              class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
-              <h5
-                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
+              Next
+              <svg
+                aria-hidden="true"
+                class="ml-2 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
+                <path
+                  fill-rule="evenodd"
+                  d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
             </a>
-            <a
-              href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
-            >
-              <h5
-                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
-              >
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
-            </a>
-            <a
-              href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
-            >
-              <h5
-                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
-              >
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
-            </a>
-            <a
-              href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
-            >
-              <h5
-                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
-              >
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
-            </a>
-            <a
-              href="#"
-              class="block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-blue-100"
-            >
-              <h5
-                class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-white"
-              >
-                Noteworthy technology acquisitions 2021
-              </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
-            </a>
-            <div class="btn-group">
-              <a
-                href="#"
-                class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mr-2 w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                Previous
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Next
-                <svg
-                  aria-hidden="true"
-                  class="ml-2 w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </a>
-            </div>
           </div>
-        </div>
+        </section>
 
         <section
           class="h-fit font-bold tracking-tight bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3"
         >
           <h5
-            class="mb-2 mt-2 text-xl font-bold tracking-tight text-gray-800 dark:text-white"
+            class="mb-2 mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white border-b py-2 mb-4"
           >
             Featured
           </h5>
@@ -205,11 +181,14 @@
             <h5
               class="mb-2 text-lg font-bold tracking-tight text-gray-700 dark:text-white"
             >
-              News Title
+              IATF ‘carefully studying’ proposals to relax mask mandate: DILG
             </h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Department of the Interior and Local Government (DILG) Secretary
+              Benjamin Abalos Jr. on Tuesday said the Inter-Agency Task Force
+              for the Management of Emerging Infectious Diseases (IATF) is
+              carefully studying the proposals to relax the country’s mask
+              mandate.
             </p>
           </a>
           <a
@@ -219,11 +198,13 @@
             <h5
               class="mb-2 text-lg font-bold tracking-tight text-gray-700 dark:text-white"
             >
-              News Title
+              Senate prioritizes ratification of SIM card registration bill
             </h5>
             <p class="font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Senators JV Ejercito and Grace Poe are pushing for the
+              ratification of the SIM Card Registration bill while more senators
+              want to investigate anew the proliferation of scams via text
+              messages.
             </p>
           </a>
           <div class="btn-group mt-6">
@@ -270,48 +251,6 @@
       </div>
     </div>
   </main>
-  <footer class="p-4 md:px-6 md:py-8 bg-footer">
-    <div class="sm:flex sm:items-center sm:justify-between">
-      <a href="#" class="flex items-center mb-4 sm:mb-0">
-        <img
-          src="../assets/img/hor_logo.gif"
-          class="mr-3 h-16"
-          alt="House of Representative Logo"
-        />
-        <img
-          src="../assets/img/province_logo.gif"
-          class="mr-3 h-16"
-          alt="House of Representative Logo"
-        />
-        <img
-          src="../assets/img/jpm_logo.gif"
-          class="mr-3 h-16"
-          alt="House of Representative Logo"
-        />
-      </a>
-      <ul
-        class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400"
-      >
-        <li>
-          <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
-        </li>
-        <li>
-          <a href="#" class="hover:underline">Contact</a>
-        </li>
-      </ul>
-    </div>
-    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
-      >© 2022 <a href="#" class="hover:underline">JPM Palawan</a>. All Rights
-      Reserved.
-    </span>
-  </footer>
 </template>
 
 <script>
