@@ -6,8 +6,14 @@ import DefaultLayout from "../components/DefaultLayout.vue";
 import News from "../views/Public/News.vue";
 import Articles from "../views/Public/Articles.vue";
 import Gallery from "../views/Public/Gallery.vue";
+import AuthLayout from "../components/AuthLayout.vue";
+import AdminDefaultLayout from "../components/admin/DefaultLayout.vue"
+import Dashboard from "../views/Admin/Dashboard.vue"
+import store from "../store";
+
 
 const routes = [
+  // Public links
   {
     path: '/',
     redirect: '/home',
@@ -20,15 +26,38 @@ const routes = [
       {path: '/gallery', name: 'Gallery', component: Gallery}
     ]
   },
+
+  // Authorization
   {
-    path: '/login',
-    name:  'Login',
-    component: Login
+    path: "/auth",
+    redirect: "/login",
+    name: "Auth",
+    component: AuthLayout,
+    meta: {isGuest: true},
+    children: [
+      {
+        path: "/login",
+        name: "Login",
+        component: Login,
+      },
+      {
+        path: "/register",
+        name: "Register",
+        component: Register,
+      },
+    ],
   },
+
+  // Admin Panel
   {
-    path: '/register',
-    name:  'Register',
-    component: Register
+    path: '/admin',
+    redirect: '/dashboard',
+    name:  'AdminPanel',
+    component: AdminDefaultLayout,
+    meta: { requiresAuth: true },
+    children: [
+      {path: '/dashboard', name: 'dashboard', component: Dashboard},
+    ]
   },
 ];
 
@@ -36,5 +65,15 @@ const router = createRouter( {
   history: createWebHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !store.state.user.token) {
+    next({ name: "Login" });
+  } else if (store.state.user.token && to.meta.isGuest) {
+    next({ name: "AdminPanel" });
+  } else {
+    next();
+  }
+});
 
 export default router;

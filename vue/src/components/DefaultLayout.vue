@@ -186,10 +186,10 @@
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
             >Sign in</router-link
           >
-          <a
-            href="#"
-            class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-            >Sign up</a
+          <router-link
+            :to="'register'"
+            class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-green-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-600"
+            >Sign up</router-link
           >
         </div>
       </div>
@@ -250,27 +250,31 @@
           </div>
           <div class="space-y-6 py-6 px-5">
             <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-              <a
-                href="#"
-                class="text-base font-medium text-gray-900 hover:text-gray-700"
-                >News</a
+              <router-link
+                :to="'/'"
+                class="text-base font-medium text-gray-800 hover:text-gray-900"
+                >Home</router-link
               >
-
-              <a
-                href="#"
-                class="text-base font-medium text-gray-900 hover:text-gray-700"
-                >Gallery</a
+              <router-link
+                :to="'news'"
+                class="text-base font-medium text-gray-800 hover:text-gray-900"
+                >News</router-link
               >
-              <a
-                href="#"
-                class="text-base font-medium text-gray-900 hover:text-gray-700"
-                >Articles</a
+              <router-link
+                :to="'articles'"
+                class="text-base font-medium text-gray-800 hover:text-gray-900"
+                >Articles</router-link
+              >
+              <router-link
+                :to="'gallery'"
+                class="text-base font-medium text-gray-800 hover:text-gray-900"
+                >Gallery</router-link
               >
               <a
                 v-for="item in resources"
                 :key="item.name"
                 :href="item.href"
-                class="text-base font-medium text-gray-900 hover:text-gray-700"
+                class="text-base font-medium text-gray-800 hover:text-gray-700"
                 >{{ item.name }}</a
               >
             </div>

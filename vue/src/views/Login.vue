@@ -17,12 +17,12 @@
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center pb-3 pt-4">
               <h1
-                className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+                className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 drop-shadow-lg"
                 data-aos="zoom-y-out"
               >
                 JCA for Progress
                 <span
-                  className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400"
+                  className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400 drop-shadow-lg"
                   >Movement</span
                 >
               </h1>

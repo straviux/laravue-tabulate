@@ -26,18 +26,18 @@
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center pt-4">
             <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 drop-shadow-lg"
               data-aos="zoom-y-out"
             >
               JCA for Progress
               <span
-                className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400"
+                className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400 drop-shadow-lg"
                 >Movement</span
               >
             </h1>
             <div className="max-w-3xl mx-auto">
               <p
-                className="text-xl text-gray-600 mb-8"
+                className="text-xl text-gray-600 mb-8 drop-shadow-lg"
                 data-aos="zoom-y-out"
                 data-aos-delay="150"
               >
@@ -56,7 +56,7 @@
         <section
           class="col-span-2 h-fit font-bold tracking-tight bg-white rounded border border-gray-200 shadow-md px-4 py-3"
         >
-          <h5>Latest</h5>
+          <h5 class="drop-shadow-lg text-2xl border-b">Latest News</h5>
           <a
             href=""
             class="card card-compact card-side hover:bg-blue-100 rounded-none px-4 border-b mb-4 py-3"
@@ -272,7 +272,7 @@
                     />
                   </svg>
 
-                  Provincial News
+                  Municipal News
                 </div>
                 <!-- <div class="badge badge-xs badge-ghost py-2">
                       <svg
@@ -359,7 +359,7 @@
           class="col-span-2 lg:col-span-1 h-fit w-full font-bold tracking-tight bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3"
         >
           <h5
-            class="mb-2 mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white border-b py-2 mb-4"
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white border-b py-2 mb-4 drop-shadow-lg border-b"
           >
             Featured
           </h5>
