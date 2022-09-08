@@ -51,12 +51,12 @@ const routes = [
   // Admin Panel
   {
     path: '/admin',
-    redirect: '/dashboard',
+    redirect: '/admin/dashboard',
     name:  'AdminPanel',
     component: AdminDefaultLayout,
     meta: { requiresAuth: true },
     children: [
-      {path: '/dashboard', name: 'dashboard', component: Dashboard},
+      {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
     ]
   },
 ];

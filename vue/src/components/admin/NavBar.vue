@@ -1,5 +1,5 @@
 <template>
-  <div class="relative lg:block lg:space-y-10 p-2 grid grid-cols-12 h-full">
+  <div class="relative lg:block lg:space-y-10 p-2 grid grid-cols-12 border-r-2">
     <div class="col-span-6 lg:col-span-12 flex justify-left items-center gap-4">
       <div
         class="bg-gradient-to-tl from-green-400 to-blue-500 rounded-xl p-2 text-white"
@@ -13,7 +13,7 @@
     </div>
 
     <div class="lg:hidden col-span-6 flex justify-end items-center">
-      <button class="bg-stone-300 p-2 rounded-lg">
+      <button class="bg-stone-300 p-2 rounded-lg" @click="toggleMenu">
         <mdicon name="menu" />
       </button>
     </div>
@@ -38,12 +38,26 @@
       </div>
     </div>
 
-    <div class="col-span-12 p-10">
+    <div class="col-span-12 p-10" v-if="menuIsActive">
       <nav-bar-menu />
     </div>
-    <div class="absolute bottom-0 left-0"></div>
+    <div class="col-span-12 p-10">
+      <ul>
+        <li>link1</li>
+      </ul>
+    </div>
   </div>
 </template>
 <script setup>
 import NavBarMenu from "./NavBarMenu.vue";
+import { ref } from "vue";
+const MOBILE_BREAKPOINT = 1024; // tailwind: lg
+
+const width = ref(document.body.offsetWidth);
+const menuIsActive = ref(width.value > MOBILE_BREAKPOINT);
+const toggleMenu = () => (menuIsActive.value = !menuIsActive.value);
+window.addEventListener("resize", function () {
+  width.value = document.body.offsetWidth;
+  menuIsActive.value = width.value > MOBILE_BREAKPOINT;
+});
 </script>
