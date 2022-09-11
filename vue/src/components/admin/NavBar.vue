@@ -1,6 +1,6 @@
 <template>
-  <div class="relative lg:block lg:space-y-10 p-2 grid grid-cols-12 border-r-2">
-    <div class="col-span-6 lg:col-span-12 flex justify-left items-center gap-4">
+  <div class="relative lg:block lg:space-y-10 p-2 grid grid-cols-12 lg:h-full">
+    <!-- <div class="col-span-6 lg:col-span-12 flex justify-left items-center gap-4">
       <div
         class="bg-gradient-to-tl from-green-400 to-blue-500 rounded-xl p-2 text-white"
       >
@@ -10,10 +10,10 @@
         />
       </div>
       <strong>JPM Palawan</strong>
-    </div>
+    </div> -->
 
-    <div class="lg:hidden col-span-6 flex justify-end items-center">
-      <button class="bg-stone-300 p-2 rounded-lg" @click="toggleMenu">
+    <div class="lg:hidden col-span-12 flex justify-end items-center">
+      <button class="bg-stone-100 p-2 rounded-lg" @click="toggleMenu">
         <mdicon name="menu" />
       </button>
     </div>
@@ -41,10 +41,8 @@
     <div class="col-span-12 p-10" v-if="menuIsActive">
       <nav-bar-menu />
     </div>
-    <div class="col-span-12 p-10">
-      <ul>
-        <li>link1</li>
-      </ul>
+    <div class="hidden lg:block absolute bottom-0">
+      <img src="../../assets/img/jpm_logo.gif" alt="logo" class="mb-4" />
     </div>
   </div>
 </template>
