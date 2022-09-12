@@ -30,8 +30,12 @@ const setActive = (to) => {
 const items = [
   { text: "Dashboard", icon: "view-dashboard", to: { name: "Dashboard" } },
   { text: "Profile", icon: "account-outline", to: { name: "Profile" } },
-  { text: "News", icon: "newspaper-variant", to: { name: "News" } },
-  { text: "Articles", icon: "post-outline", to: { name: "Articles" } },
-  { text: "Gallery", icon: "camera-iris", to: { name: "Gallery" } },
+  { text: "News", icon: "newspaper-variant", to: { name: "NewsMaintenance" } },
+  {
+    text: "Articles",
+    icon: "post-outline",
+    to: { name: "ArticlesMaintenance" },
+  },
+  { text: "Gallery", icon: "camera-iris", to: { name: "GalleryMaintenance" } },
 ];
 </script>

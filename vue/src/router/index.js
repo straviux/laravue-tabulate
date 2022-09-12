@@ -62,9 +62,9 @@ const routes = [
     children: [
       {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
       {path: '/admin/profile', name: 'Profile', component: Profile},
-      {path: '/admin/news', name: 'News', component: NewsMaintenance},
-      {path: '/admin/articles', name: 'Articles', component: ArticlesMaintenance},
-      {path: '/admin/gallery', name: 'Gallery', component: GalleryMaintenance},
+      {path: '/admin/news', name: 'NewsMaintenance', component: NewsMaintenance},
+      {path: '/admin/articles', name: 'ArticlesMaintenance', component: ArticlesMaintenance},
+      {path: '/admin/gallery', name: 'GalleryMaintenance', component: GalleryMaintenance},
     ]
   },
 ];
