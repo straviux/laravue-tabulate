@@ -12,7 +12,7 @@
       <strong>JPM Palawan</strong>
     </div> -->
 
-    <div class="lg:hidden col-span-12 flex justify-end items-center">
+    <div class="lg:hidden col-span-12 flex justify-end items-center bg-white">
       <button class="bg-stone-100 p-2 rounded-lg" @click="toggleMenu">
         <mdicon name="menu" />
       </button>
@@ -41,6 +41,7 @@
     <div class="col-span-12 p-10" v-if="menuIsActive">
       <nav-bar-menu />
     </div>
+
     <div class="hidden lg:block absolute bottom-0">
       <img src="../../assets/img/jpm_logo.gif" alt="logo" class="mb-4" />
     </div>

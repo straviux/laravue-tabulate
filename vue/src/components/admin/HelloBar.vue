@@ -8,11 +8,19 @@
       <button class="bg-gray-200 p-2 rounded-lg text-blueGray-500">
         <mdicon name="magnify" />
       </button>
-      <button
+      <!-- <button
         class="bg-sky-800 py-2 px-4 text-gray-100 rounded-lg hover:shadow-2xl cursor-pointer"
       >
         Add Post
-      </button>
+      </button> -->
+      <div class="flex justify-center items-center">
+        <button
+          class="text-sm px-2 text-red-500 underline rounded-full flex gap-1"
+        >
+          <mdicon name="logout-variant" width="15px" />
+          <span class="font-bold">Log out</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>

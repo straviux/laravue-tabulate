@@ -9,6 +9,10 @@ import Gallery from "../views/Public/Gallery.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import AdminDefaultLayout from "../components/admin/DefaultLayout.vue"
 import Dashboard from "../views/Admin/Dashboard.vue"
+import Profile from "../views/Admin/Profile.vue"
+import NewsMaintenance from "../views/Admin/News.vue"
+import ArticlesMaintenance from "../views/Admin/Articles.vue"
+import GalleryMaintenance from "../views/Admin/Gallery.vue"
 import store from "../store";
 
 
@@ -57,6 +61,10 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
+      {path: '/admin/profile', name: 'Profile', component: Profile},
+      {path: '/admin/news', name: 'News', component: NewsMaintenance},
+      {path: '/admin/articles', name: 'Articles', component: ArticlesMaintenance},
+      {path: '/admin/gallery', name: 'Gallery', component: GalleryMaintenance},
     ]
   },
 ];
