@@ -42,51 +42,6 @@
             >
           </li>
         </ul>
-        <!-- <ul
-          tabindex="0"
-          class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          role="tablist"
-          id="tabs-tab"
-        >
-          <li class="nav-item" role="presentation">
-            <a
-              href="#tabs-all"
-              class="nav-link hover:border-transparent hover:bg-gray-100 focus:border-transparent active border-x-0 border-t-0 border-b-2 border-transparent"
-              id="tabs-all-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#tabs-all"
-              role="tab"
-              aria-controls="tabs-all"
-              aria-selected="true"
-              >All</a
-            >
-          </li>
-          <li class="nav-item" role="presentation">
-            <a
-              href="#tabs-featured"
-              class="nav-link block font-medium text-xs leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent"
-              id="tabs-featured-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#tabs-featured"
-              role="tab"
-              aria-controls="tabs-featured"
-              aria-selected="false"
-              >Featured</a
-            >
-          </li>
-          <li class="nav-item" role="presentation">
-            <a
-              href="#tabs-drafts"
-              id="tabs-drafts-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#tabs-drafts"
-              role="tab"
-              aria-controls="tabs-drafts"
-              aria-selected="true"
-              >Drafts</a
-            >
-          </li>
-        </ul> -->
       </div>
       <a class="btn btn-ghost normal-case text-xl">News Maintenance</a>
     </div>
@@ -104,28 +59,31 @@
             :href="target"
             class="border-x-0 hover:bg-white focus:bg-white border-t-0 uppercase"
             :class="[index === activeTab ? 'border-b-2 border-color_1' : '']"
-            @click="setActive(index)"
+            @click="setActive(index, name)"
             >{{ name }}</a
           >
         </li>
       </ul>
     </div>
     <div class="navbar-end">
-      <a class="btn btn-sm gap-2 btn-primary text-white shadow-lg"
+      <a
+        class="btn btn-sm gap-2 btn-primary text-white shadow-lg"
+        @click="setActive(4, 'addnews')"
         ><mdicon name="newspaper-plus" /> Add news</a
       >
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+const emit = defineEmits(["tabTarget"]);
 const activeTab = ref(0);
 // const activeTab=
-const setActive = (index) => (activeTab.value = index);
-// const props = defineProps({
-//   menu: Array,
-//   title: String,
-// });
+const setActive = (index, name) => {
+  emit("tabTarget", name);
+  activeTab.value = index;
+  location.hash = name;
+};
 
 const tabMenu = [
   {
@@ -141,4 +99,8 @@ const tabMenu = [
     target: "#drafts",
   },
 ];
+onMounted(() => {
+  setActive(0, "all");
+  // console.log(getSlideCount.value);
+});
 </script>

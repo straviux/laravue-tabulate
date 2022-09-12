@@ -19,9 +19,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-// import { router } from "vue-router";
-const router = useRouter();
+
 const active = ref(0);
 
 const setActive = (to) => {
