@@ -1,3 +1,4 @@
+import axios from "axios";
 import {createStore} from "vuex"
 import axiosClient from "../axios"
 
@@ -8,10 +9,26 @@ const store = createStore(
       user: {
         data: {},
         token: sessionStorage.getItem('TOKEN')
-      }
+      },
+      news: []
     },
     getters: {},
     actions: {
+      saveNews({commit},news){
+        let response;
+        if(news.id) {
+          response = axiosClient.put(`/news/${news.id}`, news)
+          .then((res)=>{
+            commit("updateNews", res.data);
+            return res;
+          })
+        } else {
+          response = axiosClient.post("/news", news).then((res)=>{
+            commit("saveNews", res.data);
+            return res;
+          })
+        }
+      },
       register({commit}, user) {
         return axiosClient.post('/register', user)
         .then(({data})=> {
@@ -36,6 +53,17 @@ const store = createStore(
 
     },
     mutations: {
+      saveNews: (state, news)=>{
+        state.news = [...state.news, news.data];
+      },
+      updateNews: (state, news)=>{
+        state.news = state.news.map((n)=>{
+          if(n.id==news.data.id) {
+            return news.data
+          }
+          return n;
+        })
+      },
       logout: (state) => {
         state.user.token = null;
         state.user.data = {};
