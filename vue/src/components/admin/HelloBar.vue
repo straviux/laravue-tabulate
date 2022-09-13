@@ -15,6 +15,7 @@
       </button> -->
       <div class="flex justify-center items-center">
         <button
+          @click="logout"
           class="text-sm px-2 text-red-500 underline rounded-full flex gap-1"
         >
           <mdicon name="logout-variant" width="15px" />
@@ -24,4 +25,16 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import store from "../../store";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const logout = () => {
+  store.dispatch("logout").then(() => {
+    router.push({
+      name: "Login",
+    });
+  });
+};
+</script>

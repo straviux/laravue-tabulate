@@ -339,6 +339,7 @@
 
 <script>
 import { mapState } from "vuex";
+import store from "../store";
 import {
   Popover,
   PopoverButton,
@@ -360,6 +361,7 @@ import {
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+import router from "../router";
 
 const solutions = [
   {

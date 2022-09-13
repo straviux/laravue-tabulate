@@ -53,15 +53,16 @@
             <h3 class="font-semibold text-2xl text-gray-800">Sign Up</h3>
             <p class="text-gray-500">Create your account.</p>
           </div>
-          <div class="space-y-5">
+          <form class="space-y-5" @submit="register">
             <div class="space-y-2">
               <label class="text-sm font-medium text-gray-700 tracking-wide"
                 >Fullname</label
               >
               <input
                 class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-                type=""
-                placeholder="Enter your fullname"
+                type="text"
+                v-model="user.name"
+                placeholder="Enter your name"
               />
             </div>
             <div class="space-y-2">
@@ -70,8 +71,20 @@
               >
               <input
                 class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-                type=""
+                type="text"
+                v-model="user.username"
                 placeholder="Enter your username"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-gray-700 tracking-wide"
+                >Email Address</label
+              >
+              <input
+                class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+                type="email"
+                v-model="user.email"
+                placeholder="Enter your email"
               />
             </div>
             <div class="space-y-2">
@@ -82,8 +95,22 @@
               </label>
               <input
                 class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-                type=""
+                type="password"
+                v-model="user.password"
                 placeholder="Enter your password"
+              />
+            </div>
+            <div class="space-y-2">
+              <label
+                class="mb-5 text-sm font-medium text-gray-700 tracking-wide"
+              >
+                Confirm Password
+              </label>
+              <input
+                class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+                type="password"
+                v-model="user.password_confirmation"
+                placeholder="Confirm your password"
               />
             </div>
 
@@ -95,7 +122,7 @@
                 Submit
               </button>
             </div>
-          </div>
+          </form>
           <div class="flex items-center justify-between pt-5">
             <div class="text-sm">
               Existing user?
@@ -116,9 +143,23 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Register",
+<script setup>
+import store from "../store";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const user = {
+  name: "",
+  username: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+};
+
+const register = (ev) => {
+  ev.preventDefault();
+  store.dispatch("register", user).then(() => {
+    router.push({ name: "Dashboard" });
+  });
 };
 </script>
 
