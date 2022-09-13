@@ -1,8 +1,12 @@
 <template>
   <div class="mt-5 md:col-span-2 md:mt-0">
-    <form action="#" method="POST">
+    <form @submit.prevent="saveNews">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
+          <h1 class="text-xl uppercase mb-2">
+            {{ model.id ? model.headline : "Write a news article" }}
+          </h1>
+          <!-- <pre>{{ model }}</pre> -->
           <div>
             <label class="block text-sm font-medium text-gray-700"
               >Cover photo</label
@@ -17,6 +21,7 @@
                   fill="none"
                   viewBox="0 0 48 48"
                   aria-hidden="true"
+                  v-if="!model.cover_photo"
                 >
                   <path
                     d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
@@ -25,7 +30,17 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                <div class="flex text-sm text-gray-600">
+                <img
+                  v-else
+                  :src="model.cover_photo"
+                  :alt="model.headline"
+                  w-64
+                  h-48
+                  object-cover
+                />
+                <div
+                  class="flex text-sm items-center justify-center text-gray-600"
+                >
                   <label
                     for="file-upload"
                     class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
@@ -38,7 +53,6 @@
                       class="sr-only"
                     />
                   </label>
-                  <p class="pl-1">or drag and drop</p>
                 </div>
                 <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
               </div>
@@ -47,15 +61,16 @@
           <div class="grid grid-cols-3 gap-6">
             <div class="col-span-12">
               <label
-                for="new-headline"
+                for="headline"
                 class="block text-sm font-medium text-gray-700"
                 >Headline</label
               >
               <div class="mt-4 flex shadow-sm">
                 <input
+                  v-model="model.headline"
                   type="text"
-                  name="new-headline"
-                  id="new-headline"
+                  name="headline"
+                  id="headline"
                   class="input block w-full flex-1 rounded-sm border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
                 />
               </div>
@@ -63,13 +78,14 @@
           </div>
 
           <div>
-            <label for="about" class="block text-sm font-medium text-gray-700"
+            <label for="excerpt" class="block text-sm font-medium text-gray-700"
               >Excerpt</label
             >
             <div class="mt-2">
               <textarea
-                id="about"
-                name="about"
+                v-model="model.excerpt"
+                id="excerpt"
+                name="excerpt"
                 rows="3"
                 class="input block w-full flex-1 h-20 rounded-sm p-2 border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
                 placeholder="Type something here"
@@ -82,17 +98,13 @@
           </div>
 
           <div>
-            <label for="about" class="block text-sm font-medium text-gray-700"
+            <label for="content" class="block text-sm font-medium text-gray-700"
               >Content</label
             >
             <div class="mt-2">
-              <!-- <textarea
-                id="about"
-                name="about"
-                rows="3"
-                class="input block w-full flex-1 rounded-none rounded-xl border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
-                placeholder="Type something here"
-              /> --><QuillEditor
+              <QuillEditor
+                v-model:content="model.content"
+                contentType="html"
                 theme="snow"
                 toolbar="essential"
                 class="h-48"
@@ -113,6 +125,30 @@
   </div>
 </template>
 <script setup>
+import { ref } from "vue";
+import store from "../../../store";
+import { useRoute } from "vue-router";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+// import router from "../../../router";
+
+const router = useRoute();
+let model = ref({
+  headline: "",
+  excerpt: "",
+  content: "",
+  cover_photo: "",
+});
+
+if (route.params.id) {
+  model.value = store.state.news.find(
+    (s) => s.id === parseInt(route.params.id)
+  );
+}
+
+const saveNews = () => {
+  // store.dispatch("saveNews", model.value).then(({ data }) => {
+  //   console.log("test");
+  // });
+};
 </script>
