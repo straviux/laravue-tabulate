@@ -28,7 +28,7 @@
             :class="`bg-color_${((i + j) % 3) + 1}`"
           ></div>
           <div class="flex-1">
-            <p class="font-bold text-gray-800 text-xl">Design</p>
+            <p class="font-bold text-gray-800 text-lg">Design</p>
             <p class="text-gray-500">Develop</p>
           </div>
         </div>

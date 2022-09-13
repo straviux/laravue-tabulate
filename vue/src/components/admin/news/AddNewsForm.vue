@@ -3,43 +3,6 @@
     <form action="#" method="POST">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
-          <div class="grid grid-cols-3 gap-6">
-            <div class="col-span-12">
-              <label
-                for="new-headline"
-                class="block text-sm font-medium text-gray-700"
-                >Headlines</label
-              >
-              <div class="mt-4 flex rounded-md shadow-sm">
-                <input
-                  type="text"
-                  name="new-headline"
-                  id="new-headline"
-                  class="input block w-full flex-1 rounded-none rounded-xl border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label for="about" class="block text-sm font-medium text-gray-700"
-              >Excerpt</label
-            >
-            <div class="mt-2">
-              <textarea
-                id="about"
-                name="about"
-                rows="3"
-                class="input block w-full flex-1 rounded-none rounded-xl border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
-                placeholder="Type something here"
-              />
-            </div>
-            <p class="mt-2 text-sm text-gray-500">
-              Brief information about this news. Will be displayed as subheading
-              on news list.
-            </p>
-          </div>
-
           <div>
             <label class="block text-sm font-medium text-gray-700"
               >Cover photo</label
@@ -81,21 +44,60 @@
               </div>
             </div>
           </div>
+          <div class="grid grid-cols-3 gap-6">
+            <div class="col-span-12">
+              <label
+                for="new-headline"
+                class="block text-sm font-medium text-gray-700"
+                >Headline</label
+              >
+              <div class="mt-4 flex shadow-sm">
+                <input
+                  type="text"
+                  name="new-headline"
+                  id="new-headline"
+                  class="input block w-full flex-1 rounded-sm border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
+                />
+              </div>
+            </div>
+          </div>
 
           <div>
             <label for="about" class="block text-sm font-medium text-gray-700"
-              >Content</label
+              >Excerpt</label
             >
             <div class="mt-2">
               <textarea
                 id="about"
                 name="about"
                 rows="3"
-                class="input block w-full flex-1 rounded-none rounded-xl border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
+                class="input block w-full flex-1 h-20 rounded-sm p-2 border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
                 placeholder="Type something here"
               />
             </div>
-            <p class="mt-2 text-sm text-gray-500">Full content of this news.</p>
+            <p class="mt-2 text-sm text-gray-500">
+              Brief information about this news. Will be displayed as subheading
+              on news list.
+            </p>
+          </div>
+
+          <div>
+            <label for="about" class="block text-sm font-medium text-gray-700"
+              >Content</label
+            >
+            <div class="mt-2">
+              <!-- <textarea
+                id="about"
+                name="about"
+                rows="3"
+                class="input block w-full flex-1 rounded-none rounded-xl border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
+                placeholder="Type something here"
+              /> --><QuillEditor
+                theme="snow"
+                toolbar="essential"
+                class="h-48"
+              />
+            </div>
           </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
@@ -110,3 +112,7 @@
     </form>
   </div>
 </template>
+<script setup>
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+</script>

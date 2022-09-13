@@ -2,7 +2,9 @@
   <div v-if="current == 'all'"><all-news /></div>
   <div v-if="current == 'featured'"><featured-news /></div>
   <div v-if="current == 'drafts'"><draft-news /></div>
-  <div v-if="current == 'addnews'"><add-news-form /></div>
+  <keep-alive>
+    <div v-if="current == 'addnews'"><add-news-form /></div
+  ></keep-alive>
 </template>
 <script setup>
 // const current = reactive({ tab: props.current });

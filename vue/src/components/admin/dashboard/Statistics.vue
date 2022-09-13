@@ -14,7 +14,7 @@
       <button
         class="hover:bg-white transform hover:translate-y-1 border-2 border-dashed rounded-xl p-4 flex flex-col justify-between items-center"
       >
-        <mdicon name="plus" /> <span class="text-lg">New Widget</span>
+        <mdicon name="plus" /> <span class="text-lg">New Task</span>
       </button>
     </div>
   </div>

@@ -12,6 +12,7 @@
     "@headlessui/vue": "^1.6.7",
     "@heroicons/vue": "^2.0.10",
     "@mdi/js": "^7.0.96",
+    "@vueup/vue-quill": "^1.0.0-beta.10",
     "daisyui": "^2.24.0",
     "mdi-vue": "^3.0.13",
     "vue": "^3.2.37",
