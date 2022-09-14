@@ -15,6 +15,7 @@ const store = createStore(
     getters: {},
     actions: {
       saveNews({commit},news){
+        delete news.cover_photo_url;
         let response;
         if(news.id) {
           response = axiosClient.put(`/news/${news.id}`, news)
@@ -28,6 +29,7 @@ const store = createStore(
             return res;
           })
         }
+        return response;
       },
       register({commit}, user) {
         return axiosClient.post('/register', user)

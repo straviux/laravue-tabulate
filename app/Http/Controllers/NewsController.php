@@ -7,6 +7,8 @@ use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
 use App\Http\Resources\NewsResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -31,9 +33,16 @@ class NewsController extends Controller
     public function store(StoreNewsRequest $request)
     {
         //
-        $result = News::create($request->validated());
+        $data = $request->validated();
 
-        return new NewsResource($result);
+        if (isset($data['cover_photo'])) {
+            $relativePath = $this->saveImage($data['cover_photo']);
+            $data['cover_photo'] = $relativePath;
+        }
+
+        $news = News::create($data);
+
+        return new NewsResource($news);
     }
 
     /**
@@ -81,5 +90,42 @@ class NewsController extends Controller
 
         $news->delete();
         return response('', 204);
+    }
+
+    private function saveImage($image)
+    {
+        //Check if valid base64 string
+        if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
+            //take base64 encoded text without mime type
+            $image = substr($image, strpos($image, ',') + 1);
+
+            //get file extension
+            $type = strtolower($type[1]); // jpg, png, gif
+
+            if (!in_array($type, ['jpg', 'png', 'gif', 'jpeg'])) {
+                throw new \Exception('invalid image type');
+            }
+            $image = str_replace(' ', '+', $image);
+            $image = base64_decode($image);
+
+            if ($image === false) {
+                throw new \Exception('base64_decode failed');
+            }
+        } else {
+            throw new  \Exception('did not match data URI with image data');
+        }
+
+        $dir = 'images/coverphotos/';
+        $file = Str::random() . '.' . $type;
+        $absolutePath = public_path($dir);
+        $relativePath = $dir . $file;
+
+        if (!File::exists($absolutePath)) {
+            File::makeDirectory($absolutePath, 0755, true);
+        }
+
+        file_put_contents($relativePath, $image);
+
+        return $relativePath;
     }
 }

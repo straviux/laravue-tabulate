@@ -30,9 +30,13 @@ class StoreNewsRequest extends FormRequest
         return [
             'headline' => 'required|string|max:1000',
             'user_id' => 'exists:users,id',
+            'cover_photo' => 'nullable|string',
             'status' => 'required|boolean',
+            'featured' => 'required|boolean',
             'excerpt' => 'required|string|max:1000',
-            'content' => 'required|string'
+            'slug' => 'required|string|max:1000',
+            'content' => 'required|string',
+            'posted_at' => 'nullable|date',
         ];
     }
 }

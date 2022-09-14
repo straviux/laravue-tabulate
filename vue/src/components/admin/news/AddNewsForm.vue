@@ -21,7 +21,7 @@
                   fill="none"
                   viewBox="0 0 48 48"
                   aria-hidden="true"
-                  v-if="!model.cover_photo"
+                  v-if="!model.cover_photo_url"
                 >
                   <path
                     d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
@@ -32,25 +32,27 @@
                 </svg>
                 <img
                   v-else
-                  :src="model.cover_photo"
+                  :src="model.cover_photo_url"
                   :alt="model.headline"
                   w-64
                   h-48
                   object-cover
+                  class="mb-8"
                 />
                 <div
                   class="flex text-sm items-center justify-center text-gray-600"
                 >
                   <label
                     for="file-upload"
-                    class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                    class="relative cursor-pointer rounded bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500 px-3"
                   >
-                    <span>Upload a file</span>
+                    <span>Upload Cover Photo</span>
                     <input
                       id="file-upload"
                       name="file-upload"
                       type="file"
                       class="sr-only"
+                      @change="onImageChange"
                     />
                   </label>
                 </div>
@@ -89,6 +91,7 @@
                 rows="3"
                 class="input block w-full flex-1 h-20 rounded-sm p-2 border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
                 placeholder="Type something here"
+                @input="assignValToSlug"
               />
             </div>
             <p class="mt-2 text-sm text-gray-500">
@@ -112,6 +115,33 @@
             </div>
           </div>
         </div>
+        <div
+          class="bg-gray-50 px-4 py-3 sm:px-6 flex items-center justify-center space-x-7"
+        >
+          <div class="form-control">
+            <label class="label cursor-pointer space-x-2">
+              <span class="label-text text-lg">Active</span>
+              <input
+                type="checkbox"
+                class="checkbox checkbox-primary"
+                v-model="model.status"
+              />
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label cursor-pointer space-x-2">
+              <span class="label-text text-lg">Featured</span>
+              <input
+                type="checkbox"
+                class="checkbox checkbox-primary"
+                v-model="model.featured"
+              />
+            </label>
+          </div>
+        </div>
+
+        <!-- <input type="hidden" v-model="slug"> -->
+        <!-- <pre>{{ model }}</pre> -->
         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
           <button
             type="submit"
@@ -127,17 +157,22 @@
 <script setup>
 import { ref } from "vue";
 import store from "../../../store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 // import router from "../../../router";
 
-const router = useRoute();
+const route = useRoute();
+const router = useRouter();
 let model = ref({
   headline: "",
   excerpt: "",
   content: "",
+  slug: "",
+  status: false,
+  featured: false,
   cover_photo: "",
+  cover_photo_url: "",
 });
 
 if (route.params.id) {
@@ -147,8 +182,20 @@ if (route.params.id) {
 }
 
 const saveNews = () => {
-  // store.dispatch("saveNews", model.value).then(({ data }) => {
-  //   console.log("test");
-  // });
+  store.dispatch("saveNews", model.value).then(({ data }) => {
+    console.log(data);
+  });
+};
+const onImageChange = (ev) => {
+  const file = ev.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    model.value.cover_photo = reader.result;
+    model.value.cover_photo_url = reader.result;
+  };
+  reader.readAsDataURL(file);
+};
+const assignValToSlug = () => {
+  model.value.slug = model.value.excerpt;
 };
 </script>

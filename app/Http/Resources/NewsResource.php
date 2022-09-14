@@ -21,9 +21,11 @@ class NewsResource extends JsonResource
             'cover_photo' => $this->cover_photo,
             'excerpt' => $this->excerpt,
             'content' => $this->content,
-            'status' => $this->status !== 'draft',
-            'featured' => $this->featured !== 'draft',
-            'posted_at' => $this->posted_at,
+            'status' => !!$this->status,
+            'featured' => !!$this->featured,
+            'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
+            'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
+            'posted_at' => (new \DateTime($this->expire_date))->format('Y-m-d H:i:s'),
             'tags' => []
         ];
     }
