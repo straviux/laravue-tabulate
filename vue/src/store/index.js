@@ -80,17 +80,7 @@ const store = createStore(
       setCurrentNews: (state, news)=>{
         state.currentNews.data = news.data;
       },
-      // saveNews: (state, news)=>{
-      //   state.news = [...state.news, news.data];
-      // },
-      // updateNews: (state, news)=>{
-      //   state.news = state.news.map((n)=>{
-      //     if(n.id==news.data.id) {
-      //       return news.data
-      //     }
-      //     return n;
-      //   })
-      // },
+
       logout: (state) => {
         state.user.token = null;
         state.user.data = {};

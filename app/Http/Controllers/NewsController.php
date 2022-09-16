@@ -69,8 +69,22 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        //
-        $request->update($request->validated());
+        $data = $request->validated();
+
+        // Check if image was given and save on local file system
+        if (isset($data['cover_photo'])) {
+            $relativePath = $this->saveImage($data['cover_photo']);
+            $data['cover_photo'] = $relativePath;
+
+            // If there is an old image, delete it
+            if ($news->cover_photo) {
+                $absolutePath = public_path($news->cover_photo);
+                File::delete($absolutePath);
+            }
+        }
+
+        // Update news in the database
+        $news->update($data);
         return new NewsResource($news);
     }
 
