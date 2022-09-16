@@ -181,7 +181,7 @@
           </Popover>
         </PopoverGroup>
         <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-          <router-link
+          <!-- <router-link
             :to="'login'"
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
             >Sign in</router-link
@@ -190,7 +190,7 @@
             :to="'register'"
             class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-green-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-600"
             >Sign up</router-link
-          >
+          > -->
         </div>
       </div>
     </div>
@@ -333,6 +333,13 @@
     <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
       >© 2022 <a href="#" class="hover:underline">JPM Palawan</a>. All Rights
       Reserved.
+    </span>
+    <span class="absolute block right-6">
+      <router-link
+        :to="'login'"
+        class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-100"
+        ><mdicon name="login-variant"
+      /></router-link>
     </span>
   </footer>
 </template>

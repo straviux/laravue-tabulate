@@ -11,8 +11,10 @@ import AdminDefaultLayout from "../components/admin/DefaultLayout.vue"
 import Dashboard from "../views/Admin/Dashboard.vue"
 import Profile from "../views/Admin/Profile.vue"
 import NewsMaintenance from "../views/Admin/News.vue"
+import NewsForm from "../components/admin/news/NewsForm.vue"
 import ArticlesMaintenance from "../views/Admin/Articles.vue"
 import GalleryMaintenance from "../views/Admin/Gallery.vue"
+import NewsList from "../components/admin/news/NewsList.vue"
 import store from "../store";
 
 
@@ -62,7 +64,13 @@ const routes = [
     children: [
       {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
       {path: '/admin/profile', name: 'Profile', component: Profile},
-      {path: '/admin/news', name: 'NewsMaintenance', component: NewsMaintenance},
+      {path: '/admin/news', name: 'NewsMaintenance', component: NewsMaintenance,redirect: '/admin/news/view',
+          children:[
+            {path: '/admin/news/view', name: 'NewsList', component:  NewsList},
+            {path: '/admin/news/create', name: 'WriteNews', component:  NewsForm},
+            {path: '/admin/news/:id', name: 'ViewNews',  component:  NewsForm},
+          ]
+      },
       {path: '/admin/articles', name: 'ArticlesMaintenance', component: ArticlesMaintenance},
       {path: '/admin/gallery', name: 'GalleryMaintenance', component: GalleryMaintenance},
     ]

@@ -3,9 +3,14 @@
     <form @submit.prevent="saveNews">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
-          <h1 class="text-xl uppercase mb-2">
-            {{ model.id ? model.headline : "Write a news article" }}
-          </h1>
+          <div class="flex justify-between">
+            <h1 class="text-xl uppercase mb-2">
+              {{ model.id ? model.headline : "Write a news article" }}
+            </h1>
+            <router-link to="/admin/news" class="underline text-blue-800"
+              >Cancel</router-link
+            >
+          </div>
           <!-- <pre>{{ model }}</pre> -->
           <div>
             <label class="block text-sm font-medium text-gray-700"
@@ -155,7 +160,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import store from "../../../store";
 import { useRoute, useRouter } from "vue-router";
 import { QuillEditor } from "@vueup/vue-quill";
@@ -175,10 +180,19 @@ let model = ref({
   cover_photo_url: "",
 });
 
+//watch current news from store
+watch(
+  () => store.state.currentNews.data,
+  (newVal, oldVal) => {
+    model.value = {
+      ...JSON.parse(JSON.stringify(newVal)),
+      status: newVal.status !== "draft",
+    };
+  }
+);
+
 if (route.params.id) {
-  model.value = store.state.news.find(
-    (s) => s.id === parseInt(route.params.id)
-  );
+  store.dispatch("getNews", route.params.id);
 }
 
 const saveNews = () => {

@@ -18,7 +18,7 @@
             />
           </svg>
         </label>
-        <ul
+        <!-- <ul
           tabindex="0"
           class="menu menu-compact dropdown-content mt-3 p-2 bg-base-100 w-52"
           role="tablist"
@@ -41,7 +41,7 @@
               >{{ name }}</a
             >
           </li>
-        </ul>
+        </ul> -->
       </div>
       <a class="btn btn-ghost normal-case text-xl">News Maintenance</a>
     </div>
@@ -53,23 +53,20 @@
         id="tabs-tab"
       >
         <li class="nav-item hover:bg-white" role="presentation">
-          <a
-            v-for="({ name, target }, index) in tabMenu"
-            :key="index"
-            :href="target"
+          <router-link
+            :to="{ name: 'NewsList' }"
             class="border-x-0 hover:bg-white focus:bg-white border-t-0 uppercase"
-            :class="[index === activeTab ? 'border-b-2 border-color_1' : '']"
-            @click="setActive(index, name)"
-            >{{ name }}</a
+            active-class="border-b-2 border-color_1"
+            >News List</router-link
           >
         </li>
       </ul>
     </div>
     <div class="navbar-end">
-      <a
+      <router-link
+        :to="{ name: 'WriteNews' }"
         class="btn btn-sm gap-2 btn-primary text-white shadow-lg"
-        @click="setActive(4, 'addnews')"
-        ><mdicon name="newspaper-plus" /> Add news</a
+        ><mdicon name="newspaper-plus" /> Write News</router-link
       >
     </div>
   </div>
@@ -82,7 +79,7 @@ const activeTab = ref(0);
 const setActive = (index, name) => {
   emit("tabTarget", name);
   activeTab.value = index;
-  location.hash = name;
+  // location.hash = name;
 };
 
 const tabMenu = [

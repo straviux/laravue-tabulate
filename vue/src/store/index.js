@@ -10,22 +10,41 @@ const store = createStore(
         data: {},
         token: sessionStorage.getItem('TOKEN')
       },
-      news: []
+      news: [],
+      currentNews: {
+        loading: false,
+        data: {}
+      }
     },
     getters: {},
     actions: {
+      getNews({commit}, id) {
+        commit("setCurrentNewsLoading", true);
+        return axiosClient
+        .get(`/news/${id}`)
+        .then((res)=>{
+          commit("setCurrentNews",res.data);
+          commit("setCurrentNewsLoading", false);
+          console.log(res.data)
+          return res;
+        })
+        .catch((err)=>{
+          commit("setCurrentNewsLoading", false);
+          throw err;
+        })
+      },
       saveNews({commit},news){
         delete news.cover_photo_url;
         let response;
         if(news.id) {
           response = axiosClient.put(`/news/${news.id}`, news)
           .then((res)=>{
-            commit("updateNews", res.data);
+            commit("setCurrentNews", res.data);
             return res;
           })
         } else {
           response = axiosClient.post("/news", news).then((res)=>{
-            commit("saveNews", res.data);
+            commit("setCurrentNews", res.data);
             return res;
           })
         }
@@ -55,17 +74,23 @@ const store = createStore(
 
     },
     mutations: {
-      saveNews: (state, news)=>{
-        state.news = [...state.news, news.data];
+      setCurrentNewsLoading: (state, loading) => {
+        state.currentNews.loading = loading;
       },
-      updateNews: (state, news)=>{
-        state.news = state.news.map((n)=>{
-          if(n.id==news.data.id) {
-            return news.data
-          }
-          return n;
-        })
+      setCurrentNews: (state, news)=>{
+        state.currentNews.data = news.data;
       },
+      // saveNews: (state, news)=>{
+      //   state.news = [...state.news, news.data];
+      // },
+      // updateNews: (state, news)=>{
+      //   state.news = state.news.map((n)=>{
+      //     if(n.id==news.data.id) {
+      //       return news.data
+      //     }
+      //     return n;
+      //   })
+      // },
       logout: (state) => {
         state.user.token = null;
         state.user.data = {};
