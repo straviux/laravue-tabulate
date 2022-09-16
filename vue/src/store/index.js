@@ -10,45 +10,16 @@ const store = createStore(
         data: {},
         token: sessionStorage.getItem('TOKEN')
       },
-      news: [],
-      currentNews: {
-        loading: false,
-        data: {}
-      }
+
     },
     getters: {},
     actions: {
-      getNews({commit}, id) {
-        commit("setCurrentNewsLoading", true);
-        return axiosClient
-        .get(`/news/${id}`)
-        .then((res)=>{
-          commit("setCurrentNews",res.data);
-          commit("setCurrentNewsLoading", false);
-          console.log(res.data)
-          return res;
-        })
-        .catch((err)=>{
-          commit("setCurrentNewsLoading", false);
-          throw err;
-        })
-      },
-      saveNews({commit},news){
-        delete news.cover_photo_url;
-        let response;
-        if(news.id) {
-          response = axiosClient.put(`/news/${news.id}`, news)
-          .then((res)=>{
-            commit("setCurrentNews", res.data);
-            return res;
+      getUser({commit}) {
+        return axiosClient.get('/user')
+          .then(res => {
+            console.log(res);
+            commit('setUser', res.data)
           })
-        } else {
-          response = axiosClient.post("/news", news).then((res)=>{
-            commit("setCurrentNews", res.data);
-            return res;
-          })
-        }
-        return response;
       },
       register({commit}, user) {
         return axiosClient.post('/register', user)
@@ -60,7 +31,8 @@ const store = createStore(
       login({commit}, user) {
         return axiosClient.post('/login', user)
         .then(({data})=> {
-          commit('setUser',data);
+          commit('setUser', data.user);
+          commit('setToken', data.token)
           return data;
         })
       },
@@ -74,23 +46,19 @@ const store = createStore(
 
     },
     mutations: {
-      setCurrentNewsLoading: (state, loading) => {
-        state.currentNews.loading = loading;
-      },
-      setCurrentNews: (state, news)=>{
-        state.currentNews.data = news.data;
-      },
 
       logout: (state) => {
         state.user.token = null;
         state.user.data = {};
         sessionStorage.removeItem('TOKEN')
       },
-      setUser: (state, userData) => {
-        state.user.token = userData.token;
-        state.user.data = userData.user;
-        sessionStorage.setItem('TOKEN', userData.token)
-      }
+      setUser: (state, user) => {
+        state.user.data = user;
+      },
+      setToken: (state, token) => {
+        state.user.token = token;
+        sessionStorage.setItem('TOKEN', token);
+      },
     },
     modules: {}
   }

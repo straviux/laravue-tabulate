@@ -1,46 +1,13 @@
 <template>
   <div
+    id="login-container"
     class="bg-no-repeat bg-cover bg-center relative"
-    style="
-      background-image: url(https://img.wallpapersafari.com/desktop/1680/1050/60/67/BhYL58.jpg);
-    "
   >
     <div
       class="absolute bg-gradient-to-b from-blue-600 to-green-400 opacity-75 inset-0 z-0"
     ></div>
     <div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
-      <div
-        class="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10"
-      >
-        <div class="self-start hidden lg:flex flex-col text-white">
-          <!--Banner-->
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="text-center pb-3 pt-4">
-              <h1
-                className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 drop-shadow-lg"
-                data-aos="zoom-y-out"
-              >
-                JCA for Progress
-                <span
-                  className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400 drop-shadow-lg"
-                  >Movement</span
-                >
-              </h1>
-              <div className="max-w-3xl mx-auto">
-                <p
-                  className="text-xl text-gray-100 mb-8"
-                  data-aos="zoom-y-out"
-                  data-aos-delay="150"
-                >
-                  An Organization founded by Jose Chaves Alvarez to help the
-                  community to have better way of living.
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- /End Banner-->
-        </div>
-      </div>
+
       <div class="flex justify-center self-center z-10">
         <div class="p-12 bg-white mx-auto rounded-2xl w-100">
           <div class="mb-4">
@@ -163,4 +130,8 @@ const register = (ev) => {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+#login-container {
+  background-image: url('../assets/img/login_bg.jpg');
+}
+</style>

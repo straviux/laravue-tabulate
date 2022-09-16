@@ -1,60 +1,21 @@
 <template>
   <div
     class="bg-no-repeat bg-cover bg-center relative"
-    style="
-      background-image: url(https://img.wallpapersafari.com/desktop/1680/1050/60/67/BhYL58.jpg);
-    "
+    id="login-container"
   >
     <div
-      class="absolute bg-gradient-to-b from-blue-600 to-green-400 opacity-75 inset-0 z-0"
+      class="absolute bg-gradient-to-b from-cyan-600 to-blue-400 opacity-75 inset-0 z-0"
     ></div>
     <div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
-      <div
-        class="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10"
-      >
-        <div class="self-start hidden lg:flex flex-col text-white">
-          <!--Banner-->
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="text-center pb-3 pt-4">
-              <h1
-                className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 drop-shadow-lg"
-                data-aos="zoom-y-out"
-              >
-                JCA for Progress
-                <span
-                  className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400 drop-shadow-lg"
-                  >Movement</span
-                >
-              </h1>
-              <div className="max-w-3xl mx-auto">
-                <p
-                  className="text-xl text-gray-100 mb-8"
-                  data-aos="zoom-y-out"
-                  data-aos-delay="150"
-                >
-                  An Organization founded by Jose Chaves Alvarez to help the
-                  community to have better way of living.
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- /End Banner-->
-        </div>
-      </div>
+
       <div class="flex justify-center self-center z-10">
         <div class="p-12 bg-white mx-auto rounded-2xl w-100">
           <div class="mb-4">
-            <a
-              href="#"
-              @click="$router.go(-1)"
-              class="float-right mt-2 underline cursor-pointer text-green-600"
-              >Go Back</a
-            >
             <h3 class="font-semibold text-2xl text-gray-800">Sign In</h3>
-            <p class="text-gray-500">Please sign in to your account.</p>
+            <p class="text-gray-500 mt-1">Please sign in to your account.</p>
           </div>
           <!-- BEGIN LOGIN FORM -->
-          <form class="space-y-5" @submit="login">
+          <form class="space-y-5 mt-4" @submit="login">
             <div
               v-if="errorMessage"
               class="p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800 flex items-center justify-between"
@@ -75,6 +36,7 @@
               <input
                 class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
                 type="text"
+                required
                 v-model="user.username"
                 placeholder="Enter your username"
               />
@@ -89,6 +51,7 @@
                 class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
                 type="password"
                 v-model="user.password"
+                required
                 placeholder="Enter your password"
               />
             </div>
@@ -148,6 +111,9 @@ let errorMessage = ref("");
 
 const login = (ev) => {
   ev.preventDefault();
+  if(!user.username || !user.password) {
+    return;
+  }
   store
     .dispatch("login", user)
     .then(() => {
@@ -158,5 +124,8 @@ const login = (ev) => {
     });
 };
 </script>
-
-<style scoped></style>
+<style lang="scss" scoped>
+#login-container {
+  background-image: url('../assets/img/login_bg.jpg');
+}
+</style>
