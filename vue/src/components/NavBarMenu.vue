@@ -1,6 +1,5 @@
 <template>
   <ul>
-
     <li class="" v-for="({ text, icon, to }, index) in items" :key="index">
       <router-link
         :to="to"
@@ -14,8 +13,22 @@
   </ul>
 </template>
 <script setup>
-
 const items = [
   { text: "Dashboard", icon: "view-dashboard", to: { name: "Dashboard" } },
+  {
+    text: "Users",
+    icon: "account-group-outline",
+    to: { name: "Users" },
+  },
+  {
+    text: "Event",
+    icon: "gitlab",
+    to: { name: "Events" },
+  },
+  {
+    text: "Contest",
+    icon: "trophy-outline",
+    to: { name: "Dashboard" },
+  },
 ];
 </script>

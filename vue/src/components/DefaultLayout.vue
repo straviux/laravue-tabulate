@@ -11,12 +11,12 @@
     </div>
 
     <div class="hidden xl:col-span-2 xl:block">
-      <calendar class="p-10" />
+      <side-bar-right class="p-10" />
     </div>
   </div>
 </template>
 <script setup>
 import NavBar from "./NavBar.vue";
 import MainContent from "./MainContent.vue";
-import Calendar from "./Calendar.vue";
+import SideBarRight from "./SideBarRight.vue";
 </script>

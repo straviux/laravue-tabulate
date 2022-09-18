@@ -28,27 +28,24 @@
         <p
           class="absolute bg-white left-1/2 transform -translate-x-1/2 text-xs px-2 -bottom-2 text-orange-500 flex items-center gap-1 rounded-full"
         >
-          <mdicon name="clock" width="15px" />
-          <span class="font-bold">10h</span>
+          <!-- <mdicon name="clock" width="15px" /> -->
+          <!-- <span class="font-bold">10h</span> -->
         </p>
       </div>
       <div class="text-center mt-7">
         <h1 class="font-bold text-black">{{ user.name }}</h1>
         <a href="#" class="text-gray-500">{{ user.email }}</a>
-
       </div>
     </div>
 
     <div class="col-span-12 p-10" v-if="menuIsActive">
       <nav-bar-menu />
     </div>
-
-
   </div>
 </template>
 <script setup>
 import NavBarMenu from "./NavBarMenu.vue";
-import { ref,computed } from "vue";
+import { ref, computed } from "vue";
 import store from "../store";
 const MOBILE_BREAKPOINT = 1024; // tailwind: lg
 
@@ -62,5 +59,4 @@ window.addEventListener("resize", function () {
 
 store.dispatch("getUser");
 const user = computed(() => store.state.user.data);
-
 </script>

@@ -10,6 +10,19 @@ const store = createStore(
         data: {},
         token: sessionStorage.getItem('TOKEN')
       },
+      dashboard: {
+      loading: false,
+      data: {}
+      },
+      events: {
+        loading: false,
+        links: [],
+        data: []
+      },
+      currentEvent: {
+        data: {},
+        loading: false,
+      },
 
     },
     getters: {},
@@ -42,7 +55,59 @@ const store = createStore(
             commit('logout');
             return response;
           })
+      },
+
+      getEvents({ commit }, {url = null} = {}) {
+      commit('setEventsLoading', true)
+      url = url || "/events";
+      return axiosClient.get(url).then((res) => {
+          commit('setEventsLoading', false)
+          commit("setEvents", res.data);
+          console.log(res.data);
+          return res;
+        });
+      },
+      getEvent({ commit }, id) {
+        commit("setCurrentEventLoading", true);
+        return axiosClient
+          .get(`/events/${id}`)
+          .then((res) => {
+            commit("setCurrentEvent", res.data);
+            commit("setCurrentEventLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setCurrentEventLoading", false);
+            throw err;
+          });
+      },
+      saveEvent({ commit, dispatch }, event) {
+
+      // delete event.image_url;
+
+      let response;
+      if (event.id) {
+        response = axiosClient
+          .put(`/events/${event.id}`, event)
+          .then((res) => {
+            commit('setCurrentEvent', res.data)
+            return res;
+          });
+      } else {
+        response = axiosClient.post("/events", event).then((res) => {
+          commit('setCurrentEvent', res.data)
+          return res;
+        });
       }
+
+      return response;
+    },
+    deleteEvent({ dispatch }, id) {
+      return axiosClient.delete(`/events/${id}`).then((res) => {
+        dispatch('getEvents')
+        return res;
+      });
+    },
 
     },
     mutations: {
@@ -59,6 +124,20 @@ const store = createStore(
         state.user.token = token;
         sessionStorage.setItem('TOKEN', token);
       },
+
+      setEventsLoading: (state, loading) => {
+      state.events.loading = loading;
+    },
+    setEvents: (state, events) => {
+      state.events.links = events.meta.links;
+      state.events.data = events.data;
+    },
+    setCurrentEventLoading: (state, loading) => {
+      state.currentEvent.loading = loading;
+    },
+    setCurrentEvent: (state, event) => {
+      state.currentEvent.data = event.data;
+    },
     },
     modules: {}
   }

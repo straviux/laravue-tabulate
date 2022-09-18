@@ -6,18 +6,24 @@ import AuthLayout from "../components/AuthLayout.vue";
 import Dashboard from "../views/Dashboard.vue";
 import NotFound from "../views/NotFound.vue";
 import store from "../store";
-
+import Event from "../views/Event.vue";
+import EventForm from "../components/event/EventForm.vue";
 
 const routes = [
   // Public links
   {
     path: '/',
-    redirect: '/dashboard',
+    redirect: '/admin/dashboard',
     meta: { requiresAuth: true },
-    name:  'Dashboard',
+    name:  'Admin',
     component: DefaultLayout,
     children: [
-      {path: '/dashboard', name: 'Dashboard', component: Dashboard},
+      {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
+      {path: '/admin/users', name: 'Users', component: Dashboard},
+      {path: '/admin/event', name: 'Events', component: Event},
+      {path: '/admin/event/create', name: 'AddEvent', component: EventForm},
+      {path: '/admin/event/:id', name: 'EventView', component: EventForm},
+      {path: '/admin/contest', name: 'Contest', component: Dashboard},
     ]
   },
 
