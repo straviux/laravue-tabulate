@@ -1,5 +1,6 @@
 <template>
-  <div class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
+  <Loader v-if="contestLoading" />
+  <div v-else class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
     <form @submit.prevent="saveContest">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -99,6 +100,7 @@ import { useRoute } from "vue-router";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
+import Loader from "../Loader.vue";
 // import router from "../../../router";
 
 const route = useRoute();
@@ -111,6 +113,7 @@ let model = ref({
 });
 
 const events = computed(() => store.state.events.data);
+const contestLoading = computed(() => store.state.currentContest.loading);
 
 store.dispatch("getEvents");
 
@@ -132,11 +135,27 @@ if (route.params.id) {
 }
 
 const saveContest = () => {
+  let action = "created";
+  if (model.value.id) {
+    action = "updated";
+  }
+
   model.value.contest_date = moment(model.value.contest_date).format(
     "YYYY-MM-DD"
   );
-  store.dispatch("saveContest", model.value).then(({ data }) => {
-    console.log(data);
-  });
+  store
+    .dispatch("saveContest", model.value)
+    .then(({ data }) => {
+      store.commit("notify", {
+        type: "success",
+        message: "Contest data was successfully " + action,
+      });
+    })
+    .catch((err) => {
+      store.commit("notify", {
+        type: "error",
+        message: "Something went wrong, please try again or contact your admin",
+      });
+    });
 };
 </script>

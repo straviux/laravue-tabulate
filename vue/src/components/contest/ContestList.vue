@@ -170,7 +170,7 @@
           >✕</label
         >
         <h3 class="text-lg font-bold">Criterias</h3>
-        <p class="py-4 flex flex-col justify-center items-center">
+        <div class="py-4 flex flex-col justify-center items-center">
           <table class="table table-compact w-full">
           <!-- head -->
           <thead>
@@ -180,33 +180,45 @@
               </th>
               <th class="text-[12px]">Criteria</th>
               <th class="text-[12px]">Percentage</th>
+              <th class="text-[12px]">Order</th>
               <th>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="font-bold">1</td>
-              <td class="font-bold">Audience Impact</td>
-              <td class="font-bold">10%</td>
-              <td>
-                <button class="btn btn-ghost btn-xs text-[12px] text-orange-500 font-bold underline capitalize">
-                  edit
-                </button>
-                <button class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize">
-                  delete
-                </button>
-              </td>
-            </tr>
+            <tr v-for="(criteria, index) in model.criterias" :key="criteria.id">
+            <Criterias
+              :criteria="criteria"
+              :index="index"
+              @change="criteriaChange"
+              @addCriteria="addCriteria()"
+              @deleteCriteria="deleteCriteria"
+            />
+          </tr>
           </tbody>
           </table>
-          <button
-            class="btn btn-xs uppercase shadow mt-4 rounded btn-primary"
-          >
-            <mdicon name="plus" />&nbsp;Add Criteria
-          </button>
-        </p>
+          <div v-if="!model.criterias.length" class="text-center text-gray-600">
+            You don't have any criterias created
+          </div>
+
+
+        </div>
+        <div class="py-4 flex justify-center gap-10 items-center">
+            <button
+              @click="addCriteria()"
+                class="btn btn-sm gap-1 lg:btn-wide w-[150px] uppercase shadow mt-4 rounded btn-primary"
+              >
+              <mdicon name="plus" />Add Criteria
+            </button>
+            <button
+              @click="saveCriterias()"
+                class="btn btn-sm lg:btn-wide w-[150px] gap-1 uppercase shadow mt-4 rounded btn-success"
+              >
+              <mdicon name="content-save" />Save
+            </button>
+        </div>
       </div>
+
     </div>
 
     <!-- JUDGES MODAL -->
@@ -298,6 +310,8 @@
             </tr>
           </tbody>
           </table>
+
+
           <button
             class="btn btn-xs uppercase shadow mt-4 rounded btn-primary"
           >
@@ -310,11 +324,47 @@
 </template>
 <script setup>
 import store from "../../store";
-import { computed } from "vue";
+import { v4 as uuidv4 } from "uuid";
+import { computed, ref, watch } from "vue";
+import Criterias from './Criterias.vue';
 
+// Create empty survey
+let model = ref({
+  criterias: [],
+});
 const contests = computed(() => store.state.contests.data);
 
 store.dispatch("getContests");
+
+function addCriteria(index) {
+  const newCriteria = {
+    id: uuidv4(),
+    // criteria: "",
+    order: index,
+    percentage: ""
+  };
+
+  model.value.criterias.push(newCriteria);
+}
+
+
+function criteriaChange(criteria) {
+  model.value.criterias = model.value.criterias.map((q) => {
+    if (q.id === criteria.id) {
+      return JSON.parse(JSON.stringify(criteria));
+    }
+    return q;
+  });
+}
+
+function deleteCriteria(criteria) {
+  model.value.criterias = model.value.criterias.filter((q) => q !== criteria);
+}
+
+function saveCriterias() {
+  const criterias = {...model.value};
+  console.log(criterias);
+}
 
 function deleteContest(contest) {
   if (

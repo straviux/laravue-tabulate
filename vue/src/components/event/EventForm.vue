@@ -1,5 +1,6 @@
 <template>
-  <div class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
+  <Loader v-if="eventLoading" />
+  <div v-else class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
     <form @submit.prevent="saveEvent">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -89,16 +90,17 @@
   </div>
 </template>
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import store from "../../store";
 import { useRoute, useRouter } from "vue-router";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 // import router from "../../../router";
+import Loader from "../Loader.vue";
 
 const route = useRoute();
-const router = useRouter();
+const eventLoading = computed(() => store.state.currentEvent.loading);
 let model = ref({
   event_name: "",
   status: "",

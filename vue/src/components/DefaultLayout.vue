@@ -14,9 +14,11 @@
       <side-bar-right class="p-10" />
     </div>
   </div>
+  <Notification />
 </template>
 <script setup>
 import NavBar from "./NavBar.vue";
 import MainContent from "./MainContent.vue";
 import SideBarRight from "./SideBarRight.vue";
+import Notification from "./Notification.vue";
 </script>

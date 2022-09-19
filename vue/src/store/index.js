@@ -6,6 +6,7 @@ import axiosClient from "../axios"
 const store = createStore(
   {
     state: {
+
       user: {
         data: {},
         token: sessionStorage.getItem('TOKEN')
@@ -36,6 +37,11 @@ const store = createStore(
         data: {},
         loading: false,
       },
+      notification: {
+        show: false,
+        type: 'success',
+        message: ''
+      }
 
     },
     getters: {},
@@ -217,6 +223,14 @@ const store = createStore(
       },
       setCurrentContest: (state, contest) => {
         state.currentContest.data = contest.data;
+      },
+      notify: (state, {message, type}) => {
+        state.notification.show = true;
+        state.notification.type = type;
+        state.notification.message = message;
+        setTimeout(() => {
+          state.notification.show = false;
+        }, 3000)
       },
     },
     modules: {}
