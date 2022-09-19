@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('judges', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Contest::class,'contest_id');
+            $table->foreignIdFor(\App\Models\Contest::class, 'contest_id');
             $table->string('name');
             $table->string('position');
             $table->timestamps();
+            $table->tinyInteger('status');
         });
     }
 
