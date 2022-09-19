@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Contest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateContestRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateContestRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,10 @@ class UpdateContestRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:1000',
+            'event_id' => 'exists:events,id',
+            'status' => 'required|boolean',
+            'contest_date' => 'nullable|date',
         ];
     }
 }

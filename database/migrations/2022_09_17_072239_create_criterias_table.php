@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Contest::class,'contest_id');
+            $table->foreignIdFor(\App\Models\Contest::class, 'contest_id');
             $table->string('criteria_name');
+            $table->tinyInteger('status');
             $table->double('percentage');
             $table->timestamps();
         });

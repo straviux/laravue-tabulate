@@ -28,7 +28,7 @@ const items = [
   {
     text: "Contest",
     icon: "trophy-outline",
-    to: { name: "Dashboard" },
+    to: { name: "Contest" },
   },
 ];
 </script>

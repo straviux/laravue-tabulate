@@ -8,7 +8,8 @@ import NotFound from "../views/NotFound.vue";
 import store from "../store";
 import Event from "../views/Event.vue";
 import EventForm from "../components/event/EventForm.vue";
-
+import Contest from "../views/Contest.vue";
+import ContestForm from "../components/contest/ContestForm.vue";
 const routes = [
   // Public links
   {
@@ -20,10 +21,17 @@ const routes = [
     children: [
       {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
       {path: '/admin/users', name: 'Users', component: Dashboard},
+      // EVENTS ROUTE
       {path: '/admin/event', name: 'Events', component: Event},
       {path: '/admin/event/create', name: 'AddEvent', component: EventForm},
       {path: '/admin/event/:id', name: 'EventView', component: EventForm},
-      {path: '/admin/contest', name: 'Contest', component: Dashboard},
+      // END EVENTS ROUTE
+
+      // CONTEST ROUTE
+      {path: '/admin/contest', name: 'Contest', component: Contest},
+      {path: '/admin/contest/create', name: 'AddContest', component: ContestForm},
+      {path: '/admin/contest/:id', name: 'ContestView', component: ContestForm},
+      // END CONTEST ROUTE
     ]
   },
 

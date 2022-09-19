@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('contestants', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Contest::class,'contest_id');
+            $table->foreignIdFor(\App\Models\Contest::class, 'contest_id');
             $table->string('name');
             $table->timestamps();
+            $table->tinyInteger('status');
         });
     }
 

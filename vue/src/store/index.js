@@ -14,6 +14,8 @@ const store = createStore(
       loading: false,
       data: {}
       },
+
+      // events state
       events: {
         loading: false,
         links: [],
@@ -24,13 +26,24 @@ const store = createStore(
         loading: false,
       },
 
+      // contests state
+      contests: {
+        loading: false,
+        links: [],
+        data: []
+      },
+      currentContest: {
+        data: {},
+        loading: false,
+      },
+
     },
     getters: {},
     actions: {
       getUser({commit}) {
         return axiosClient.get('/user')
           .then(res => {
-            console.log(res);
+            // console.log(res);
             commit('setUser', res.data)
           })
       },
@@ -63,7 +76,7 @@ const store = createStore(
       return axiosClient.get(url).then((res) => {
           commit('setEventsLoading', false)
           commit("setEvents", res.data);
-          console.log(res.data);
+          // console.log(res.data);
           return res;
         });
       },
@@ -101,13 +114,64 @@ const store = createStore(
       }
 
       return response;
-    },
-    deleteEvent({ dispatch }, id) {
-      return axiosClient.delete(`/events/${id}`).then((res) => {
-        dispatch('getEvents')
-        return res;
-      });
-    },
+      },
+      deleteEvent({ dispatch }, id) {
+        return axiosClient.delete(`/events/${id}`).then((res) => {
+          dispatch('getEvents')
+          return res;
+        });
+      },
+
+    // CONTESTS
+      getContests({ commit }, {url = null} = {}) {
+        commit('setContestsLoading', true)
+        url = url || "/contests";
+        return axiosClient.get(url).then((res) => {
+            commit('setContestsLoading', false)
+            commit("setContests", res.data);
+            console.log(res.data);
+            return res;
+          });
+        },
+      getContest({ commit }, id) {
+        commit("setCurrentContestLoading", true);
+        return axiosClient
+          .get(`/contests/${id}`)
+          .then((res) => {
+            commit("setCurrentContest", res.data);
+            commit("setCurrentContestLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setCurrentContestLoading", false);
+            throw err;
+          });
+      },
+      saveContest({ commit, dispatch }, contest) {
+
+        let response;
+        if (contest.id) {
+          response = axiosClient
+            .put(`/contests/${contest.id}`, contest)
+            .then((res) => {
+              commit('setCurrentContest', res.data)
+              return res;
+            });
+        } else {
+          response = axiosClient.post("/contests", contest).then((res) => {
+            commit('setCurrentContest', res.data)
+            return res;
+          });
+        }
+
+        return response;
+      },
+      deleteContest({ dispatch }, id) {
+        return axiosClient.delete(`/contests/${id}`).then((res) => {
+          dispatch('getContests')
+          return res;
+        });
+      },
 
     },
     mutations: {
@@ -125,19 +189,35 @@ const store = createStore(
         sessionStorage.setItem('TOKEN', token);
       },
 
+      // SET EVENTS
       setEventsLoading: (state, loading) => {
-      state.events.loading = loading;
-    },
-    setEvents: (state, events) => {
-      state.events.links = events.meta.links;
-      state.events.data = events.data;
-    },
-    setCurrentEventLoading: (state, loading) => {
-      state.currentEvent.loading = loading;
-    },
-    setCurrentEvent: (state, event) => {
-      state.currentEvent.data = event.data;
-    },
+        state.events.loading = loading;
+      },
+      setEvents: (state, events) => {
+        state.events.links = events.meta.links;
+        state.events.data = events.data;
+      },
+      setCurrentEventLoading: (state, loading) => {
+        state.currentEvent.loading = loading;
+      },
+      setCurrentEvent: (state, event) => {
+        state.currentEvent.data = event.data;
+      },
+
+      // SET CONTEST
+      setContestsLoading: (state, loading) => {
+        state.contests.loading = loading;
+      },
+      setContests: (state, contests) => {
+        state.contests.links = contests.meta.links;
+        state.contests.data = contests.data;
+      },
+      setCurrentContestLoading: (state, loading) => {
+        state.currentContest.loading = loading;
+      },
+      setCurrentContest: (state, contest) => {
+        state.currentContest.data = contest.data;
+      },
     },
     modules: {}
   }

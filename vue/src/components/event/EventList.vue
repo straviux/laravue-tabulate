@@ -74,7 +74,7 @@
             type="search"
             name="q"
             class="w-[300px] py-2 text-sm text-white bg-gray-100 rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900"
-            placeholder="Search for headline"
+            placeholder="Search for something"
             autocomplete="off"
           />
         </div>

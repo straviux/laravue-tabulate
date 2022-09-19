@@ -1,14 +1,14 @@
 <template>
   <div class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
-    <form @submit.prevent="saveEvent">
+    <form @submit.prevent="saveContest">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
           <div class="flex justify-between">
             <h1 class="text-xl uppercase mb-2">
-              {{ model.id ? model.event_name : "Add new Event" }}
+              {{ model.id ? model.name : "Add new Contest" }}
             </h1>
             <router-link
-              :to="{ name: 'Events' }"
+              :to="{ name: 'Contest' }"
               class="underline text-blue-800"
               >Cancel</router-link
             >
@@ -18,11 +18,33 @@
               <label
                 for="headline"
                 class="block text-sm font-medium text-gray-700"
-                >Event Name</label
+                >Event</label
+              >
+              <select
+                class="select select-bordered w-full mt-3"
+                v-model="model.event_id"
+              >
+                <option
+                  v-for="({ id, event_name }, index) in events"
+                  :key="index"
+                  :value="id"
+                  requried
+                >
+                  {{ event_name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-6">
+            <div class="col-span-12">
+              <label
+                for="headline"
+                class="block text-sm font-medium text-gray-700"
+                >Contest</label
               >
               <div class="mt-4 flex shadow-sm">
                 <input
-                  v-model="model.event_name"
+                  v-model="model.name"
                   type="text"
                   name="headline"
                   id="headline"
@@ -34,29 +56,11 @@
 
           <div>
             <label for="excerpt" class="block text-sm font-medium text-gray-700"
-              >Description</label
-            >
-            <div class="mt-2">
-              <textarea
-                v-model="model.event_description"
-                id="excerpt"
-                name="excerpt"
-                rows="3"
-                class="input block w-full flex-1 h-20 rounded-sm p-2 border-gray-300 focus:border-transparent focus:ring-none sm:text-sm"
-                placeholder="Type something here"
-              />
-            </div>
-            <p class="mt-2 text-sm text-gray-500">
-              Brief information about this event.
-            </p>
-          </div>
-          <div>
-            <label for="excerpt" class="block text-sm font-medium text-gray-700"
-              >Event Date</label
+              >Contest Date</label
             >
             <Datepicker
               format="yyyy/MM/dd"
-              v-model="model.event_date"
+              v-model="model.contest_date"
               class="mt-2"
             ></Datepicker>
           </div>
@@ -89,54 +93,50 @@
   </div>
 </template>
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import store from "../../store";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 // import router from "../../../router";
 
 const route = useRoute();
-const router = useRouter();
 let model = ref({
-  event_name: "",
+  name: "",
   status: "",
-  event_description: "",
-  event_date: "",
+  event_id: "",
+  event: {},
+  contest_date: "",
 });
+
+const events = computed(() => store.state.events.data);
+
+store.dispatch("getEvents");
 
 //watch current news from store
 watch(
-  () => store.state.currentEvent.data,
+  () => store.state.currentContest.data,
   (newVal, oldVal) => {
     model.value = {
       ...JSON.parse(JSON.stringify(newVal)),
       status: newVal.status !== "draft",
     };
+    model.value.event_id = model.value.event.id;
+    console.log(newVal);
   }
 );
 
 if (route.params.id) {
-  store.dispatch("getEvent", route.params.id);
+  store.dispatch("getContest", route.params.id);
 }
 
-const saveEvent = () => {
-  model.value.event_date = moment(model.value.event_date).format("YYYY-MM-DD");
-  store.dispatch("saveEvent", model.value).then(({ data }) => {
+const saveContest = () => {
+  model.value.contest_date = moment(model.value.contest_date).format(
+    "YYYY-MM-DD"
+  );
+  store.dispatch("saveContest", model.value).then(({ data }) => {
     console.log(data);
   });
 };
-// const onImageChange = (ev) => {
-//   const file = ev.target.files[0];
-//   const reader = new FileReader();
-//   reader.onload = () => {
-//     model.value.cover_photo = reader.result;
-//     model.value.cover_photo_url = reader.result;
-//   };
-//   reader.readAsDataURL(file);
-// };
-// const assignValToSlug = () => {
-//   model.value.slug = model.value.excerpt;
-// };
 </script>

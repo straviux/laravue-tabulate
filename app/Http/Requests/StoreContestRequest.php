@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Contest;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class StoreContestRequest extends FormRequest
 {
@@ -13,18 +17,28 @@ class StoreContestRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => $this->user()->id
+        ]);
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:1000',
+            'event_id' => 'exists:events,id',
+            'status' => 'required|boolean',
+            'contest_date' => 'nullable|date',
         ];
     }
 }
