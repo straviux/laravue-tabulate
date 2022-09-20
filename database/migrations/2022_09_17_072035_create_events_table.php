@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', 50)->unique();
             $table->foreignIdFor(\App\Models\User::class, 'user_id');
             $table->string('event_name', 500);
             $table->tinyInteger('status');
             $table->text('event_description', 1000)->nullable();
-            $table->timestamps();
             $table->timestamp('event_date')->nullable();
+
+            $table->timestamps();
         });
     }
 

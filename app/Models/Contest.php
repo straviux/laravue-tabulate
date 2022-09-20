@@ -9,5 +9,5 @@ class Contest extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'event_id', 'status',  'contest_date'];
+    protected $fillable = ['uuid', 'contest_name', 'event_id', 'status',  'contest_date'];
 }

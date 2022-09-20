@@ -187,13 +187,15 @@ const store = createStore(
       },
 
       // CRITERIAS
-      getCriterias({ commit }, {url = null} = {}) {
+      getCriterias({ commit }, {url = null,id=null} = {}) {
       commit('setCriteriasLoading', true)
       url = url || "/criterias";
+      if(id) {
+        url = `/criterias?id=${id}`;
+      }
       return axiosClient.get(url).then((res) => {
           commit('setCriteriasLoading', false)
           commit("setCriterias", res.data);
-          // console.log(res.data);
           return res;
         });
       },
@@ -203,6 +205,12 @@ const store = createStore(
             return res;
           });
         return response;
+      },
+      deleteCriteria({ dispatch }, id) {
+        return axiosClient.delete(`/criterias/${id}`).then((res) => {
+          dispatch('getCriterias')
+          return res;
+        });
       },
 
     },

@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('contests', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 1000);
+            $table->string('uuid', 50)->unique();
+            $table->string('contest_name', 1000);
             $table->tinyInteger('status');
             $table->foreignIdFor(\App\Models\Event::class, 'event_id');
             $table->timestamp('contest_date')->nullable();
+
             $table->timestamps();
         });
     }

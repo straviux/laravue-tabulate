@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', 50)->unique();
             $table->foreignIdFor(\App\Models\Contest::class, 'contest_id');
             $table->string('criteria_name');
-            $table->tinyInteger('status');
+            $table->tinyInteger('order');
             $table->double('percentage');
+
             $table->timestamps();
         });
     }

@@ -20,7 +20,8 @@ class ContestResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'uuid' => $this->uuid,
+            'contest_name' => $this->contest_name,
             'event' => Event::select(['event_name', 'id'])->where('id', $this->event_id)->first(),
             'status' => !!$this->status,
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),

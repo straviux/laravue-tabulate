@@ -92,16 +92,17 @@
 <script setup>
 import { ref, watch, computed } from "vue";
 import store from "../../store";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
-// import router from "../../../router";
+import { v4 as uuidv4 } from "uuid";
 import Loader from "../Loader.vue";
 
 const route = useRoute();
 const eventLoading = computed(() => store.state.currentEvent.loading);
 let model = ref({
+  uuid: "",
   event_name: "",
   status: "",
   event_description: "",
@@ -124,10 +125,28 @@ if (route.params.id) {
 }
 
 const saveEvent = () => {
+  let action = "created";
+  if (model.value.id) {
+    action = "updated";
+  }
+  if (!model.value.uuid) {
+    model.value.uuid = uuidv4();
+  }
   model.value.event_date = moment(model.value.event_date).format("YYYY-MM-DD");
-  store.dispatch("saveEvent", model.value).then(({ data }) => {
-    console.log(data);
-  });
+  store
+    .dispatch("saveEvent", model.value)
+    .then(({ data }) => {
+      store.commit("notify", {
+        type: "success",
+        message: "Data was successfully " + action,
+      });
+    })
+    .catch((err) => {
+      store.commit("notify", {
+        type: "error",
+        message: "Something went wrong, please try again or contact your admin",
+      });
+    });
 };
 // const onImageChange = (ev) => {
 //   const file = ev.target.files[0];

@@ -35,7 +35,8 @@ class StoreContestRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:1000',
+            'uuid' => 'required|string|max:50',
+            'contest_name' => 'required|string|max:1000',
             'event_id' => 'exists:events,id',
             'status' => 'required|boolean',
             'contest_date' => 'nullable|date',

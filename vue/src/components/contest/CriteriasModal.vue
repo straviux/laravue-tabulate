@@ -7,14 +7,16 @@
         class="btn btn-sm btn-circle absolute right-2 top-2"
         >✕</label
       >
-      <h2 class="pb-4 text-2xl underline uppercase">{{ contest.name }}</h2>
+      <h2 class="pb-4 text-2xl underline uppercase">
+        {{ contest.contest_name }}
+      </h2>
       <div class="text-sm breadcrumbs">
         <ul>
           <li>
             <a>{{ contest.event.event_name }}</a>
           </li>
           <li>
-            <a>{{ contest.name }}</a>
+            <a>{{ contest.contest_name }}</a>
           </li>
           <li><a>Criteria</a></li>
         </ul>
@@ -36,8 +38,15 @@
               <th></th>
               <th class="text-[12px]">{{ criteria.criteria_name }}</th>
               <th class="text-[12px]">{{ criteria.percentage }}</th>
-              <th class="text-[12px]">Order</th>
-              <th></th>
+              <th class="text-[12px]">{{ criteria.order }}</th>
+              <th>
+                <button
+                  @click="deleteSavedCriteria(criteria)"
+                  class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
+                >
+                  delete
+                </button>
+              </th>
             </tr>
             <tr v-for="(criteria, index) in model.criterias" :key="criteria.id">
               <CriteriaEditor
@@ -50,8 +59,8 @@
             </tr>
           </tbody>
         </table>
-        <div v-if="!model.criterias.length" class="text-center text-gray-600">
-          You don't have any criterias created
+        <div v-if="!criterias.length" class="mt-8 text-center text-gray-600">
+          You don't have any criterias created for this contest
         </div>
       </div>
       <div class="py-4 flex justify-center gap-10 items-center">
@@ -62,6 +71,7 @@
           <mdicon name="plus" />Add Criteria
         </button>
         <button
+          v-if="model.criterias.length"
           @click="saveCriterias()"
           class="btn btn-sm lg:btn-wide w-[150px] gap-1 uppercase shadow mt-4 rounded btn-success"
         >
@@ -82,47 +92,68 @@ const props = defineProps({
   contest: Object,
 });
 
-// Create empty survey
+// watch if props has been updated
+watch(
+  () => props.contest,
+  (newVal, oldVal) => {
+    if (props.contest) {
+      store.dispatch("getCriterias", { id: props.contest.id });
+    }
+  }
+);
+
+// Create empty criteria array
 let model = ref({
   criterias: [],
 });
+
+// Get criterias from store
 const criterias = computed(() => store.state.criterias.data);
-store.dispatch("getCriterias");
-function addCriteria(index) {
+
+const addCriteria = (index) => {
   const newCriteria = {
-    id: uuidv4(),
+    uuid: uuidv4(),
     order: index,
     percentage: "",
     contest_id: props.contest.id,
   };
-
   model.value.criterias.push(newCriteria);
-}
+};
 
-function criteriaChange(criteria) {
+const criteriaChange = (criteria) => {
+  console.log(criteria);
   model.value.criterias = model.value.criterias.map((q) => {
-    if (q.id === criteria.id) {
+    if (q.uuid === criteria.uuid) {
       return JSON.parse(JSON.stringify(criteria));
     }
     return q;
   });
-}
+};
 
-function deleteCriteria(criteria) {
+const deleteCriteria = (criteria) => {
   model.value.criterias = model.value.criterias.filter((q) => q !== criteria);
-}
+};
 
-// function saveCriterias() {
-//   const criterias = { ...model.value };
-//   console.log(criterias);
-// }
+const deleteSavedCriteria = (criteria) => {
+  if (
+    confirm(
+      `Are you sure you want to delete this survey? Operation can't be undone!!`
+    )
+  ) {
+    store.dispatch("deleteCriteria", criteria.id).then(() => {
+      store.dispatch("getCriterias", { id: props.contest.id });
+      // criterias = criterias.filter((q) => q !== criteria);
+    });
+  }
+};
 
 const saveCriterias = () => {
   const criterias = { ...model.value };
-  console.log(criterias);
   store
     .dispatch("saveCriterias", criterias)
     .then(({ data }) => {
+      model.value.criterias = [];
+      store.dispatch("getCriterias", { id: props.contest.id });
       store.commit("notify", {
         type: "success",
         message: "Data was successfully saved",

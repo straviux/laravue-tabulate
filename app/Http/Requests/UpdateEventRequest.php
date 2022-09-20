@@ -29,6 +29,7 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
+            'uuid' => 'required|string|max:50',
             'event_name' => 'required|string|max:1000',
             'user_id' => 'exists:users,id',
             'event_description' => 'nullable|string|max:1000',

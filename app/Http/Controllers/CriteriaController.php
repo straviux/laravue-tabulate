@@ -6,6 +6,7 @@ use App\Models\Criteria;
 use App\Http\Resources\CriteriaResource;
 use App\Http\Requests\StoreCriteriaRequest;
 use App\Http\Requests\UpdateCriteriaRequest;
+use Illuminate\Http\Request;
 
 class CriteriaController extends Controller
 {
@@ -14,9 +15,10 @@ class CriteriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CriteriaResource::collection(Criteria::orderBy('created_at', 'DESC')->paginate(10)); //change created at to order
+        return CriteriaResource::collection(Criteria::where('contest_id', $request['id'])->orderBy('order', 'ASC')->paginate(10)); //change created at to order
+        // return EventResource::collection(Event::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(10));
     }
 
     /**
@@ -33,9 +35,11 @@ class CriteriaController extends Controller
         foreach ($criterias as $key => $criteria) {
             // return $criteria;
             Criteria::create([
-                'criteria_name'       =>  $criteria['criteria_name'],
+                'uuid' =>  $criteria['uuid'],
+                'criteria_name'    =>  $criteria['criteria_name'],
                 'percentage'       =>  $criteria['percentage'],
                 'contest_id'       =>  $criteria['contest_id'],
+                'order'            => $criteria['order']
             ]);
         }
         // return json_decode($request);
@@ -71,8 +75,16 @@ class CriteriaController extends Controller
      * @param  \App\Models\Criteria  $criteria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Criteria $criteria)
+    public function destroy(Criteria $criteria, Request $request)
     {
-        //
+
+        $user = $request->user();
+        if (!$user->id) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $criteria->delete();
+
+        return response('', 204);
     }
 }

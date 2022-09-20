@@ -7,14 +7,16 @@
         class="btn btn-sm btn-circle absolute right-2 top-2"
         >✕</label
       >
-      <h2 class="pb-4 text-2xl underline uppercase">{{ contest.name }}</h2>
+      <h2 class="pb-4 text-2xl underline uppercase">
+        {{ contest.contest_name }}
+      </h2>
       <div class="text-sm breadcrumbs">
         <ul>
           <li>
             <a>{{ contest.event.event_name }}</a>
           </li>
           <li>
-            <a>{{ contest.name }}</a>
+            <a>{{ contest.contest_name }}</a>
           </li>
           <li><a>Contestants</a></li>
         </ul>

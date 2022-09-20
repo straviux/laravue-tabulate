@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('contestants', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', 50)->unique();
             $table->foreignIdFor(\App\Models\Contest::class, 'contest_id');
-            $table->string('name');
+            $table->string('contestant_name');
+            $table->tinyInteger('order');
+
             $table->timestamps();
-            $table->tinyInteger('status');
         });
     }
 

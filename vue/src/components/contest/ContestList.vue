@@ -109,11 +109,13 @@
             <span class="text-sm font-bold">{{ item.event.event_name }}</span>
           </td>
           <td>
-            <span class="text-sm font-bold">{{ item.name }}</span>
+            <span class="text-sm font-bold">{{ item.contest_name }}</span>
           </td>
 
           <td>
-            <span class="text-[12px]">{{ item.contest_date }}</span>
+            <span class="text-[12px]">{{
+              $filters.moment(item.contest_date, "ll")
+            }}</span>
           </td>
           <th>
             <button class="btn btn-ghost btn-xs">
@@ -185,12 +187,12 @@ const contests = computed(() => store.state.contests.data);
 const contest = ref();
 store.dispatch("getContests");
 
-// watch(
-//   () => contest,
-//   (newVal, oldVal) => {
-//     console.log(newVal)
-//   }
-// );
+watch(
+  () => contest,
+  (newVal, oldVal) => {
+    contest = newVal;
+  }
+);
 
 function deleteContest(contest) {
   if (

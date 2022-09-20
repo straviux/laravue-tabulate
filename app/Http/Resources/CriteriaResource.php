@@ -17,10 +17,11 @@ class CriteriaResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'uuid' => $this->uuid,
             'criteria_name' => $this->criteria_name,
             'percentage' => $this->percentage,
-            'contest' => Contest::select(['name', 'id'])->where('id', $this->contest_id)->first(),
-            'status' => !!$this->status,
+            'contest' => Contest::select(['contest_name', 'id'])->where('id', $this->contest_id)->first(),
+            'order' => $this->order,
         ];
     }
 }

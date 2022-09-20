@@ -45,7 +45,7 @@
               >
               <div class="mt-4 flex shadow-sm">
                 <input
-                  v-model="model.name"
+                  v-model="model.contest_name"
                   type="text"
                   name="headline"
                   id="headline"
@@ -101,14 +101,15 @@ import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 import Loader from "../Loader.vue";
+import { v4 as uuidv4 } from "uuid";
 // import router from "../../../router";
 
 const route = useRoute();
 let model = ref({
-  name: "",
+  uuid: "",
+  contest_name: "",
   status: "",
   event_id: "",
-  event: {},
   contest_date: "",
 });
 
@@ -138,6 +139,10 @@ const saveContest = () => {
   let action = "created";
   if (model.value.id) {
     action = "updated";
+  }
+
+  if (!model.value.uuid) {
+    model.value.uuid = uuidv4();
   }
 
   model.value.contest_date = moment(model.value.contest_date).format(
