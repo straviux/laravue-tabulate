@@ -37,6 +37,13 @@ const store = createStore(
         data: {},
         loading: false,
       },
+
+      // contests
+      criterias: {
+        loading: false,
+        links: [],
+        data: []
+      },
       notification: {
         show: false,
         type: 'success',
@@ -177,6 +184,25 @@ const store = createStore(
           dispatch('getContests')
           return res;
         });
+      },
+
+      // CRITERIAS
+      getCriterias({ commit }, {url = null} = {}) {
+      commit('setCriteriasLoading', true)
+      url = url || "/criterias";
+      return axiosClient.get(url).then((res) => {
+          commit('setCriteriasLoading', false)
+          commit("setCriterias", res.data);
+          // console.log(res.data);
+          return res;
+        });
+      },
+      saveCriterias({ commit, dispatch }, criterias) {
+        let response;
+          response = axiosClient.post("/criterias", criterias).then((res) => {
+            return res;
+          });
+        return response;
       },
 
     },

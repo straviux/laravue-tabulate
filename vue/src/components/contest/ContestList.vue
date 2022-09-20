@@ -126,18 +126,21 @@
 
             <label
               for="criterias-modal"
+              @click="contest = item"
               class="btn btn-ghost btn-xs text-[12px] text-cyan-700 font-bold underline capitalize"
               >Criterias</label
             >
 
             <label
               for="judges-modal"
+              @click="contest = item"
               class="btn btn-ghost btn-xs text-[12px] text-green-500 font-bold underline capitalize"
               >Judges</label
             >
 
             <label
               for="contestants-modal"
+              @click="contest = item"
               class="btn btn-ghost btn-xs text-[12px] text-violet-700 font-bold underline capitalize"
               >Contestants</label
             >
@@ -161,210 +164,33 @@
     </table>
 
     <!-- CRITERIAS MODAL -->
-    <input type="checkbox" id="criterias-modal" class="modal-toggle" />
-    <div class="modal">
-      <div class="modal-box w-11/12 max-w-3xl relative">
-        <label
-          for="criterias-modal"
-          class="btn btn-sm btn-circle absolute right-2 top-2"
-          >✕</label
-        >
-        <h3 class="text-lg font-bold">Criterias</h3>
-        <div class="py-4 flex flex-col justify-center items-center">
-          <table class="table table-compact w-full">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th>
-              #
-              </th>
-              <th class="text-[12px]">Criteria</th>
-              <th class="text-[12px]">Percentage</th>
-              <th class="text-[12px]">Order</th>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(criteria, index) in model.criterias" :key="criteria.id">
-            <Criterias
-              :criteria="criteria"
-              :index="index"
-              @change="criteriaChange"
-              @addCriteria="addCriteria()"
-              @deleteCriteria="deleteCriteria"
-            />
-          </tr>
-          </tbody>
-          </table>
-          <div v-if="!model.criterias.length" class="text-center text-gray-600">
-            You don't have any criterias created
-          </div>
-
-
-        </div>
-        <div class="py-4 flex justify-center gap-10 items-center">
-            <button
-              @click="addCriteria()"
-                class="btn btn-sm gap-1 lg:btn-wide w-[150px] uppercase shadow mt-4 rounded btn-primary"
-              >
-              <mdicon name="plus" />Add Criteria
-            </button>
-            <button
-              @click="saveCriterias()"
-                class="btn btn-sm lg:btn-wide w-[150px] gap-1 uppercase shadow mt-4 rounded btn-success"
-              >
-              <mdicon name="content-save" />Save
-            </button>
-        </div>
-      </div>
-
-    </div>
+    <CriteriasModal :contest="contest" />
 
     <!-- JUDGES MODAL -->
-    <input type="checkbox" id="judges-modal" class="modal-toggle" />
-    <div class="modal">
-      <div class="modal-box w-11/12 max-w-3xl relative">
-        <label
-          for="judges-modal"
-          class="btn btn-sm btn-circle absolute right-2 top-2"
-          >✕</label
-        >
-        <h3 class="text-lg font-bold">Judges</h3>
-        <p class="py-4 flex flex-col justify-center items-center">
-          <table class="table table-compact w-full">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th>
-              #
-              </th>
-              <th class="text-[12px]">Name</th>
-              <th class="text-[12px]">Position</th>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="font-bold">1</td>
-              <td class="font-bold">Arcee Herdz</td>
-              <td class="font-bold">member</td>
-              <td>
-                <button class="btn btn-ghost btn-xs text-[12px] text-orange-500 font-bold underline capitalize">
-                  edit
-                </button>
-                <button class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize">
-                  delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-          </table>
-          <button
-            class="btn btn-xs uppercase shadow mt-4 rounded btn-primary"
-          >
-            <mdicon name="plus" />&nbsp;Add Judge
-          </button>
-        </p>
-      </div>
-    </div>
+    <JudgesModal :contest="contest" />
 
     <!-- CONTESTANTS MODAL -->
-    <input type="checkbox" id="contestants-modal" class="modal-toggle" />
-    <div class="modal">
-      <div class="modal-box w-11/12 max-w-3xl relative">
-        <label
-          for="contestants-modal"
-          class="btn btn-sm btn-circle absolute right-2 top-2"
-          >✕</label
-        >
-        <h3 class="text-lg font-bold">Contestants</h3>
-        <p class="py-4 flex flex-col justify-center items-center">
-          <table class="table table-compact w-full">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th>
-              #
-              </th>
-              <th class="text-[12px]">Name</th>
-              <th class="text-[12px]">Order</th>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="font-bold">1</td>
-              <td class="font-bold">Arcee Herdz</td>
-              <td class="font-bold">1</td>
-              <td>
-                <button class="btn btn-ghost btn-xs text-[12px] text-orange-500 font-bold underline capitalize">
-                  edit
-                </button>
-                <button class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize">
-                  delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-          </table>
-
-
-          <button
-            class="btn btn-xs uppercase shadow mt-4 rounded btn-primary"
-          >
-            <mdicon name="plus" />&nbsp;Add Contestant
-          </button>
-        </p>
-      </div>
-    </div>
+    <ContestantModal :contest="contest" />
   </div>
 </template>
 <script setup>
 import store from "../../store";
-import { v4 as uuidv4 } from "uuid";
-import { computed, ref, watch } from "vue";
-import Criterias from './Criterias.vue';
+import { ref, computed, watch } from "vue";
+import CriteriasModal from "./CriteriasModal.vue";
+import JudgesModal from "./JudgesModal.vue";
+import ContestantModal from "./ContestantModal.vue";
 
-// Create empty survey
-let model = ref({
-  criterias: [],
-});
 const contests = computed(() => store.state.contests.data);
-
+// const contests = computed(() => store.state.contests.data);
+const contest = ref();
 store.dispatch("getContests");
 
-function addCriteria(index) {
-  const newCriteria = {
-    id: uuidv4(),
-    // criteria: "",
-    order: index,
-    percentage: ""
-  };
-
-  model.value.criterias.push(newCriteria);
-}
-
-
-function criteriaChange(criteria) {
-  model.value.criterias = model.value.criterias.map((q) => {
-    if (q.id === criteria.id) {
-      return JSON.parse(JSON.stringify(criteria));
-    }
-    return q;
-  });
-}
-
-function deleteCriteria(criteria) {
-  model.value.criterias = model.value.criterias.filter((q) => q !== criteria);
-}
-
-function saveCriterias() {
-  const criterias = {...model.value};
-  console.log(criterias);
-}
+// watch(
+//   () => contest,
+//   (newVal, oldVal) => {
+//     console.log(newVal)
+//   }
+// );
 
 function deleteContest(contest) {
   if (
