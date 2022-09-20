@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Criteria;
+use App\Http\Resources\CriteriaResource;
 use App\Http\Requests\StoreCriteriaRequest;
 use App\Http\Requests\UpdateCriteriaRequest;
 
@@ -15,7 +16,7 @@ class CriteriaController extends Controller
      */
     public function index()
     {
-        //
+        return CriteriaResource::collection(Criteria::orderBy('created_at', 'DESC')->paginate(10)); //change created at to order
     }
 
     /**
@@ -27,6 +28,18 @@ class CriteriaController extends Controller
     public function store(StoreCriteriaRequest $request)
     {
         //
+        $data = $request->all();
+        $criterias = $data['criterias'];
+        foreach ($criterias as $key => $criteria) {
+            // return $criteria;
+            Criteria::create([
+                'criteria_name'       =>  $criteria['criteria_name'],
+                'percentage'       =>  $criteria['percentage'],
+                'contest_id'       =>  $criteria['contest_id'],
+            ]);
+        }
+        // return json_decode($request);
+        // return SurveyQuestion::create($validator->validated());
     }
 
     /**

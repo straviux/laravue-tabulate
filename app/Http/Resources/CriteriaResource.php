@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Contest;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CriteriaResource extends JsonResource
@@ -14,6 +15,12 @@ class CriteriaResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'criteria_name' => $this->criteria_name,
+            'percentage' => $this->percentage,
+            'contest' => Contest::select(['name', 'id'])->where('id', $this->contest_id)->first(),
+            'status' => !!$this->status,
+        ];
     }
 }

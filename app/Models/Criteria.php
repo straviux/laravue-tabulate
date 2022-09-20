@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Criteria extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['criteria_name', 'contest_id', 'percentage'];
 }

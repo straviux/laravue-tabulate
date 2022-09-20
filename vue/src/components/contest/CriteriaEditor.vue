@@ -4,7 +4,7 @@
     <input
       type="text"
       :name="'criteria_' + model.data"
-      v-model="model.critera"
+      v-model="model.criteria_name"
       @change="dataChange"
       :id="'criteria_' + model.data"
       class="mt-1 input input-bordered rounded-sm input-sm w-full shadow-sm sm:text-sm focus:outline-none px-2 py-1"

@@ -250,6 +250,16 @@ const store = createStore(
       setCurrentContest: (state, contest) => {
         state.currentContest.data = contest.data;
       },
+
+      // SET CRITERIAS
+      setCriteriasLoading: (state, loading) => {
+        state.criterias.loading = loading;
+      },
+      setCriterias: (state, criterias) => {
+        state.criterias.links = criterias.meta.links;
+        state.criterias.data = criterias.data;
+      },
+
       notify: (state, {message, type}) => {
         state.notification.show = true;
         state.notification.type = type;

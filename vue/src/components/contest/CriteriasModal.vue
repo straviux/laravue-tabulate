@@ -32,6 +32,13 @@
             </tr>
           </thead>
           <tbody>
+            <tr v-for="(criteria, index) in criterias" :key="index">
+              <th></th>
+              <th class="text-[12px]">{{ criteria.criteria_name }}</th>
+              <th class="text-[12px]">{{ criteria.percentage }}</th>
+              <th class="text-[12px]">Order</th>
+              <th></th>
+            </tr>
             <tr v-for="(criteria, index) in model.criterias" :key="criteria.id">
               <CriteriaEditor
                 :criteria="criteria"
@@ -79,7 +86,8 @@ const props = defineProps({
 let model = ref({
   criterias: [],
 });
-
+const criterias = computed(() => store.state.criterias.data);
+store.dispatch("getCriterias");
 function addCriteria(index) {
   const newCriteria = {
     id: uuidv4(),
