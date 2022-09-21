@@ -1,5 +1,5 @@
 <template>
-  <td class="font-bold">{{ index + 1 }}</td>
+  <td class="font-bold"></td>
   <td>
     <input
       type="text"
@@ -30,12 +30,26 @@
       class="mt-1 input input-bordered rounded-sm input-sm max-w-[80px] shadow-sm sm:text-sm focus:outline-none px-2 py-1"
     />
   </td>
-  <td>
+  <td v-if="!forUpdate">
     <button
       @click="deleteCriteria()"
       class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
     >
       delete
+    </button>
+  </td>
+  <td v-else>
+    <button
+      @click="updateCriteria()"
+      class="btn btn-ghost btn-xs text-[12px] text-green-500 font-bold underline capitalize"
+    >
+      update
+    </button>
+    <button
+      @click="cancelUpdate()"
+      class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
+    >
+      cancel
     </button>
   </td>
 
@@ -47,9 +61,15 @@ import { ref } from "@vue/reactivity";
 const props = defineProps({
   criteria: Object,
   index: Number,
+  forUpdate: Boolean,
 });
 
-const emit = defineEmits(["change", "addCriteria", "deleteCriteria"]);
+const emit = defineEmits([
+  "change",
+  "deleteCriteria",
+  "updateCriteria",
+  "cancelUpdate",
+]);
 const model = ref(JSON.parse(JSON.stringify(props.criteria)));
 
 // Emit the data change
@@ -58,22 +78,16 @@ function dataChange() {
   emit("change", data);
 }
 
-function addCriteria() {
-  emit("addCriteria", props.index + 1);
-}
-
 function deleteCriteria() {
   emit("deleteCriteria", props.criteria);
 }
-// const addCriteria = (index) => {
-//   const newCriteria = {
-//     criteria: "",
-//     percentage: "",
-//     order: null,
-//   };
 
-//   model.value.criterias.splice(index, 0, newCriteria);
-// };
+function updateCriteria() {
+  emit("updateCriteria", props.criteria);
+}
+function cancelUpdate() {
+  emit("cancelUpdate", props.criteria);
+}
 </script>
 <style scoped>
 .input {
