@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="contestLoading" />
+  <Loader v-if="contestLoading" :is-full-screen="true" />
   <div v-else class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
     <form @submit.prevent="saveContest">
       <div class="shadow sm:overflow-hidden sm:rounded-md">

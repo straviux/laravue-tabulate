@@ -33,37 +33,69 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="(criteria, index) in criterias" :key="index">
+          <tbody v-if="isDataLoading">
+            <tr>
+              <th colspan="4" class="pt-4">
+                <Loader :is-full-screen="false" />
+              </th>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr
+              v-for="(criteria, index) in criterias"
+              :key="index"
+              v-show="editRow !== criteria.uuid"
+            >
               <th></th>
               <th class="text-[12px]">{{ criteria.criteria_name }}</th>
               <th class="text-[12px]">{{ criteria.percentage }}</th>
               <th class="text-[12px]">{{ criteria.order }}</th>
               <th>
-                <button
-                  @click="deleteSavedCriteria(criteria)"
-                  class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
-                >
-                  delete
-                </button>
+                <div v-if="!newForm">
+                  <button
+                    @click="editCriteria(criteria)"
+                    class="btn btn-ghost btn-xs text-[12px] text-orange-500 font-bold underline capitalize"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    @click="deleteSavedCriteria(criteria)"
+                    class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
+                  >
+                    delete
+                  </button>
+                </div>
               </th>
             </tr>
-            <tr v-for="(criteria, index) in model.criterias" :key="criteria.id">
+            <tr
+              v-if="criterias.length"
+              v-for="(criteria, index) in model.criterias"
+              :key="criteria.id"
+            >
               <CriteriaEditor
+                :for-update="forUpdate"
                 :criteria="criteria"
                 :index="index"
                 @change="criteriaChange"
-                @addCriteria="addCriteria()"
                 @deleteCriteria="deleteCriteria"
+                @updateCriteria="updateCriteria"
+                @cancelUpdate="cancelUpdate"
               />
+            </tr>
+
+            <tr v-show="!criterias.length">
+              <td colspan="4" class="pt-8 text-center text-gray-600">
+                You don't have any criterias created for this contest
+              </td>
             </tr>
           </tbody>
         </table>
-        <div v-if="!criterias.length" class="mt-8 text-center text-gray-600">
-          You don't have any criterias created for this contest
-        </div>
       </div>
-      <div class="py-4 flex justify-center gap-10 items-center">
+      <div
+        class="py-4 flex justify-center gap-10 items-center"
+        v-if="formCount + 1 && !forUpdate"
+      >
         <button
           @click="addCriteria()"
           class="btn btn-sm gap-1 lg:btn-wide w-[150px] uppercase shadow mt-4 rounded btn-primary"
@@ -87,11 +119,16 @@ import store from "../../store";
 import { v4 as uuidv4 } from "uuid";
 import { computed, ref, watch } from "vue";
 import CriteriaEditor from "./CriteriaEditor.vue";
+import Loader from "../Loader.vue";
 
 const props = defineProps({
   contest: Object,
 });
 
+const newForm = ref(false);
+const forUpdate = ref(false);
+const editRow = ref();
+const formCount = ref(0);
 // watch if props has been updated
 watch(
   () => props.contest,
@@ -103,25 +140,43 @@ watch(
 );
 
 // Create empty criteria array
-let model = ref({
+const model = ref({
   criterias: [],
 });
 
 // Get criterias from store
+const isDataLoading = computed(() => store.state.criterias.loading);
 const criterias = computed(() => store.state.criterias.data);
 
 const addCriteria = (index) => {
+  formCount.value += 1;
+  forUpdate.value = false;
+  newForm.value = true;
   const newCriteria = {
     uuid: uuidv4(),
-    order: index,
+    order: "",
     percentage: "",
     contest_id: props.contest.id,
   };
   model.value.criterias.push(newCriteria);
 };
 
+const editCriteria = (c) => {
+  editRow.value = c.uuid;
+  forUpdate.value = true;
+
+  const currentCriteria = {
+    uuid: c.uuid,
+    order: c.order,
+    percentage: c.percentage,
+    contest_id: c.contest.id,
+    criteria_name: c.criteria_name,
+  };
+  console.log(c);
+  model.value.criterias.push(currentCriteria);
+};
+
 const criteriaChange = (criteria) => {
-  console.log(criteria);
   model.value.criterias = model.value.criterias.map((q) => {
     if (q.uuid === criteria.uuid) {
       return JSON.parse(JSON.stringify(criteria));
@@ -131,6 +186,19 @@ const criteriaChange = (criteria) => {
 };
 
 const deleteCriteria = (criteria) => {
+  console.log(formCount.value);
+  if (formCount.value && formCount.value !== 1) {
+    formCount.value -= 1;
+    newForm.value = false;
+  } else {
+    newForm.value = true;
+  }
+  model.value.criterias = model.value.criterias.filter((q) => q !== criteria);
+};
+
+const cancelUpdate = (criteria) => {
+  editRow.value = null;
+  forUpdate.value = false;
   model.value.criterias = model.value.criterias.filter((q) => q !== criteria);
 };
 
@@ -157,6 +225,23 @@ const saveCriterias = () => {
       store.commit("notify", {
         type: "success",
         message: "Data was successfully saved",
+      });
+    })
+    .catch((err) => {
+      store.commit("notify", {
+        type: "error",
+        message: "Something went wrong, please try again or contact your admin",
+      });
+    });
+};
+
+const updateCriteria = (criteria) => {
+  store
+    .dispatch("updateCriteria", criteria)
+    .then(({ data }) => {
+      store.commit("notify", {
+        type: "success",
+        message: "Contest data was successfully updated",
       });
     })
     .catch((err) => {

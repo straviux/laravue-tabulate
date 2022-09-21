@@ -206,6 +206,21 @@ const store = createStore(
           });
         return response;
       },
+      updateCriteria({ commit, dispatch }, criteria) {
+
+        let response;
+        if (criteria.id) {
+          response = axiosClient
+            .put(`/criterias/${criteria.id}`, criteria)
+            .then((res) => {
+              return res;
+            });
+        }
+
+
+        return response;
+      },
+
       deleteCriteria({ dispatch }, id) {
         return axiosClient.delete(`/criterias/${id}`).then((res) => {
           dispatch('getCriterias')

@@ -7,6 +7,7 @@ use App\Http\Resources\CriteriaResource;
 use App\Http\Requests\StoreCriteriaRequest;
 use App\Http\Requests\UpdateCriteriaRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class CriteriaController extends Controller
 {
@@ -67,6 +68,12 @@ class CriteriaController extends Controller
     public function update(UpdateCriteriaRequest $request, Criteria $criteria)
     {
         //
+        $data = $request->validated();
+
+        // Update survey in the database
+        $criteria->update($data);
+
+        return new CriteriaResource($criteria);
     }
 
     /**
