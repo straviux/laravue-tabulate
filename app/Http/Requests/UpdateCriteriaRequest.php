@@ -34,8 +34,8 @@ class UpdateCriteriaRequest extends FormRequest
             'uuid' => 'required|string|max:50',
             'criteria_name' => 'required|string|max:1000',
             'contest_id' => 'exists:contests,id',
-            'percentage' => 'nullable|double',
-            'order' => 'nullable|integer',
+            'percentage' => 'nullable|numeric',
+            'order' => 'nullable|numeric',
         ];
     }
 }

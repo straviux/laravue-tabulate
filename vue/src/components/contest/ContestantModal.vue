@@ -3,6 +3,7 @@
   <div class="modal">
     <div class="modal-box w-11/12 max-w-3xl relative" v-if="contest">
       <label
+        @click="resetModal()"
         for="contestants-modal"
         class="btn btn-sm btn-circle absolute right-2 top-2"
         >✕</label
@@ -32,34 +33,76 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-if="isDataLoading">
+            <tr>
+              <th colspan="4" class="pt-4">
+                <Loader :is-full-screen="false" />
+              </th>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr
+              v-for="(contestant, index) in contestants"
+              :key="index"
+              v-show="editRow !== contestant.uuid"
+            >
+              <th class="text-[10px] text-gray-500">{{ index + 1 }}.</th>
+              <th class="text-[12px]">{{ contestant.contestant_name }}</th>
+              <th class="text-[12px]">{{ contestant.order }}</th>
+              <th>
+                <div v-if="!forUpdate && !newForm">
+                  <button
+                    @click="editData(contestant)"
+                    class="btn btn-ghost btn-xs text-[12px] text-orange-500 font-bold underline capitalize"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    @click="deleteSavedData(contestant)"
+                    class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
+                  >
+                    delete
+                  </button>
+                </div>
+              </th>
+            </tr>
             <tr
               v-for="(contestant, index) in model.contestants"
               :key="contestant.id"
             >
               <ContestantEditor
-                :__data="contestant"
+                :for-update="forUpdate"
+                :contestant="contestant"
                 :index="index"
                 @change="dataChange"
-                @addItem="addItem()"
-                @removeItem="removeItem"
+                @deleteData="deleteData"
+                @updateData="updateData"
+                @cancelUpdate="cancelUpdate"
               />
+            </tr>
+
+            <tr v-show="!contestants.length">
+              <td colspan="4" class="pt-8 text-center text-gray-600">
+                You don't have any contestants created for this contest
+              </td>
             </tr>
           </tbody>
         </table>
-        <div v-if="!model.contestants.length" class="text-center text-gray-600">
-          You don't have any contestants created
-        </div>
       </div>
-      <div class="py-4 flex justify-center gap-10 items-center">
+      <div
+        class="py-4 flex justify-center gap-10 items-center"
+        v-if="!forUpdate"
+      >
         <button
-          @click="addItem()"
+          @click="addContestant()"
           class="btn btn-sm gap-1 lg:btn-wide w-[150px] uppercase shadow mt-4 rounded btn-primary"
         >
           <mdicon name="plus" />Add Contestant
         </button>
         <button
-          @click="saveItem()"
+          v-if="model.contestants.length"
+          @click="saveContestants()"
           class="btn btn-sm lg:btn-wide w-[150px] gap-1 uppercase shadow mt-4 rounded btn-success"
         >
           <mdicon name="content-save" />Save
@@ -72,42 +115,143 @@
 <script setup>
 import store from "../../store";
 import { v4 as uuidv4 } from "uuid";
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 import ContestantEditor from "./ContestantEditor.vue";
+import Loader from "../Loader.vue";
 
 const props = defineProps({
   contest: Object,
 });
 
-// Create empty survey
-let model = ref({
+const newForm = ref(false);
+const forUpdate = ref(false);
+const editRow = ref();
+// watch if props has been updated
+watch(
+  () => props.contest,
+  (newVal, oldVal) => {
+    if (props.contest) {
+      store.dispatch("getContestants", { id: props.contest.id });
+    }
+  }
+);
+
+// Create empty contestant array
+const model = ref({
   contestants: [],
 });
 
-function addItem(index) {
-  const newItem = {
-    id: uuidv4(),
-    order: index,
+const resetModal = () => {
+  model.value.contestants = [];
+};
+// Get contestants from store
+const isDataLoading = computed(() => store.state.contestants.loading);
+const contestants = computed(() => store.state.contestants.data);
+
+const addContestant = (index) => {
+  forUpdate.value = false;
+  newForm.value = true;
+  const newData = {
+    uuid: uuidv4(),
+    order: "",
+    contest_id: props.contest.id,
   };
+  model.value.contestants.push(newData);
+};
 
-  model.value.contestants.push(newItem);
-}
+const editData = (c) => {
+  editRow.value = c.uuid;
+  forUpdate.value = true;
 
-function dataChange(contestant) {
+  const currentData = {
+    id: c.id,
+    uuid: c.uuid,
+    order: c.order,
+    contest_id: c.contest.id,
+    contestant_name: c.contestant_name,
+  };
+  // console.log(c);
+  model.value.contestants.push(currentData);
+};
+
+const dataChange = (contestant) => {
   model.value.contestants = model.value.contestants.map((q) => {
-    if (q.id === contestant.id) {
+    if (q.uuid === contestant.uuid) {
       return JSON.parse(JSON.stringify(contestant));
     }
     return q;
   });
-}
+};
 
-function removeItem(item) {
-  model.value.contestants = model.value.contestants.filter((q) => q !== item);
-}
+const deleteData = (contestant) => {
+  newForm.value = true;
+  model.value.contestants = model.value.contestants.filter(
+    (q) => q !== contestant
+  );
 
-function saveItem() {
-  const items = { ...model.value };
-  console.log(items);
-}
+  if (!model.value.contestants.length) {
+    newForm.value = false;
+  }
+};
+
+const cancelUpdate = (contestant) => {
+  editRow.value = null;
+  forUpdate.value = false;
+  model.value.contestants = model.value.contestants.filter(
+    (q) => q !== contestant
+  );
+};
+
+const deleteSavedData = (contestant) => {
+  console.log(contestant.id);
+  if (
+    confirm(
+      `Are you sure you want to delete this survey? Operation can't be undone!!`
+    )
+  ) {
+    store.dispatch("deleteContestant", contestant.id).then((res) => {
+      store.dispatch("getContestants", { id: props.contest.id });
+    });
+  }
+};
+
+const saveContestants = () => {
+  const _contestants = { ...model.value };
+
+  store
+    .dispatch("saveContestants", _contestants)
+    .then(({ data }) => {
+      model.value.contestants = [];
+      store.dispatch("getContestants", { id: props.contest.id });
+      store.commit("notify", {
+        type: "success",
+        message: "Data was successfully saved",
+      });
+      newForm.value = false;
+    })
+    .catch((err) => {
+      store.commit("notify", {
+        type: "error",
+        message: "Something went wrong, please try again or contact your admin",
+      });
+    });
+};
+
+const updateData = (contestant) => {
+  store
+    .dispatch("updateContestant", contestant)
+    .then(({ data }) => {
+      store.dispatch("getContestants", { id: props.contest.id });
+      store.commit("notify", {
+        type: "success",
+        message: "Contest data was successfully updated",
+      });
+    })
+    .catch((err) => {
+      store.commit("notify", {
+        type: "error",
+        message: "Something went wrong, please try again or contact your admin",
+      });
+    });
+};
 </script>

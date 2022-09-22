@@ -38,12 +38,27 @@ const store = createStore(
         loading: false,
       },
 
-      // contests
+      // criterias state
       criterias: {
         loading: false,
         links: [],
         data: []
       },
+
+      // judges state
+      judges: {
+        loading: false,
+        links: [],
+        data: []
+      },
+
+      // contestants state
+      contestants: {
+        loading: false,
+        links: [],
+        data: []
+      },
+
       notification: {
         show: false,
         type: 'success',
@@ -228,6 +243,93 @@ const store = createStore(
         });
       },
 
+      // JUDGES
+      getJudges({ commit }, {url = null,id=null} = {}) {
+      commit('setJudgesLoading', true)
+      url = url || "/judges";
+      if(id) {
+        url = `/judges?id=${id}`;
+      }
+      return axiosClient.get(url).then((res) => {
+          commit('setJudgesLoading', false)
+          commit("setJudges", res.data);
+          return res;
+        });
+      },
+      saveJudges({ commit, dispatch }, judges) {
+        let response;
+          response = axiosClient.post("/judges", judges).then((res) => {
+            return res;
+          });
+        return response;
+      },
+      updateJudge({ commit, dispatch }, judge) {
+
+        let response;
+        if (judge.id) {
+          response = axiosClient
+            .put(`/judges/${judge.id}`, judge)
+            .then((res) => {
+              return res;
+            });
+        }
+
+
+        return response;
+      },
+
+      deleteJudge({ dispatch }, id) {
+        return axiosClient.delete(`/judges/${id}`).then((res) => {
+          dispatch('getJudges')
+          return res;
+        });
+      },
+
+      // CONTESTANTS
+      getContestants({ commit }, {url = null,id=null} = {}) {
+      commit('setContestantsLoading', true)
+      url = url || "/contestants";
+      if(id) {
+        url = `/contestants?id=${id}`;
+      }
+      return axiosClient.get(url).then((res) => {
+          commit('setContestantsLoading', false)
+          commit("setContestants", res.data);
+          return res;
+        });
+      },
+      saveContestants({ commit, dispatch }, contestants) {
+        let response;
+          response = axiosClient.post("/contestants", contestants).then((res) => {
+            return res;
+          });
+        return response;
+      }
+
+      ,
+      updateContestant({ commit, dispatch }, contestant) {
+
+        let response;
+        if (contestant.id) {
+          response = axiosClient
+            .put(`/contestants/${contestant.id}`, contestant)
+            .then((res) => {
+              return res;
+            });
+        }
+
+
+        return response;
+      },
+
+      deleteContestant({ dispatch }, id) {
+        return axiosClient.delete(`/contestants/${id}`).then((res) => {
+          console.log(res)
+          dispatch('getContestants')
+          return res;
+        });
+      },
+
     },
     mutations: {
 
@@ -283,6 +385,26 @@ const store = createStore(
         state.criterias.data = criterias.data;
       },
 
+      // SET JUDGES
+      setJudgesLoading: (state, loading) => {
+        state.judges.loading = loading;
+      },
+      setJudges: (state, judges) => {
+        state.judges.links = judges.meta.links;
+        state.judges.data = judges.data;
+      },
+
+       // SET CONTESTANTS
+      setContestantsLoading: (state, loading) => {
+        state.contestants.loading = loading;
+      },
+      setContestants: (state, contestants) => {
+        state.contestants.links = contestants.meta.links;
+        state.contestants.data = contestants.data;
+      },
+
+
+      // NOTIFICATION
       notify: (state, {message, type}) => {
         state.notification.show = true;
         state.notification.type = type;

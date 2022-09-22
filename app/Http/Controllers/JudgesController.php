@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Judges;
+use App\Http\Resources\JudgesResource;
 use App\Http\Requests\StoreJudgesRequest;
 use App\Http\Requests\UpdateJudgesRequest;
+use Illuminate\Http\Request;
 
 class JudgesController extends Controller
 {
@@ -13,9 +15,9 @@ class JudgesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return JudgesResource::collection(Judges::where('contest_id', $request['id'])->orderBy('order', 'ASC')->paginate(10));
     }
 
     /**
@@ -27,6 +29,20 @@ class JudgesController extends Controller
     public function store(StoreJudgesRequest $request)
     {
         //
+        $data = $request->all();
+        $judges = $data['judges'];
+        foreach ($judges as $key => $judge) {
+            // return $criteria;
+            Judges::create([
+                'uuid' =>  $judge['uuid'],
+                'judge_name'    =>  $judge['judge_name'],
+                'position'       =>  $judge['position'],
+                'contest_id'       =>  $judge['contest_id'],
+                'order'            => $judge['order']
+            ]);
+        }
+        // return json_decode($request);
+        // return SurveyQuestion::create($validator->validated());
     }
 
     /**
@@ -47,9 +63,15 @@ class JudgesController extends Controller
      * @param  \App\Models\Judges  $judges
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJudgesRequest $request, Judges $judges)
+    public function update(UpdateJudgesRequest $request, Judges $judge)
     {
         //
+        $data = $request->validated();
+
+        // Update survey in the database
+        $judge->update($data);
+
+        return new JudgesResource($judge);
     }
 
     /**
@@ -58,8 +80,16 @@ class JudgesController extends Controller
      * @param  \App\Models\Judges  $judges
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Judges $judges)
+    public function destroy(Judges $judge, Request $request)
     {
-        //
+
+        $user = $request->user();
+        if (!$user->id) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $judge->delete();
+
+        return response('', 204);
     }
 }

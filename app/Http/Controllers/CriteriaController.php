@@ -7,7 +7,6 @@ use App\Http\Resources\CriteriaResource;
 use App\Http\Requests\StoreCriteriaRequest;
 use App\Http\Requests\UpdateCriteriaRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class CriteriaController extends Controller
 {
@@ -18,8 +17,7 @@ class CriteriaController extends Controller
      */
     public function index(Request $request)
     {
-        return CriteriaResource::collection(Criteria::where('contest_id', $request['id'])->orderBy('order', 'ASC')->paginate(10)); //change created at to order
-        // return EventResource::collection(Event::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(10));
+        return CriteriaResource::collection(Criteria::where('contest_id', $request['id'])->orderBy('order', 'ASC')->paginate(10));
     }
 
     /**

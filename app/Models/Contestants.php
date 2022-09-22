@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Contestants extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['uuid', 'contestant_name', 'contest_id', 'order'];
 }

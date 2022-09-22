@@ -3,6 +3,7 @@
   <div class="modal">
     <div class="modal-box w-11/12 max-w-3xl relative" v-if="contest">
       <label
+        @click="resetModal()"
         for="criterias-modal"
         class="btn btn-sm btn-circle absolute right-2 top-2"
         >✕</label
@@ -46,12 +47,12 @@
               :key="index"
               v-show="editRow !== criteria.uuid"
             >
-              <th></th>
+              <th class="text-[10px] text-gray-500">{{ index + 1 }}.</th>
               <th class="text-[12px]">{{ criteria.criteria_name }}</th>
               <th class="text-[12px]">{{ criteria.percentage }}</th>
               <th class="text-[12px]">{{ criteria.order }}</th>
               <th>
-                <div v-if="!newForm">
+                <div v-if="!forUpdate && !newForm">
                   <button
                     @click="editCriteria(criteria)"
                     class="btn btn-ghost btn-xs text-[12px] text-orange-500 font-bold underline capitalize"
@@ -68,11 +69,7 @@
                 </div>
               </th>
             </tr>
-            <tr
-              v-if="criterias.length"
-              v-for="(criteria, index) in model.criterias"
-              :key="criteria.id"
-            >
+            <tr v-for="(criteria, index) in model.criterias" :key="criteria.id">
               <CriteriaEditor
                 :for-update="forUpdate"
                 :criteria="criteria"
@@ -94,7 +91,7 @@
       </div>
       <div
         class="py-4 flex justify-center gap-10 items-center"
-        v-if="formCount + 1 && !forUpdate"
+        v-if="!forUpdate"
       >
         <button
           @click="addCriteria()"
@@ -128,7 +125,6 @@ const props = defineProps({
 const newForm = ref(false);
 const forUpdate = ref(false);
 const editRow = ref();
-const formCount = ref(0);
 // watch if props has been updated
 watch(
   () => props.contest,
@@ -144,12 +140,14 @@ const model = ref({
   criterias: [],
 });
 
+const resetModal = () => {
+  model.value.criterias = [];
+};
 // Get criterias from store
 const isDataLoading = computed(() => store.state.criterias.loading);
 const criterias = computed(() => store.state.criterias.data);
 
 const addCriteria = (index) => {
-  formCount.value += 1;
   forUpdate.value = false;
   newForm.value = true;
   const newCriteria = {
@@ -166,13 +164,14 @@ const editCriteria = (c) => {
   forUpdate.value = true;
 
   const currentCriteria = {
+    id: c.id,
     uuid: c.uuid,
     order: c.order,
     percentage: c.percentage,
     contest_id: c.contest.id,
     criteria_name: c.criteria_name,
   };
-  console.log(c);
+  // console.log(c);
   model.value.criterias.push(currentCriteria);
 };
 
@@ -186,14 +185,12 @@ const criteriaChange = (criteria) => {
 };
 
 const deleteCriteria = (criteria) => {
-  console.log(formCount.value);
-  if (formCount.value && formCount.value !== 1) {
-    formCount.value -= 1;
-    newForm.value = false;
-  } else {
-    newForm.value = true;
-  }
+  newForm.value = true;
   model.value.criterias = model.value.criterias.filter((q) => q !== criteria);
+
+  if (!model.value.criterias.length) {
+    newForm.value = false;
+  }
 };
 
 const cancelUpdate = (criteria) => {
@@ -210,15 +207,15 @@ const deleteSavedCriteria = (criteria) => {
   ) {
     store.dispatch("deleteCriteria", criteria.id).then(() => {
       store.dispatch("getCriterias", { id: props.contest.id });
-      // criterias = criterias.filter((q) => q !== criteria);
     });
   }
 };
 
 const saveCriterias = () => {
-  const criterias = { ...model.value };
+  const _criterias = { ...model.value };
+
   store
-    .dispatch("saveCriterias", criterias)
+    .dispatch("saveCriterias", _criterias)
     .then(({ data }) => {
       model.value.criterias = [];
       store.dispatch("getCriterias", { id: props.contest.id });
@@ -226,6 +223,7 @@ const saveCriterias = () => {
         type: "success",
         message: "Data was successfully saved",
       });
+      newForm.value = false;
     })
     .catch((err) => {
       store.commit("notify", {
@@ -236,9 +234,12 @@ const saveCriterias = () => {
 };
 
 const updateCriteria = (criteria) => {
+  // console.log(criteria);
+  // return;
   store
     .dispatch("updateCriteria", criteria)
     .then(({ data }) => {
+      store.dispatch("getCriterias", { id: props.contest.id });
       store.commit("notify", {
         type: "success",
         message: "Contest data was successfully updated",

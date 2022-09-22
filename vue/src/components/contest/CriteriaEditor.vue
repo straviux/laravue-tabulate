@@ -35,7 +35,7 @@
       @click="deleteCriteria()"
       class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
     >
-      delete
+      cancel
     </button>
   </td>
   <td v-else>

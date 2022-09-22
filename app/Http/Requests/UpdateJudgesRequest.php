@@ -13,9 +13,15 @@ class UpdateJudgesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => $this->user()->id
+        ]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +30,11 @@ class UpdateJudgesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'uuid' => 'required|string|max:50',
+            'judge_name' => 'required|string|max:1000',
+            'contest_id' => 'exists:contests,id',
+            'position' => 'required|string',
+            'order' => 'nullable|numeric',
         ];
     }
 }

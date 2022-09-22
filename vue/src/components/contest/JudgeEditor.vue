@@ -1,56 +1,76 @@
 <template>
-  <td class="font-bold">{{ index + 1 }}</td>
+  <td class="font-bold"></td>
   <td>
     <input
       type="text"
-      :name="'data_1_' + model.data"
+      :name="'input_1_' + model.id"
       v-model="model.judge_name"
       @change="dataChange"
-      :id="'data_1_' + model.data"
+      :id="'input_1_' + model.id"
       class="mt-1 input input-bordered rounded-sm input-sm w-full shadow-sm sm:text-sm focus:outline-none px-2 py-1"
     />
   </td>
   <td>
     <input
       type="text"
-      :name="'data_2_' + model.id"
+      :name="'input_2_' + model.id"
       v-model="model.position"
       @change="dataChange"
-      :id="'data_2_' + model.id"
+      :id="'input_2_' + model.id"
       class="mt-1 input input-bordered rounded-sm input-sm max-w-[80px] shadow-sm sm:text-sm focus:outline-none px-2 py-1"
     />
   </td>
   <td>
     <input
       type="text"
-      :name="'data_3_' + model.id"
+      :name="'input_3_' + model.id"
       v-model="model.order"
       @change="dataChange"
-      :id="'data_3_' + model.id"
+      :id="'input_3_' + model.id"
       class="mt-1 input input-bordered rounded-sm input-sm max-w-[80px] shadow-sm sm:text-sm focus:outline-none px-2 py-1"
     />
   </td>
-  <td>
+  <td v-if="!forUpdate">
     <button
-      @click="removeItem()"
+      @click="deleteData()"
       class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
     >
-      delete
+      cancel
+    </button>
+  </td>
+  <td v-else>
+    <button
+      @click="updateData()"
+      class="btn btn-ghost btn-xs text-[12px] text-green-500 font-bold underline capitalize"
+    >
+      update
+    </button>
+    <button
+      @click="cancelUpdate()"
+      class="btn btn-ghost btn-xs text-[12px] text-red-500 font-bold underline capitalize"
+    >
+      cancel
     </button>
   </td>
 
-  <!-- Criterias index -->
+  <!-- judges index -->
 </template>
 <script setup>
 import { ref } from "@vue/reactivity";
 
 const props = defineProps({
-  __data: Object,
+  judge: Object,
   index: Number,
+  forUpdate: Boolean,
 });
 
-const emit = defineEmits(["change", "addItem", "removeItem"]);
-const model = ref(JSON.parse(JSON.stringify(props.__data)));
+const emit = defineEmits([
+  "change",
+  "deleteData",
+  "updateData",
+  "cancelUpdate",
+]);
+const model = ref(JSON.parse(JSON.stringify(props.judge)));
 
 // Emit the data change
 function dataChange() {
@@ -58,22 +78,16 @@ function dataChange() {
   emit("change", data);
 }
 
-function addItem() {
-  emit("addItem", props.index + 1);
+function deleteData() {
+  emit("deleteData", props.judge);
 }
 
-function removeItem() {
-  emit("removeItem", props.__data);
+function updateData() {
+  emit("updateData", props.judge);
 }
-// const addCriteria = (index) => {
-//   const newCriteria = {
-//     criteria: "",
-//     percentage: "",
-//     order: null,
-//   };
-
-//   model.value.criterias.splice(index, 0, newCriteria);
-// };
+function cancelUpdate() {
+  emit("cancelUpdate", props.judge);
+}
 </script>
 <style scoped>
 .input {
