@@ -10,6 +10,8 @@ import Event from "../views/Event.vue";
 import EventForm from "../components/event/EventForm.vue";
 import Contest from "../views/Contest.vue";
 import ContestForm from "../components/contest/ContestForm.vue";
+import Tabulate from "../views/Tabulate.vue";
+import Scoresheet from "../components/tabulate/Scoresheet.vue";
 const routes = [
   // Public links
   {
@@ -31,6 +33,10 @@ const routes = [
       {path: '/admin/contest', name: 'Contest', component: Contest},
       {path: '/admin/contest/create', name: 'AddContest', component: ContestForm},
       {path: '/admin/contest/:id', name: 'ContestView', component: ContestForm},
+
+      // SCORING ROUTE
+      {path: '/admin/tabulate', name: 'Tabulate', component: Tabulate},
+      {path: '/admin/tabulate/scoresheet/:contest_id/:judge_id', name: 'ScoresheetForm', component: Scoresheet},
       // END CONTEST ROUTE
     ]
   },

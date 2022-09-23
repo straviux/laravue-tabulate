@@ -103,7 +103,7 @@
         <button
           v-if="model.contestants.length"
           @click="saveContestants()"
-          class="btn btn-sm lg:btn-wide w-[150px] gap-1 uppercase shadow mt-4 rounded btn-success"
+          class="btn btn-sm lg:btn-wide w-[150px] bg-green-600 text-white gap-1 uppercase shadow mt-4 rounded btn-success"
         >
           <mdicon name="content-save" />Save
         </button>

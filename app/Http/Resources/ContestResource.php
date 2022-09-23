@@ -3,7 +3,9 @@
 namespace App\Http\Resources;
 
 use App\Models\Event;
-use App\Http\Resources\EventResource;
+use App\Models\Criteria;
+use App\Models\Contestants;
+use App\Models\Judges;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
@@ -27,6 +29,9 @@ class ContestResource extends JsonResource
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
             'contest_date' => Carbon::parse($this->contest_date)->format('Y-m-d H:i:s'),
+            'criterias' => Criteria::select(['id', 'criteria_name', 'percentage'])->where('contest_id', $this->id)->get(),
+            'judges' => Judges::select(['id', 'judge_name', 'position'])->where('contest_id', $this->id)->get(),
+            'contestants' => Contestants::select(['id', 'contestant_name'])->where('contest_id', $this->id)->get(),
         ];
     }
 }

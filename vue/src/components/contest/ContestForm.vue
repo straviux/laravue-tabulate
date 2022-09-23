@@ -6,7 +6,7 @@
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
           <div class="flex justify-between">
             <h1 class="text-xl uppercase mb-2">
-              {{ model.id ? model.name : "Add new Contest" }}
+              {{ model.id ? model.contest_name : "Add new Contest" }}
             </h1>
             <router-link
               :to="{ name: 'Contest' }"
@@ -81,12 +81,12 @@
           </div>
         </div>
 
-        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+        <div class="px-4 py-3 text-right sm:px-6 -mt-12">
           <button
             type="submit"
-            class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            class="btn bg-green-600 text-white gap-1 uppercase shadow mt-4 rounded btn-success"
           >
-            Save
+            Save <mdicon name="content-save" />
           </button>
         </div>
       </div>
@@ -118,7 +118,6 @@ const contestLoading = computed(() => store.state.currentContest.loading);
 
 store.dispatch("getEvents");
 
-//watch current news from store
 watch(
   () => store.state.currentContest.data,
   (newVal, oldVal) => {

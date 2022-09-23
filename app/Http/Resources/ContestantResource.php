@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use App\Models\Contest;
 
+use App\Models\Score;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContestantResource extends JsonResource
@@ -22,6 +24,7 @@ class ContestantResource extends JsonResource
             'contestant_name' => $this->contestant_name,
             'contest' => Contest::select(['contest_name', 'id'])->where('id', $this->contest_id)->first(),
             'order' => $this->order,
+            // 'scores' => Score::select(['id', 'score'])->where('contest_id', $this->id)->get(),
         ];
     }
 }

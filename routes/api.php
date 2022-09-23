@@ -28,6 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/contestants', \App\Http\Controllers\ContestantsController::class);
 });
 
-
+Route::get('/contest-by-event', [\App\Http\Controllers\ContestController::class, 'getByEvent']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

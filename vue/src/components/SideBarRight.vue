@@ -10,7 +10,7 @@
       </button>
     </div>
 
-    <div class="space-y-7">
+    <!-- <div class="space-y-7">
       <div class="flex justify-between">
         <h5 class="font-bold text-gray-600">Ranking</h5>
         <mdicon name="dots-vertical" />
@@ -31,6 +31,6 @@
           <p class="text-gray-500">{{ j * 5 }}</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Contest;
 use App\Http\Resources\ContestResource;
 use App\Http\Requests\StoreContestRequest;
@@ -27,6 +28,13 @@ class ContestController extends Controller
 
         return ContestResource::collection(Contest::orderBy('created_at', 'DESC')->paginate(10));
     }
+
+    public function getByEvent(Request $request)
+    {
+        return ContestResource::collection(Contest::where('event_id', $request['event_id'])->paginate());
+    }
+
+
 
     /**
      * Store a newly created resource in storage.

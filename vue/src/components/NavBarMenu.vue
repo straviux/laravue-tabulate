@@ -30,5 +30,10 @@ const items = [
     icon: "trophy-outline",
     to: { name: "Contest" },
   },
+  {
+    text: "Tabulate",
+    icon: "scoreboard-outline",
+    to: { name: "Tabulate" },
+  },
 ];
 </script>

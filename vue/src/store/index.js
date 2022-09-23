@@ -9,7 +9,7 @@ const store = createStore(
 
       user: {
         data: {},
-        token: sessionStorage.getItem('TOKEN')
+        token: localStorage.getItem('TOKEN')
       },
       dashboard: {
       loading: false,
@@ -161,6 +161,15 @@ const store = createStore(
             return res;
           });
         },
+      getContestsByEvent({ commit }, event_id) {
+        commit('setContestsLoading', true)
+        return axiosClient.get(`/contest-by-event?event_id=${event_id}`).then((res) => {
+            commit('setContestsLoading', false)
+            commit("setContests", res.data);
+            console.log(res.data);
+            return res;
+          });
+        },
       getContest({ commit }, id) {
         commit("setCurrentContestLoading", true);
         return axiosClient
@@ -293,6 +302,7 @@ const store = createStore(
         url = `/contestants?id=${id}`;
       }
       return axiosClient.get(url).then((res) => {
+        console.log(res);
           commit('setContestantsLoading', false)
           commit("setContestants", res.data);
           return res;
@@ -336,14 +346,14 @@ const store = createStore(
       logout: (state) => {
         state.user.token = null;
         state.user.data = {};
-        sessionStorage.removeItem('TOKEN')
+        localStorage.removeItem('TOKEN')
       },
       setUser: (state, user) => {
         state.user.data = user;
       },
       setToken: (state, token) => {
         state.user.token = token;
-        sessionStorage.setItem('TOKEN', token);
+        localStorage.setItem('TOKEN', token);
       },
 
       // SET EVENTS
