@@ -51,12 +51,27 @@ const store = createStore(
         links: [],
         data: []
       },
+      currentJudge: {
+        data: {},
+        loading: false,
+      },
 
       // contestants state
       contestants: {
         loading: false,
         links: [],
         data: []
+      },
+
+      //score
+      scores: {
+        loading: false,
+        links: [],
+        data: []
+      },
+      currentScore: {
+        data: {},
+        loading: false,
       },
 
       notification: {
@@ -265,6 +280,23 @@ const store = createStore(
           return res;
         });
       },
+
+      getJudge({ commit }, id) {
+        commit("setCurrentJudgeLoading", true);
+        return axiosClient
+          .get(`/judges/${id}`)
+          .then((res) => {
+            console.log(res)
+            commit("setCurrentJudge", res.data);
+            commit("setCurrentJudgeLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setCurrentJudgeLoading", false);
+            throw err;
+          });
+      },
+
       saveJudges({ commit, dispatch }, judges) {
         let response;
           response = axiosClient.post("/judges", judges).then((res) => {
@@ -340,6 +372,43 @@ const store = createStore(
         });
       },
 
+      // SCORE
+
+      getScore({ commit }, {judge_id = null,contestant_id=null}) {
+        commit("setCurrentScoreLoading", true);
+        return axiosClient
+          .get(`/score-by-judge-contestant?judge_id=${judge_id}&contestant_id=${contestant_id}`)
+          .then((res) => {
+            console.log(res.data);
+            commit("setCurrentScore", res.data);
+            commit("setCurrentScoreLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setCurrentScoreLoading", false);
+            throw err;
+          });
+      },
+      saveScore({ commit, dispatch }, score) {
+
+        let response;
+        if (score.id) {
+          response = axiosClient
+            .put(`/scores/${score.id}`, score)
+            .then((res) => {
+              commit('setCurrentScore', res.data)
+              return res;
+            });
+        } else {
+          response = axiosClient.post("/scores", score).then((res) => {
+            commit('setCurrentScore', res.data)
+            return res;
+          });
+        }
+
+        return response;
+      },
+
     },
     mutations: {
 
@@ -403,6 +472,12 @@ const store = createStore(
         state.judges.links = judges.meta.links;
         state.judges.data = judges.data;
       },
+      setCurrentJudgeLoading: (state, loading) => {
+        state.currentJudge.loading = loading;
+      },
+      setCurrentJudge: (state, judge) => {
+        state.currentJudge.data = judge.data;
+      },
 
        // SET CONTESTANTS
       setContestantsLoading: (state, loading) => {
@@ -413,6 +488,21 @@ const store = createStore(
         state.contestants.data = contestants.data;
       },
 
+      // SET SCORES
+      setScoresLoading: (state, loading) => {
+        state.scores.loading = loading;
+      },
+      setScores: (state, scores) => {
+        // state.scores.links = scores.meta.links;
+        state.scores.data = scores.data;
+      },
+       setCurrentScoreLoading: (state, loading) => {
+        state.currentScore.loading = loading;
+      },
+      setCurrentScore: (state, score) => {
+        state.currentScore.data = score.data;
+      },
+
 
       // NOTIFICATION
       notify: (state, {message, type}) => {
@@ -421,7 +511,7 @@ const store = createStore(
         state.notification.message = message;
         setTimeout(() => {
           state.notification.show = false;
-        }, 3000)
+        }, 3500)
       },
     },
     modules: {}
