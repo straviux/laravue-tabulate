@@ -20,6 +20,7 @@ class JudgesController extends Controller
         return JudgesResource::collection(Judges::where('contest_id', $request['id'])->orderBy('order', 'ASC')->paginate(10));
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,12 +49,17 @@ class JudgesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Judges  $judges
+     * @param \App\Models\Judges $judge
      * @return \Illuminate\Http\Response
      */
-    public function show(Judges $judges)
+    public function show(Judges $judge, Request $request)
     {
-        //
+        // $user = $request->user();
+        // if ($user->id !== $contest->user_id) {
+        //     return abort(403, 'Unauthorized action.');
+        // }
+
+        return new JudgesResource($judge);
     }
 
     /**

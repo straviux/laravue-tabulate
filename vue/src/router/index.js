@@ -35,8 +35,12 @@ const routes = [
       {path: '/admin/contest/:id', name: 'ContestView', component: ContestForm},
 
       // SCORING ROUTE
-      {path: '/admin/tabulate', name: 'Tabulate', component: Tabulate},
-      {path: '/admin/tabulate/scoresheet/:contest_id/:judge_id', name: 'ScoresheetForm', component: Scoresheet},
+      {path: '/admin/tabulate', name: 'Tabulate', component: Tabulate, children:[
+        {
+          path: 'scoresheet/:contest_id/:judge_id',name: 'ScoresheetForm', component: Scoresheet
+        }
+      ]},
+      // {path: '/admin/tabulate/scoresheet/:contest_id/:judge_id', name: 'ScoresheetForm', component: Scoresheet},
       // END CONTEST ROUTE
     ]
   },

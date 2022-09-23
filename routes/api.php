@@ -29,5 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/contest-by-event', [\App\Http\Controllers\ContestController::class, 'getByEvent']);
+Route::get('/score-by-judge-contestant', [\App\Http\Controllers\ScoreController::class, 'getByJudgeAndContestant']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Score;
+use App\Http\Resources\ScoreResource;
 use App\Http\Requests\StoreScoreRequest;
 use App\Http\Requests\UpdateScoreRequest;
+use Illuminate\Http\Request;
 
 class ScoreController extends Controller
 {
@@ -18,6 +20,11 @@ class ScoreController extends Controller
         //
     }
 
+
+    public function getByJudgeAndContestant(Request $request)
+    {
+        return ScoreResource::collection(Score::where('contestant_id', $request['contestant_id'])->where('judge_id', $request['judge_id'])->get());
+    }
     /**
      * Store a newly created resource in storage.
      *

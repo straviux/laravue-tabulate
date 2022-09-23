@@ -1,7 +1,8 @@
 <template>
   <div
     v-if="notification.show"
-    class="fixed w-[360px] right-4 top-4 py-4 px-6 text-white animate-fade-in-down text-[20px] rounded shadow-lg"
+    @click="notification.show = false"
+    class="fixed w-[360px] right-4 top-4 py-4 px-6 text-white animate-fade-in-down text-[20px] rounded shadow-lg z-50"
     :class="[notification.type === 'success' ? 'bg-emerald-500' : 'bg-red-500']"
   >
     <p class="drop-shadow flex items-top gap-2">

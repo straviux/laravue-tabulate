@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="route.name === 'Tabulate'">
     <Loader v-if="contestsLoading" :is-full-screen="true" />
     <div v-else class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
       <div class="shadow sm:overflow-hidden sm:rounded-md">
@@ -95,10 +95,11 @@
       </div>
     </div>
   </div>
+  <router-view></router-view>
 </template>
 <script setup>
 import { ref, watch, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { v4 as uuidv4 } from "uuid";
 import store from "../../store";
 import Loader from "../Loader.vue";
@@ -111,6 +112,7 @@ const model = ref({
 });
 
 const router = useRouter();
+const route = useRoute();
 const events = computed(() => store.state.events.data);
 const contestsLoading = computed(() => store.state.contests.loading);
 const contests = computed(() => store.state.contests.data);
