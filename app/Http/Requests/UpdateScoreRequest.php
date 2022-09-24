@@ -13,18 +13,30 @@ class UpdateScoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => $this->user()->id
+        ]);
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function rules()
     {
         return [
-            //
+            'uuid' => 'required|string|max:50',
+            'contest_id' => 'exists:contests,id',
+            'contestant_id' => 'exists:contestants,id',
+            'judge_id' => 'exists:judges,id',
+            'criteria_id' => 'exists:criterias,id',
+            'score' => 'nullable|numeric',
         ];
     }
 }

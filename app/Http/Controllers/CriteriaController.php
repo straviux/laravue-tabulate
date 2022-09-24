@@ -68,7 +68,7 @@ class CriteriaController extends Controller
         //
         $data = $request->validated();
 
-        // Update survey in the database
+        // Update criteria in the database
         $criteria->update($data);
 
         return new CriteriaResource($criteria);

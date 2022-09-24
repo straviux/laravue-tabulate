@@ -25,6 +25,8 @@ class ScoreController extends Controller
     {
         return ScoreResource::collection(Score::where('contestant_id', $request['contestant_id'])->where('judge_id', $request['judge_id'])->get());
     }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,7 +35,46 @@ class ScoreController extends Controller
      */
     public function store(StoreScoreRequest $request)
     {
-        //
+        $data = $request->all();
+        $scores = $data['scores'];
+        $contest_id = $data['contest_id'];
+        foreach ($scores as $key => $score) {
+            // return $criteria;
+            Score::create([
+                'uuid' => $score['uuid'],
+                'criteria_id'    =>  $score['criteria_id'],
+                'score'       =>  $score['score'],
+                'contest_id'       =>  $contest_id,
+                'contestant_id'            => $data['contestant_id'],
+                'judge_id'            => $data['judge_id']
+            ]);
+        }
+
+        return response($scores);
+    }
+
+    public function updateScores(UpdateScoreRequest $request, Score $score)
+    {
+        $data = $request->all();
+        $scores = $data['scores'];
+        return $data;
+        foreach ($scores as $key => $score) {
+            $s = [
+                "id" => $score['id'],
+                'uuid' => $score['uuid'],
+                'criteria_id'    =>  $score['criteria_id'],
+                'score'       =>  $score['score'],
+                'contest_id'       =>  $data['contest_id'],
+                'contestant_id'            => $data['contestant_id'],
+                'judge_id'            => $data['judge_id']
+            ];
+
+            $score->update($s);
+        }
+
+
+
+        return new ScoreResource($score);
     }
 
     /**
@@ -57,6 +98,26 @@ class ScoreController extends Controller
     public function update(UpdateScoreRequest $request, Score $score)
     {
         //
+        $data = $request->all();
+        $scores = $data['scores'];
+        return $data;
+        foreach ($scores as $key => $score) {
+            $s = [
+                "id" => $score['id'],
+                'uuid' => $score['uuid'],
+                'criteria_id'    =>  $score['criteria_id'],
+                'score'       =>  $score['score'],
+                'contest_id'       =>  $data['contest_id'],
+                'contestant_id'            => $data['contestant_id'],
+                'judge_id'            => $data['judge_id']
+            ];
+
+            $score->update($s);
+        }
+
+
+
+        return new ScoreResource($score);
     }
 
     /**

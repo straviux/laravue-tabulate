@@ -389,19 +389,20 @@ const store = createStore(
             throw err;
           });
       },
-      saveScore({ commit, dispatch }, score) {
+      saveScore({ commit, dispatch },  {scores = null,forUpdate=false}) {
 
         let response;
-        if (score.id) {
+        if (forUpdate) {
           response = axiosClient
-            .put(`/scores/${score.id}`, score)
+            .put(`/update-scores`, scores)
             .then((res) => {
               commit('setCurrentScore', res.data)
               return res;
             });
         } else {
-          response = axiosClient.post("/scores", score).then((res) => {
+          response = axiosClient.post("/scores", scores).then((res) => {
             commit('setCurrentScore', res.data)
+
             return res;
           });
         }

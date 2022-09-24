@@ -18,15 +18,18 @@ class ScoreResource extends JsonResource
      */
     public function toArray($request)
     {
-        $contest = Contest::select(['contest_name', 'id'])->where('id', $this->contest_id)->first();
-        $judge = Judges::select(['judge_name', 'id'])->where('id', $this->judge_id)->first();
-        $contestant = Contestants::select(['contestant_name', 'id'])->where('id', $this->contestant_id)->first();
-        $criteria = Criteria::select(['criteria_name', 'id'])->where('id', $this->criteria_id)->first();
+        $contest = Contest::select(['contest_name'])->where('id', $this->contest_id)->first();
+        $judge = Judges::select(['judge_name'])->where('id', $this->judge_id)->first();
+        $contestant = Contestants::select(['contestant_name'])->where('id', $this->contestant_id)->first();
+        $criteria = Criteria::select(['criteria_name', 'percentage'])->where('id', $this->criteria_id)->first();
         return [
             'id' => $this->id,
             'uuid' => $this->uuid,
             'score' => $this->score,
             'contestant_id' => $this->contestant_id,
+            'contest_id' => $this->contest_id,
+            'criteria_id' => $this->criteria_id,
+            'judge_id' => $this->judge_id,
             'contest' => $contest,
             'judge' => $judge,
             'contestant' => $contestant,

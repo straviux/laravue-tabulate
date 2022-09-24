@@ -18,6 +18,7 @@
         </div>
         <table class="table w-full">
           <tr
+            v-if="!score.length"
             v-for="(criteria, index) in criterias"
             :class="index !== criterias.length - 1 ? 'border-b' : ''"
           >
@@ -28,6 +29,26 @@
               @change="dataChange"
             />
           </tr>
+          <tr
+            v-else
+            v-for="(data, index) in score"
+            :class="index !== criterias.length - 1 ? 'border-b' : ''"
+          >
+            <!-- <pre>{{ data }}</pre> -->
+            <ScoreSheetEditor
+              :score="data.score"
+              :score_id="data.id"
+              :criteria="{
+                criteria_name: data.criteria.criteria_name,
+                criteria_id: data.criteria_id,
+                percentage: data.criteria.percentage,
+              }"
+              :contestant="contestant"
+              :index="index"
+              @change="dataChange"
+            />
+          </tr>
+          <!-- <pre>{{ score }}</pre> -->
         </table>
         <div
           class="modal-action flex items-center justify-between pt-6 border-t-8"
@@ -60,6 +81,7 @@
 <script setup>
 import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
+import { v4 as uuidv4 } from "uuid";
 import store from "../../store";
 import ScoreSheetEditor from "./ScoreSheetEditor.vue";
 const props = defineProps({
@@ -74,7 +96,7 @@ const route = useRoute();
 const judge_id = route.params.judge_id;
 const model = ref({ scoreSheet: [] });
 const score = computed(() => store.state.currentScore.data);
-
+model.value.forUpdate = false;
 watch(
   () => props.contestant,
   (newVal, oldVal) => {
@@ -93,10 +115,12 @@ watch(
 
 const dataChange = (data) => {
   let hasNewVal = false;
+  model.value.forUpdate = data.forUpdate;
   model.value.scoreSheet = model.value.scoreSheet.map((q) => {
     if (q.criteria_id === data.criteria.id) {
       hasNewVal = true;
       return {
+        uuid: q.uuid,
         criteria_id: data.criteria.id,
         score: data.score,
       };
@@ -107,6 +131,7 @@ const dataChange = (data) => {
     return;
   }
   const scoreSheet = {
+    uuid: uuidv4(),
     criteria_id: data.criteria.id,
     score: data.score,
   };
@@ -120,22 +145,26 @@ const saveScore = () => {
     judge_id: judge_id,
     scores: JSON.parse(JSON.stringify(model.value.scoreSheet)),
   };
-
+  console.log(contestantScore);
+  return;
   store
-    .dispatch("saveScore", contestantScore)
+    .dispatch("saveScore", {
+      scores: contestantScore,
+      forUpdate: model.value.forUpdate,
+    })
     .then(({ data }) => {
       model.value.criterias = [];
       store.dispatch("getScore", {
-        judge_id: props.judge_id.id,
+        judge_id: props.judge_id,
         contestant_id: props.contestant.id,
       });
       store.commit("notify", {
         type: "success",
         message: "Data was successfully saved",
       });
-      newForm.value = false;
     })
     .catch((err) => {
+      console.log(err);
       store.commit("notify", {
         type: "error",
         message: "Something went wrong, please try again or contact your admin",

@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/criterias', \App\Http\Controllers\CriteriaController::class);
     Route::resource('/judges', \App\Http\Controllers\JudgesController::class);
     Route::resource('/contestants', \App\Http\Controllers\ContestantsController::class);
+    Route::resource('/scores', \App\Http\Controllers\ScoreController::class);
+    Route::put('/update-scores', [\App\Http\Controllers\ScoreController::class, 'updateScores']);
 });
 
 Route::get('/contest-by-event', [\App\Http\Controllers\ContestController::class, 'getByEvent']);

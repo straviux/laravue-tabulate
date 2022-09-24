@@ -22,10 +22,12 @@
   </td>
 </template>
 <script setup>
-import { ref } from "@vue/reactivity";
+import { ref, watch } from "vue";
 import store from "../../store";
 
 const props = defineProps({
+  score_id: Number,
+  score: Number,
   criteria: Object,
   contestant: Object,
   index: Number,
@@ -33,7 +35,11 @@ const props = defineProps({
 
 const emit = defineEmits(["change"]);
 const model = ref(JSON.parse(JSON.stringify(props)));
-model.value.score = 0;
+model.value.forUpdate = false;
+model.value.score = model.value.score || 0;
+if (model.value.score_id > 0) {
+  model.value.forUpdate = true;
+}
 
 const getInput = (maxInput) => {
   if (model.value.score > maxInput) {
@@ -42,12 +48,15 @@ const getInput = (maxInput) => {
       message:
         "You have exceeded maximum value for this criteria, Please try again",
     });
-    model.value.score = 0;
+    model.value.score = "";
   }
   return;
 };
+
+console.log(model.value);
 // Emit the data change
 function dataChange() {
+  console.log(model.value);
   const data = model.value;
   emit("change", data);
 }
