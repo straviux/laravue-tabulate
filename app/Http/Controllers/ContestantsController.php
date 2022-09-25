@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contestants;
+use App\Models\Score;
 use App\Http\Resources\ContestantResource;
 use App\Http\Requests\StoreContestantsRequest;
 use App\Http\Requests\UpdateContestantsRequest;
@@ -19,6 +20,52 @@ class ContestantsController extends Controller
     {
         return ContestantResource::collection(Contestants::where('contest_id', $request['id'])->orderBy('order', 'ASC')->paginate(10));
     }
+
+
+
+    public function getByJudge(Request $request)
+    {
+        $contestants = Contestants::select(['contestants.id', 'contestants.order', 'contestants.contestant_name'])->where('contestants.contest_id', $request['contest_id'])->orderBy('contestants.order', 'ASC')->get();
+
+        $scores = Score::select(['scores.score', 'scores.id', 'scores.uuid', 'contestants.id as contestant_id', 'criterias.criteria_name', 'criterias.id as criteria_id', 'criterias.percentage'])->where('scores.judge_id', $request['judge_id'])->join('contestants', 'contestants.id', '=', 'scores.contestant_id')->join('criterias', 'criterias.id', '=', 'scores.criteria_id')->orderBy('contestants.order', 'ASC')->get();
+
+
+        $arr = [];
+        $i = 0;
+        foreach ($contestants as $key => $val) {
+            $arr[$i] = [
+                'contestant_name' => $val['contestant_name'],
+                'contestant_id' => $val['id'],
+                'order' => $val['order'],
+                'scores' => [],
+                'total' => 0,
+            ];
+            foreach ($scores as $key => $v) {
+                if ($val['id'] === $v['contestant_id']) {
+                    $arr[$i]['scores'][] =  [
+                        'score_id' => $v['id'],
+                        'uuid' => $v['uuid'],
+                        'score' => $v['score'],
+                        'criteria_name' => $v['criteria_name'],
+                        'criteria_percentage' => $v['percentage'],
+                        'criteria_id' => $v['criteria_id'],
+                    ];
+                    $arr[$i]['total'] += $v['score'];
+                }
+            }
+            $i++;
+        }
+        array_multisort(array_column($arr, "total"), SORT_DESC, $arr);
+
+        // RANK TOTAL
+        $i = 0;
+        foreach ($arr as $key) {
+            $arr[$i]['rank'] = $i + 1;
+            $i++;
+        }
+        return response($arr);
+    }
+
 
     /**
      * Store a newly created resource in storage.
