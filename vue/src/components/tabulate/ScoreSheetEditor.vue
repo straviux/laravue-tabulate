@@ -33,12 +33,15 @@ const props = defineProps({
   index: Number,
 });
 
-const emit = defineEmits(["change"]);
+const emit = defineEmits(["change", "getCurrentScore"]);
 const model = ref(JSON.parse(JSON.stringify(props)));
 model.value.forUpdate = false;
 model.value.score = model.value.score || 0;
-if (model.value.score_id > 0) {
+
+if (model.value.score_id !== null) {
   model.value.forUpdate = true;
+  const data = model.value;
+  emit("getCurrentScore", data);
 }
 
 const getInput = (maxInput) => {
@@ -50,13 +53,12 @@ const getInput = (maxInput) => {
     });
     model.value.score = "";
   }
+
   return;
 };
 
-console.log(model.value);
 // Emit the data change
 function dataChange() {
-  console.log(model.value);
   const data = model.value;
   emit("change", data);
 }

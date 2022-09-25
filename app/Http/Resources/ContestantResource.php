@@ -24,7 +24,7 @@ class ContestantResource extends JsonResource
             'contestant_name' => $this->contestant_name,
             'contest' => Contest::select(['contest_name', 'id'])->where('id', $this->contest_id)->first(),
             'order' => $this->order,
-            // 'scores' => Score::select(['id', 'score'])->where('contest_id', $this->id)->get(),
+            'scores' => Score::select(['id', 'score'])->where('contestant_id', $this->id)->where('judge_id', $this->judge_id)->get(),
         ];
     }
 }

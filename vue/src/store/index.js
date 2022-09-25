@@ -86,7 +86,6 @@ const store = createStore(
       getUser({commit}) {
         return axiosClient.get('/user')
           .then(res => {
-            // console.log(res);
             commit('setUser', res.data)
           })
       },
@@ -119,7 +118,6 @@ const store = createStore(
       return axiosClient.get(url).then((res) => {
           commit('setEventsLoading', false)
           commit("setEvents", res.data);
-          // console.log(res.data);
           return res;
         });
       },
@@ -172,7 +170,6 @@ const store = createStore(
         return axiosClient.get(url).then((res) => {
             commit('setContestsLoading', false)
             commit("setContests", res.data);
-            console.log(res.data);
             return res;
           });
         },
@@ -181,7 +178,6 @@ const store = createStore(
         return axiosClient.get(`/contest-by-event?event_id=${event_id}`).then((res) => {
             commit('setContestsLoading', false)
             commit("setContests", res.data);
-            console.log(res.data);
             return res;
           });
         },
@@ -286,7 +282,6 @@ const store = createStore(
         return axiosClient
           .get(`/judges/${id}`)
           .then((res) => {
-            console.log(res)
             commit("setCurrentJudge", res.data);
             commit("setCurrentJudgeLoading", false);
             return res;
@@ -334,9 +329,20 @@ const store = createStore(
         url = `/contestants?id=${id}`;
       }
       return axiosClient.get(url).then((res) => {
-        console.log(res);
           commit('setContestantsLoading', false)
           commit("setContestants", res.data);
+          return res;
+        });
+      },
+      // CONTESTANTS
+      getContestantsByJudge({ commit }, {contest_id=null,judge_id=null} = {}) {
+      commit('setContestantsLoading', true)
+
+      let url = `/contestants-by-judge?contest_id=${contest_id}&judge_id=${judge_id}`;
+
+      return axiosClient.get(url).then((res) => {
+          commit('setContestantsLoading', false)
+          commit("setContestants", res);
           return res;
         });
       },
@@ -366,7 +372,6 @@ const store = createStore(
 
       deleteContestant({ dispatch }, id) {
         return axiosClient.delete(`/contestants/${id}`).then((res) => {
-          console.log(res)
           dispatch('getContestants')
           return res;
         });
@@ -389,6 +394,23 @@ const store = createStore(
             throw err;
           });
       },
+
+      getScoresByJudge({ commit }, {judge_id = null}) {
+        commit("setScoresLoading", true);
+        return axiosClient
+          .get(`/score-by-judge?judge_id=${judge_id}`)
+          .then((res) => {
+            // console.log(res.data)
+            commit("setScores", res.data);
+            commit("setScoresLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setScoresLoading", false);
+            throw err;
+          });
+      },
+
       saveScore({ commit, dispatch },  {scores = null,forUpdate=false}) {
 
         let response;
@@ -402,7 +424,6 @@ const store = createStore(
         } else {
           response = axiosClient.post("/scores", scores).then((res) => {
             commit('setCurrentScore', res.data)
-
             return res;
           });
         }
@@ -485,7 +506,6 @@ const store = createStore(
         state.contestants.loading = loading;
       },
       setContestants: (state, contestants) => {
-        state.contestants.links = contestants.meta.links;
         state.contestants.data = contestants.data;
       },
 
@@ -495,7 +515,8 @@ const store = createStore(
       },
       setScores: (state, scores) => {
         // state.scores.links = scores.meta.links;
-        state.scores.data = scores.data;
+        // console.log(scores)
+        state.scores.data = scores;
       },
        setCurrentScoreLoading: (state, loading) => {
         state.currentScore.loading = loading;

@@ -23,6 +23,7 @@
         >
       </div>
     </div>
+    <!-- <pre>{{ jscores }}</pre> -->
     <div class="overflow-x-auto w-full shadow rounded-lg">
       <table class="table w-full">
         <!-- head -->
@@ -36,11 +37,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(contestant, index) in contestants" :key="index">
+          <tr
+            v-for="(contestant, index) in contestants.sort(orderBy('order'))"
+            :key="index + 10"
+          >
             <td class="font-mono">{{ contestant.order }}</td>
             <td class="text-lg font-mono">{{ contestant.contestant_name }}</td>
-            <td class="font-mono font-bold text-lg">2</td>
-            <td class="font-mono font-bold text-lg">42</td>
+            <td class="font-mono font-bold text-lg">
+              {{ contestant.total || 0 }}
+            </td>
+            <td class="font-mono font-bold text-lg">
+              {{ contestant.rank || `N/A` }}
+            </td>
+            <td>
+              <div>
+                <label
+                  for="scoresheet-modal"
+                  @click="openModal(contestant)"
+                  class="font-mono btn btn-ghost btn-xs text-[16px] text-orange-500 font-bold underline capitaliz"
+                  >Score</label
+                >
+              </div>
+            </td>
+          </tr>
+          <!-- <tr v-else v-for="(contestant, index) in contestants" :key="index">
+            <td class="font-mono">{{ contestant.order }}</td>
+            <td class="text-lg font-mono">{{ contestant.contestant_name }}</td>
+            <td class="font-mono font-bold text-lg">0</td>
+            <td class="font-mono font-bold text-lg">N/A</td>
             <td>
               <div>
                 <label
@@ -51,16 +75,19 @@
                 >
               </div>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
   </div>
+  <!-- <pre>{{ scores }}</pre> -->
   <ScoresheetModal
     :contestants="contestants"
     :criterias="criterias"
     :contestant="model.contestant"
-    :index="parseInt(judge_id)"
+    @changeContestant="changeContestant"
+    @closeModal="refreshData"
+    @refreshData="refreshData"
   />
 </template>
 <script setup>
@@ -78,7 +105,46 @@ const judge = computed(() => store.state.currentJudge.data);
 const model = ref({});
 const currentJudgeLoading = computed(() => store.state.currentJudge.loading);
 const criterias = computed(() => store.state.criterias.data);
+
+const orderBy = (property) => {
+  var sortOrder = 1;
+  if (property[0] === "-") {
+    sortOrder = -1;
+    property = property.substr(1);
+  }
+  return function (a, b) {
+    /* next line works with strings and numbers,
+     * and you may want to customize it to your needs
+     */
+    var result =
+      a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+    return result * sortOrder;
+  };
+};
 store.dispatch("getCriterias", { id: contest_id });
-store.dispatch("getContestants", { id: contest_id });
+store.dispatch("getContestantsByJudge", {
+  contest_id: contest_id,
+  judge_id: judge_id,
+});
 store.dispatch("getJudge", judge_id);
+watch(
+  () => store.state.contestants.data,
+  (newVal, oldVal) => {
+    model.value.contestants = newVal;
+  }
+);
+const openModal = (contestant) => {
+  model.value.contestant = contestant;
+};
+const refreshData = () => {
+  store.dispatch("getContestantsByJudge", {
+    contest_id: contest_id,
+    judge_id: judge_id,
+  });
+};
+
+const changeContestant = (data) => {
+  console.log(data);
+  model.value.contestant = data;
+};
 </script>

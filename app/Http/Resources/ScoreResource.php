@@ -20,7 +20,7 @@ class ScoreResource extends JsonResource
     {
         $contest = Contest::select(['contest_name'])->where('id', $this->contest_id)->first();
         $judge = Judges::select(['judge_name'])->where('id', $this->judge_id)->first();
-        $contestant = Contestants::select(['contestant_name'])->where('id', $this->contestant_id)->first();
+        $contestant = Contestants::select(['contestant_name', 'order'])->where('id', $this->contestant_id)->first();
         $criteria = Criteria::select(['criteria_name', 'percentage'])->where('id', $this->criteria_id)->first();
         return [
             'id' => $this->id,

@@ -31,7 +31,6 @@ class UpdateScoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'uuid' => 'required|string|max:50',
             'contest_id' => 'exists:contests,id',
             'contestant_id' => 'exists:contestants,id',
             'judge_id' => 'exists:judges,id',
