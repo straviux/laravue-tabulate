@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/score-by-judge-contestant', [\App\Http\Controllers\ScoreController::class, 'getByJudgeAndContestant']);
     Route::get('/score-by-judge', [\App\Http\Controllers\ScoreController::class, 'getByJudge']);
     Route::get('/contestants-by-judge', [\App\Http\Controllers\ContestantsController::class, 'getByJudge']);
+    Route::get('/finalresult', [\App\Http\Controllers\ScoreController::class, 'getFinalResult']);
 });
 
 

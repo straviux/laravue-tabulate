@@ -17,7 +17,7 @@
       @focusout="model.score == '' ? (model.score = 0) : null"
       v-model="model.score"
       type="text"
-      class="mt-1 input input-bordered text-2xl input-sm text-center rounded-sm w-[75px] h-[40px] focus:outline-none"
+      class="mt-1 input input-bordered text-2xl input-sm text-center border-emerald-500 rounded-sm w-[75px] h-[40px] focus:outline-none"
     />
   </td>
 </template>

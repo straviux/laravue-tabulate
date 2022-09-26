@@ -144,7 +144,10 @@ const refreshData = () => {
 };
 
 const changeContestant = (data) => {
-  console.log(data);
+  store.dispatch("getContestantsByJudge", {
+    contest_id: contest_id,
+    judge_id: judge_id,
+  });
   model.value.contestant = data;
 };
 </script>

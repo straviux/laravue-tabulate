@@ -12,6 +12,7 @@ import Contest from "../views/Contest.vue";
 import ContestForm from "../components/contest/ContestForm.vue";
 import Tabulate from "../views/Tabulate.vue";
 import Scoresheet from "../components/tabulate/Scoresheet.vue";
+import FinalResult from "../views/FinalResult.vue";
 const routes = [
   // Public links
   {
@@ -40,8 +41,9 @@ const routes = [
           path: 'scoresheet/:contest_id/:judge_id',name: 'ScoresheetForm', component: Scoresheet
         }
       ]},
-      // {path: '/admin/tabulate/scoresheet/:contest_id/:judge_id', name: 'ScoresheetForm', component: Scoresheet},
-      // END CONTEST ROUTE
+
+      {path: '/admin/finalresult', name: 'FinalResult', component: FinalResult},
+
     ]
   },
 

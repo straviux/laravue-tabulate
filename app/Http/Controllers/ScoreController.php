@@ -8,6 +8,7 @@ use App\Http\Resources\ScoreResource;
 use App\Http\Resources\JudgeScoreResource;
 use App\Http\Requests\StoreScoreRequest;
 use App\Http\Requests\UpdateScoreRequest;
+use App\Models\Judges;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
@@ -20,6 +21,76 @@ class ScoreController extends Controller
     public function index()
     {
         //
+    }
+
+    public function getFinalResult(Request $request)
+    {
+
+        $contest_id = $request['contest_id'];
+
+        $scores = Score::select(
+            'judges.judge_name',
+            'contestants.contestant_name',
+            'contestants.id as contestant_id',
+            'scores.judge_id as judge_id',
+            Score::raw('SUM(scores.score) as total')
+        )->where('scores.contest_id', $contest_id)->leftJoin('contestants', 'contestants.id', '=', 'scores.contestant_id')->leftJoin('judges', 'judges.id', '=', 'scores.judge_id')->groupBy('contestant_id', 'judge_id')->get();
+
+        $judges = Judges::where('contest_id', $contest_id)->orderBy('order', 'ASC')->get();
+
+        $contestants = [];
+        $judges_arr = [];
+        $scores_arr  = [];
+
+        $j = 0;
+        foreach ($judges as $key => $val) {
+            $judges_arr[$j] = $val;
+            $j++;
+        }
+        $i = 0;
+        foreach ($judges_arr as $val) {
+            foreach ($scores as $key => &$entry) {
+                $contestants[$i] = [
+                    'contestant' => $entry['contestant_name'],
+                    'contestant_id' => $entry['contestant_id']
+                ];
+                if ($val['id'] == $entry['judge_id']) {
+                    // get contestants
+                    $scores_arr[$i] = [
+                        'contestant_id' => $entry['contestant_id'],
+                        'judge_id' => $entry['judge_id'],
+                        'judge_name' => $entry['judge_name'],
+                        'total' => $entry['total']
+                    ];
+                }
+                $i++;
+            }
+        }
+        $contestants = array_values(array_unique($contestants, SORT_REGULAR));
+
+        $idx = 0;
+        foreach ($contestants as $c) {
+            $grand_total = 0;
+            foreach ($scores_arr as $score) {
+                if ($score['contestant_id'] == $c['contestant_id']) {
+                    $contestants[$idx]['scores'][] = $score;
+                    $grand_total += $score['total'];
+                }
+            }
+            $contestants[$idx]['grand_total'] = $grand_total / count($judges_arr);
+            $idx++;
+        }
+
+        array_multisort(array_column($contestants, "grand_total"), SORT_DESC, $contestants);
+
+        // RANK TOTAL
+        $i = 0;
+        foreach ($contestants as $key) {
+            $contestants[$i]['rank'] = $i + 1;
+            $i++;
+        }
+
+        return response($contestants);
     }
 
 
@@ -51,7 +122,7 @@ class ScoreController extends Controller
             $temp[$key]['total'] = 0;
 
             foreach ($entry as $k) {
-                $temp[$key]['total'] += +$k['score'];
+                $temp[$key]['total'] += $k['score'];
                 $arr[$i] = [
                     'total' => $temp[$key]['total'],
                     'contestant_name' => $k['contestant_name'],
@@ -82,7 +153,7 @@ class ScoreController extends Controller
         // return ScoreResource::collection(Score::where('contestant_id', $request['contestant_id'])->where('judge_id', $request['judge_id'])->get());
         $contestants = Contestants::select(['contestants.id', 'contestants.order', 'contestants.contestant_name'])->where('contestants.id', $request['contestant_id'])->orderBy('contestants.order', 'ASC')->get();
 
-        $scores = Score::select(['scores.score', 'scores.id', 'scores.uuid', 'contestants.id as contestant_id', 'criterias.criteria_name', 'criterias.id as criteria_id', 'criterias.percentage'])->where('scores.judge_id', $request['judge_id'])->join('contestants', 'contestants.id', '=', 'scores.contestant_id')->join('criterias', 'criterias.id', '=', 'scores.criteria_id')->orderBy('contestants.order', 'ASC')->get();
+        $scores = Score::select(['scores.score', 'scores.id', 'criterias.order', 'scores.uuid', 'contestants.id as contestant_id', 'criterias.criteria_name', 'criterias.id as criteria_id', 'criterias.percentage'])->where('scores.judge_id', $request['judge_id'])->join('contestants', 'contestants.id', '=', 'scores.contestant_id')->join('criterias', 'criterias.id', '=', 'scores.criteria_id')->orderBy('criterias.order', 'ASC')->get();
 
 
         $arr = [];
@@ -101,6 +172,7 @@ class ScoreController extends Controller
                         'score_id' => $v['id'],
                         'uuid' => $v['uuid'],
                         'score' => $v['score'],
+                        'criteria_order' => $v['order'],
                         'criteria_name' => $v['criteria_name'],
                         'criteria_percentage' => $v['percentage'],
                         'criteria_id' => $v['criteria_id'],

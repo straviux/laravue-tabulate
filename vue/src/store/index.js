@@ -74,6 +74,12 @@ const store = createStore(
         loading: false,
       },
 
+      results: {
+        loading: false,
+        links: [],
+        data: []
+      },
+
       notification: {
         show: false,
         type: 'success',
@@ -384,7 +390,7 @@ const store = createStore(
         return axiosClient
           .get(`/score-by-judge-contestant?judge_id=${judge_id}&contestant_id=${contestant_id}`)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             commit("setCurrentScore", res.data);
             commit("setCurrentScoreLoading", false);
             return res;
@@ -429,6 +435,22 @@ const store = createStore(
         }
 
         return response;
+      },
+
+       getFinalResult({ commit }, contest_id) {
+        commit("setScoresLoading", true);
+        return axiosClient
+          .get(`/finalresult?contest_id=${contest_id}`)
+          .then((res) => {
+            // console.log(res)
+            commit("setFinalResult", res.data);
+            commit("setFinalResultLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setFinalResultLoading", false);
+            throw err;
+          });
       },
 
     },
@@ -523,6 +545,15 @@ const store = createStore(
       },
       setCurrentScore: (state, score) => {
         state.currentScore.data = score.data;
+      },
+
+      setFinalResult: (state, scores) => {
+        // state.scores.links = scores.meta.links;
+        // console.log(scores)
+        state.results.data = scores;
+      },
+       setFinalResultLoading: (state, loading) => {
+        state.results.loading = loading;
       },
 
 

@@ -35,5 +35,10 @@ const items = [
     icon: "scoreboard-outline",
     to: { name: "Tabulate" },
   },
+  {
+    text: "Final Result",
+    icon: "family-tree",
+    to: { name: "FinalResult" },
+  },
 ];
 </script>
