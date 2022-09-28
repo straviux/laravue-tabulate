@@ -90,7 +90,7 @@
             class="modal-action flex items-center justify-between pt-6 border-t-8"
           >
             <div class="space-x-3 flex items-center">
-              <button
+              <!-- <button
                 @click.prevent="prevContestant()"
                 class="btn rounded btn-outline btn-sm gap-2 text-[12px] w-[106px]"
               >
@@ -101,7 +101,7 @@
                 class="btn rounded btn-outline btn-sm gap-2 text-[12px] w-[106px]"
               >
                 Next<mdicon name="arrow-right" width="16" />
-              </button>
+              </button> -->
             </div>
             <div class="flex items-center">
               <button

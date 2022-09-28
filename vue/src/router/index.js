@@ -94,10 +94,11 @@ const routes = [
     path: '/404',
     name: 'NotFound',
     component: NotFound
-  }
+  },
 ];
 
 const router = createRouter( {
+  // history: createWebHistory('/web'),
   history: createWebHistory(),
   routes
 })
