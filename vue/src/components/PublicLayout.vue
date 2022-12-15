@@ -2,7 +2,10 @@
   <div v-if="route.name === 'ShowTabulate'">
     <Loader v-if="contestsLoading" :is-full-screen="true" />
     <div v-else class="mt-5 md:col-span-2 md:mt-0 w-full md:w-[500px] mx-auto">
-      <div class="shadow sm:overflow-hidden sm:rounded-md">
+      <h1 class="mt-12 text-3xl uppercase font-semibold text-gray-600">
+        Tabulating System
+      </h1>
+      <div class="mt-8 shadow sm:overflow-hidden sm:rounded-md">
         <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
           <div class="flex justify-between">
             <h1 class="text-xl uppercase mb-2">Generate Scoresheet</h1>
@@ -96,9 +99,6 @@
     </div>
   </div>
   <div class="max-w-5xl mx-auto py-12">
-    <h1 class="text-3xl uppercase font-semibold text-gray-600">
-      Tabulating System
-    </h1>
     <router-view></router-view>
   </div>
   <Notification class="z-30" />

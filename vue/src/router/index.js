@@ -18,7 +18,7 @@ const routes = [
   // Public links
   {
     path: '/',
-    redirect: '/admin/dashboard',
+    redirect: '/admin/event',
     meta: { requiresAuth: true },
     name:  'Admin',
     component: DefaultLayout,

@@ -1,7 +1,10 @@
 <template>
   <Loader v-if="currentJudgeLoading" />
   <div v-else class="bg-white p-4 rounded-lg">
-    <div class="flex flex-col justify-start gap-2">
+    <h1 class="text-3xl uppercase font-semibold text-gray-600">
+      Tabulating System
+    </h1>
+    <div class="mt-8 flex flex-col justify-start gap-2">
       <div class="text-sm breadcrumbs">
         <ul>
           <li>

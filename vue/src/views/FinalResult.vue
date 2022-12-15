@@ -72,7 +72,7 @@
             <td class="text-[18px] font-semibold" v-for="(d, i) in data.scores">
               {{ d.total }}
             </td>
-            <td class="font-bold">{{ data.grand_total }}</td>
+            <td class="font-bold">{{ data.grand_total.toFixed(2) }}</td>
             <td class="font-bold">{{ data.rank }}</td>
           </tr>
         </tbody>

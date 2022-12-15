@@ -1,5 +1,5 @@
 <template>
-  <div
+  <!-- <div
     class="flex p-2 my-4 bg-white rounded-lg shadow space-x-4 items-center justify-between"
   >
     <div class="flex gap-3 items-center">
@@ -80,17 +80,13 @@
         </div>
       </form>
     </div>
-  </div>
+  </div> -->
   <div class="overflow-x-auto w-full shadow rounded-lg">
     <table class="table w-full">
       <!-- head -->
       <thead>
         <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
+          <th>#</th>
           <th>Event</th>
           <th>Contest</th>
           <th>Date</th>
@@ -100,10 +96,8 @@
       <tbody>
         <!-- row 1 -->
         <tr v-for="(item, index) in contests" :key="index">
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
+          <th class="text-[11px] text-gray-600">
+            {{ index + 1 }}
           </th>
           <td>
             <span class="text-sm font-bold">{{ item.event.event_name }}</span>
@@ -149,20 +143,6 @@
           </th>
         </tr>
       </tbody>
-      <!-- foot -->
-      <tfoot>
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
-          <th>Event</th>
-          <th>Contest</th>
-          <th>Date</th>
-          <th></th>
-        </tr>
-      </tfoot>
     </table>
 
     <!-- CRITERIAS MODAL -->
