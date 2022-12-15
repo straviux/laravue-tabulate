@@ -1,5 +1,5 @@
 <template>
-  <div v-if="contestant" class="z-20">
+  <div v-if="contestant" class="relative z-20">
     <input
       type="checkbox"
       id="scoresheet-modal"
@@ -153,7 +153,6 @@ watch(
   () => props.contestant,
   (newVal, oldVal) => {
     model.value.contestant = newVal;
-    console.log(newVal);
   }
 );
 watch(
@@ -264,7 +263,6 @@ const saveScore = (event) => {
   event.preventDefault();
   const form = document.getElementById("score-sheet");
   for (const element of form.elements) {
-    console.log(element.value);
     if (element.type === "text") {
       if (!element.value || element.value == 0) {
         store.commit("notify", {
@@ -275,7 +273,6 @@ const saveScore = (event) => {
       }
     }
   }
-  console.log(model.value.forUpdate);
   const contestantScore = {
     contestant_id: props.contestant.contestant_id,
     contest_id: contest_id,

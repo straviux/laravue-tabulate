@@ -17,12 +17,12 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const items = [
-  { text: "Dashboard", icon: "view-dashboard", to: { name: "Dashboard" } },
-  {
-    text: "Users",
-    icon: "account-group-outline",
-    to: { name: "Users" },
-  },
+  // { text: "Dashboard", icon: "view-dashboard", to: { name: "Dashboard" } },
+  // {
+  //   text: "Users",
+  //   icon: "account-group-outline",
+  //   to: { name: "Users" },
+  // },
   {
     text: "Event",
     icon: "gitlab",

@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import DefaultLayout from "../components/DefaultLayout.vue";
+import PublicLayout from "../components/PublicLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import Dashboard from "../views/Dashboard.vue";
 import NotFound from "../views/NotFound.vue";
@@ -42,10 +43,16 @@ const routes = [
         }
       ]},
 
+
       {path: '/admin/finalresult', name: 'FinalResult', component: FinalResult},
 
     ]
   },
+  {path: '/tabulate', name: 'ShowTabulate', component: PublicLayout, children:[
+        {
+          path: 'scoresheet/:contest_id/:judge_id',name: 'PublicScoresheetForm', component: Scoresheet
+        }
+      ]},
 
   // Authorization
   {
