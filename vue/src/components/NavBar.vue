@@ -21,7 +21,7 @@
     <div class="col-span-12 hidden lg:block">
       <div class="relative w-full h-24 flex flex-col items-center gap-4">
         <img
-          src="https://placeimg.com/200/200/animals"
+          src="../assets/img/gitlab-account.png"
           alt="Profile"
           class="w-24 h-24 rounded-full"
         />

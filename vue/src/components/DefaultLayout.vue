@@ -10,9 +10,9 @@
       <main-content class="flex-1" />
     </div>
 
-    <div class="hidden xl:col-span-2 xl:block">
+    <!-- <div class="hidden xl:col-span-2 xl:block">
       <side-bar-right class="p-10" />
-    </div>
+    </div> -->
   </div>
   <Notification />
 </template>
