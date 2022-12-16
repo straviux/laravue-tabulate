@@ -96,7 +96,7 @@
 <script setup>
 import { ref, watch, computed } from "vue";
 import store from "../../store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
@@ -105,6 +105,7 @@ import { v4 as uuidv4 } from "uuid";
 // import router from "../../../router";
 
 const route = useRoute();
+const router = useRouter();
 let model = ref({
   uuid: "",
   contest_name: "",
@@ -153,6 +154,9 @@ const saveContest = () => {
       store.commit("notify", {
         type: "success",
         message: "Contest data was successfully " + action,
+      });
+      router.push({
+        name: "Contest",
       });
     })
     .catch((err) => {

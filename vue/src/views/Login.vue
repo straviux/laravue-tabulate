@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="bg-no-repeat bg-cover bg-center relative"
-    id="login-container"
-  >
+  <div class="bg-no-repeat bg-cover bg-center relative" id="login-container">
     <div
       class="absolute bg-gradient-to-b from-cyan-600 to-blue-400 opacity-75 inset-0 z-0"
     ></div>
     <div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
-
       <div class="flex justify-center self-center z-10">
         <div class="p-12 bg-white mx-auto rounded-2xl w-100">
           <div class="mb-4">
@@ -111,13 +107,13 @@ let errorMessage = ref("");
 
 const login = (ev) => {
   ev.preventDefault();
-  if(!user.username || !user.password) {
+  if (!user.username || !user.password) {
     return;
   }
   store
     .dispatch("login", user)
     .then(() => {
-      router.push({ name: "Dashboard" });
+      router.push({ name: "Admin" });
     })
     .catch((err) => {
       errorMessage.value = err.response.data.error;
@@ -126,6 +122,6 @@ const login = (ev) => {
 </script>
 <style lang="scss" scoped>
 #login-container {
-  background-image: url('../assets/img/login_bg.jpg');
+  background-image: url("../assets/img/login_bg.jpg");
 }
 </style>

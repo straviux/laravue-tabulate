@@ -23,8 +23,8 @@ const routes = [
     name:  'Admin',
     component: DefaultLayout,
     children: [
-      {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
-      {path: '/admin/users', name: 'Users', component: Dashboard},
+      // {path: '/admin/dashboard', name: 'Dashboard', component: Dashboard},
+      // {path: '/admin/users', name: 'Users', component: Dashboard},
       // EVENTS ROUTE
       {path: '/admin/event', name: 'Events', component: Event},
       {path: '/admin/event/create', name: 'AddEvent', component: EventForm},

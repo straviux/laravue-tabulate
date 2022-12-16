@@ -1,8 +1,10 @@
 <template>
   <div class="flex flex-col md:flex-row gap-10 justify-between items-center">
     <div>
-      <h1 class="font-extrabold text-4xl text-blueGray-700">Tabulating System</h1>
-      <p>{{getDateTime()}}</p>
+      <h1 class="font-extrabold text-4xl text-blueGray-700">
+        Tabulating System
+      </h1>
+      <p>{{ getDateTime() }}</p>
     </div>
     <div class="flex justify-between gap-2 items-center">
       <button class="bg-gray-200 p-2 rounded-lg text-blueGray-500">
@@ -39,13 +41,21 @@ const logout = () => {
 };
 
 const getDateTime = () => {
+  const current = new Date();
+  const date =
+    current.getFullYear() +
+    "-" +
+    (current.getMonth() + 1) +
+    "-" +
+    current.getDate();
+  const time =
+    current.getHours() +
+    ":" +
+    current.getMinutes() +
+    ":" +
+    current.getSeconds();
+  const dateTime = date + " " + time;
 
-    const current = new Date();
-    const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
-    const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-    const dateTime = date +' '+ time;
-
-    return dateTime;
-
-}
+  return dateTime;
+};
 </script>
