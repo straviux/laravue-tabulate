@@ -30,6 +30,7 @@ class ScoreController extends Controller
 
         $scores = Score::select(
             'judges.judge_name',
+            'judges.position',
             'contestants.contestant_name',
             'contestants.id as contestant_id',
             'scores.judge_id as judge_id',
@@ -59,6 +60,7 @@ class ScoreController extends Controller
                     $scores_arr[$i] = [
                         'contestant_id' => $entry['contestant_id'],
                         'judge_id' => $entry['judge_id'],
+                        'judge_position' => $entry['position'],
                         'judge_name' => $entry['judge_name'],
                         'total' => $entry['total']
                     ];

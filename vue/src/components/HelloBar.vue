@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col md:flex-row gap-10 justify-between items-center">
+  <div
+    class="flex flex-col md:flex-row gap-10 justify-between items-center no-print"
+  >
     <div>
       <h1 class="font-extrabold text-4xl text-blueGray-700">
         Tabulating System

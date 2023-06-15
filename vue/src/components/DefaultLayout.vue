@@ -3,7 +3,7 @@
     <div
       class="col-span-12 lg:col-span-10 bg-stone-50 rounded-r-[37px] flex flex-col gap-2 lg:flex-row md:divide-x-2"
     >
-      <div class="lg:w-[250px] w-full lg:h-full">
+      <div class="lg:w-[250px] w-full lg:h-full no-print">
         <nav-bar />
       </div>
 

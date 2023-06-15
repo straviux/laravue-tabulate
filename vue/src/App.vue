@@ -7,4 +7,23 @@
   <router-view :key="$route.path"></router-view>
 </template>
 
-<style></style>
+<style>
+@media print {
+  @page {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-div {
+    display: block !important;
+    background-color: transparent !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    align-items: center;
+    font-size: 12px;
+  }
+}
+</style>

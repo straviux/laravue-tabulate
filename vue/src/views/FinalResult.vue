@@ -1,8 +1,10 @@
 <template>
   <div class="flex flex-col gap-10 p-7">
-    <h4 class="font-bold text-slate-600 text-2xl -mb-8">FINAL RESULT</h4>
+    <h4 class="font-bold text-slate-600 text-2xl -mb-8 no-print">
+      FINAL RESULT
+    </h4>
     <div
-      class="flex p-2 my-4 bg-white rounded-lg shadow items-center justify-between px-8"
+      class="flex p-2 my-4 bg-white rounded-lg shadow items-center justify-between px-8 no-print"
     >
       <div class="flex gap-12 items-center">
         <span>Event: </span>
@@ -44,14 +46,27 @@
       </div>
       <div class="flex gap-3 items-center -ml-24"></div>
       <div>
-        <button class="btn" @click="getFinalresult">Print</button>
+        <button class="btn" @click="PrintElem">Print</button>
       </div>
     </div>
     <div
-      class="shadow-lg flex bg-white rounded-lg flex-col justify-center items-center"
+      class="shadow-lg flex bg-white rounded-lg flex-col justify-center items-center px-12 pb-12 print-div"
     >
-      <!-- <pre>{{ finalresult }}</pre> -->
-      <table class="table w-full -mt-4" v-if="finalresult.length">
+      <div class="flex items-center justify-center mt-4 gap-4">
+        <img src="../assets/moa_logo.png" class="w-[90px] h-[90px] ml-16" />
+        <div class="text-center ml-8">
+          <p class="text-lg">Republic of the Philippines</p>
+          <p class="text-lg -mt-1">Province of Palawan</p>
+          <p class="text-lg -mt-1">Municipality of Aborlan</p>
+        </div>
+        <img src="../assets/rakudan_banner.png" class="w-[168px] mt-4 ml-4" />
+      </div>
+
+      <p class="text-2xl font-semibold text-center mt-2 uppercase">
+        {{ model.contest.contest_name }}
+      </p>
+
+      <table class="table table-compact mt-4" v-if="finalresult.length">
         <!-- head -->
         <thead class="text-center">
           <tr>
@@ -77,9 +92,28 @@
           </tr>
         </tbody>
       </table>
+
+      <div
+        class="grid grid-cols-3 gap-12 place-content-center h-48 mt-12"
+        v-if="finalresult[0]"
+      >
+        <div v-for="(d, i) in finalresult[0].scores" class="text-center">
+          <p class="font-semibold underline" style="text-underline-offset: 6px">
+            {{ d.judge_name }}
+          </p>
+          <p>{{ d.judge_position }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+<style>
+@media print {
+  .table {
+    margin-left: -16px !important;
+  }
+}
+</style>
 <script setup>
 import { ref, watch, computed } from "vue";
 import store from "../store";
@@ -109,5 +143,12 @@ watch(
 const getFinalresult = () => {
   // console.log(model.value.contest);
   store.dispatch("getFinalResult", model.value.contest.id);
+};
+
+const PrintElem = () => {
+  setTimeout(function () {
+    window.print();
+  }, 500);
+  return false;
 };
 </script>
