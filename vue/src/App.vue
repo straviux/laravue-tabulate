@@ -8,13 +8,20 @@
 </template>
 
 <style>
+.display-on-print {
+  display: none;
+}
+
 @media print {
   @page {
     margin: 0 !important;
-    padding: 0 !important;
   }
   .no-print {
     display: none !important;
+  }
+
+  .display-on-print {
+    display: inline;
   }
   .print-div {
     display: block !important;
@@ -23,7 +30,6 @@
     -moz-box-shadow: none !important;
     box-shadow: none !important;
     align-items: center;
-    font-size: 12px;
   }
 }
 </style>

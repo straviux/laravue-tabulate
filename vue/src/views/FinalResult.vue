@@ -52,56 +52,73 @@
     <div
       class="shadow-lg flex bg-white rounded-lg flex-col justify-center items-center px-12 pb-12 print-div"
     >
-      <div class="flex items-center justify-center mt-4 gap-4">
-        <img src="../assets/moa_logo.png" class="w-[90px] h-[90px] ml-16" />
-        <div class="text-center ml-8">
-          <p class="text-lg">Republic of the Philippines</p>
-          <p class="text-lg -mt-1">Province of Palawan</p>
-          <p class="text-lg -mt-1">Municipality of Aborlan</p>
+      <div class="display-on-print">
+        <div class="flex items-center justify-center mt-4 gap-4">
+          <img src="../assets/moa_logo.png" class="w-[90px] h-[90px] ml-16" />
+          <div class="text-center ml-8">
+            <p class="text-lg">Republic of the Philippines</p>
+            <p class="text-lg -mt-1">Province of Palawan</p>
+            <p class="text-lg -mt-1">Municipality of Aborlan</p>
+          </div>
+          <img src="../assets/rakudan_banner.png" class="w-[168px] mt-4 ml-4" />
         </div>
-        <img src="../assets/rakudan_banner.png" class="w-[168px] mt-4 ml-4" />
       </div>
 
       <p class="text-2xl font-semibold text-center mt-2 uppercase">
         {{ model.contest.contest_name }}
       </p>
+      <div class="display-on-print">
+        <p class="uppercase text-center text-xl font-semibold">Final Result</p>
+      </div>
 
       <table class="table table-compact mt-4" v-if="finalresult.length">
         <!-- head -->
         <thead class="text-center">
           <tr>
-            <th class="text-left w-[20%] text-[14px]">Contestant</th>
-            <th class="text-[14px]" v-for="(d, i) in finalresult[0].scores">
+            <th class="text-left font-semibold w-[20%] text-[12px]">
+              Contestant
+            </th>
+            <th
+              class="text-[12px] font-semibold"
+              v-for="(d, i) in finalresult[0].scores"
+            >
               {{ d.judge_name }}
             </th>
 
-            <th class="text-[14px] w-[5%]">Total</th>
-            <th class="text-[14px] w-[5%]">Rank</th>
+            <th class="text-[12px] font-semibold w-[5%]">Total</th>
+            <th class="text-[12px] font-semibold w-[5%]">Rank</th>
           </tr>
         </thead>
         <tbody class="text-center">
           <tr v-for="(data, index) in finalresult">
-            <td class="text-[16px] font-semibold uppercase text-left">
+            <td class="text-[12px] font-semibold uppercase text-left">
               {{ data.contestant }}
             </td>
-            <td class="text-[18px] font-semibold" v-for="(d, i) in data.scores">
+            <td class="text-[14px] font-semibold" v-for="(d, i) in data.scores">
               {{ d.total }}
             </td>
-            <td class="font-bold">{{ data.grand_total.toFixed(2) }}</td>
-            <td class="font-bold">{{ data.rank }}</td>
+            <td class="text-[14px] font-semibold">
+              {{ data.grand_total.toFixed(2) }}
+            </td>
+            <td class="text-[16px] text-gray-700 font-bold">{{ data.rank }}</td>
           </tr>
         </tbody>
       </table>
 
-      <div
-        class="grid grid-cols-3 gap-12 place-content-center h-48 mt-12"
-        v-if="finalresult[0]"
-      >
-        <div v-for="(d, i) in finalresult[0].scores" class="text-center">
-          <p class="font-semibold underline" style="text-underline-offset: 6px">
-            {{ d.judge_name }}
-          </p>
-          <p>{{ d.judge_position }}</p>
+      <div class="display-on-print">
+        <div
+          class="grid grid-cols-3 gap-12 place-content-center h-48 mt-12"
+          v-if="finalresult[0]"
+        >
+          <div v-for="(d, i) in finalresult[0].scores" class="text-center">
+            <p
+              class="font-semibold underline"
+              style="text-underline-offset: 6px"
+            >
+              {{ d.judge_name }}
+            </p>
+            <p>{{ d.judge_position }}</p>
+          </div>
         </div>
       </div>
     </div>
