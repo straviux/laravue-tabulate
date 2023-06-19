@@ -24,7 +24,7 @@
           >
         </div>
         <form id="score-sheet" @submit.prevent="saveScore">
-          <table class="table w-full">
+          <table class="table w-full" v-if="model.contestant.scores">
             <tr
               v-if="
                 model.contestant.scores.length &&
@@ -138,6 +138,7 @@ const model = ref({ scoreSheet: [], contestant: {}, forUpdate: false });
 const modal_toggle = ref();
 const total = computed(() => {
   let result = 0;
+  // console.log(model.value.scoreSheet);
   if (model.value.scoreSheet.length) {
     for (let i = 0; model.value.scoreSheet.length > i; i++) {
       result += parseFloat(model.value.scoreSheet[i].score);
@@ -188,6 +189,7 @@ const resetModal = () => {
 };
 
 const dataChange = (data) => {
+  // console.log(model.value.scoreSheet);
   model.value.forUpdate = data.forUpdate;
   if (
     model.value.scoreSheet.length < props.criterias.length &&

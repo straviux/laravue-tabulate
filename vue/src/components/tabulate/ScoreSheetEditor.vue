@@ -38,15 +38,15 @@ const model = ref(JSON.parse(JSON.stringify(props)));
 model.value.forUpdate = false;
 model.value.score = model.value.score || 0;
 
-watch(
-  () => model.value.score,
-  (newVal, oldVal) => {
-    if (oldVal !== newVal) {
-      // console.log("data has changed");
-      dataChange();
-    }
-  }
-);
+// watch(
+//   () => model.value.score,
+//   (newVal, oldVal) => {
+//     if (oldVal !== newVal) {
+//       console.log(model.value);
+//       dataChange();
+//     }
+//   }
+// );
 if (model.value.score_id !== null) {
   model.value.forUpdate = true;
   const data = model.value;
