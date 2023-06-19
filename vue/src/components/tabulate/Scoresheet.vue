@@ -144,6 +144,7 @@ const refreshData = () => {
     contest_id: contest_id,
     judge_id: judge_id,
   });
+  window.reload();
 };
 
 const changeContestant = (data) => {
