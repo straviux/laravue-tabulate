@@ -88,7 +88,7 @@ store.dispatch("getContests");
 watch(
   () => contest,
   (newVal, oldVal) => {
-    contest = newVal;
+    contest.value = newVal;
   }
 );
 

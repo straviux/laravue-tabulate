@@ -1,13 +1,9 @@
 <template>
-  <div
-    id="login-container"
-    class="bg-no-repeat bg-cover bg-center relative"
-  >
+  <div id="login-container" class="bg-no-repeat bg-cover bg-center relative">
     <div
       class="absolute bg-gradient-to-b from-blue-600 to-green-400 opacity-75 inset-0 z-0"
     ></div>
     <div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
-
       <div class="flex justify-center self-center z-10">
         <div class="p-12 bg-white mx-auto rounded-2xl w-100">
           <div class="mb-4">
@@ -125,13 +121,13 @@ const user = {
 const register = (ev) => {
   ev.preventDefault();
   store.dispatch("register", user).then(() => {
-    router.push({ name: "Dashboard" });
+    router.push({ name: "Events" });
   });
 };
 </script>
 
 <style lang="scss" scoped>
 #login-container {
-  background-image: url('../assets/img/login_bg.jpg');
+  background-image: url("../assets/img/login_bg.jpg");
 }
 </style>

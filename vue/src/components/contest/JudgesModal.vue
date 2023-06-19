@@ -162,13 +162,13 @@ const addJudge = (index) => {
 const editData = (c) => {
   editRow.value = c.uuid;
   forUpdate.value = true;
-
+  console.log(c);
   const currentData = {
     id: c.id,
     uuid: c.uuid,
     order: c.order,
     position: c.position,
-    contest_id: c.contest.id,
+    // contest_id: c.contest.id,
     judge_name: c.judge_name,
   };
   // console.log(c);
@@ -202,7 +202,7 @@ const cancelUpdate = (judge) => {
 const deleteSavedData = (judge) => {
   if (
     confirm(
-      `Are you sure you want to delete this survey? Operation can't be undone!!`
+      `Are you sure you want to delete this data? Operation can't be undone!!`
     )
   ) {
     store.dispatch("deleteJudge", judge.id).then(() => {
