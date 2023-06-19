@@ -138,15 +138,16 @@ const model = ref({ scoreSheet: [], contestant: {}, forUpdate: false });
 const modal_toggle = ref();
 const total = computed(() => {
   let result = 0;
-  // console.log(model.value.scoreSheet);
+
+  // return false;
   if (model.value.scoreSheet.length) {
     for (let i = 0; model.value.scoreSheet.length > i; i++) {
-      result += parseFloat(model.value.scoreSheet[i].score);
+      // if (Number.isInteger(model.value.scoreSheet[i].score)) {
+      result += parseInt(model.value.scoreSheet[i].score);
+      // }
     }
   }
-  // else {
-  //   result = model.value.contestant.total;
-  // }
+
   return result;
 });
 
@@ -189,18 +190,15 @@ const resetModal = () => {
 };
 
 const dataChange = (data) => {
-  // console.log(model.value.scoreSheet);
+  console.log(model.value.scoreSheet);
   model.value.forUpdate = data.forUpdate;
-  if (
-    model.value.scoreSheet.length < props.criterias.length &&
-    !model.value.forUpdate
-  ) {
+  if (!model.value.forUpdate) {
     const newSheet = {
       uuid: uuidv4(),
       criteria_id: data.criteria.criteria_id,
       score: data.score,
     };
-    model.value.scoreSheet.push(newSheet);
+    model.value.scoreSheet[data.criteria.criteria_id - 1] = newSheet;
     return;
   } else {
     model.value.scoreSheet = model.value.scoreSheet.map((q) => {
