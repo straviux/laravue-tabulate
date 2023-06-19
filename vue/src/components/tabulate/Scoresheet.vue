@@ -101,7 +101,7 @@ import ScoresheetModal from "./ScoresheetModal.vue";
 import Loader from "../Loader.vue";
 
 const route = useRoute();
-const router = userRouter();
+const router = useRouter();
 const contest_id = route.params.contest_id;
 const judge_id = route.params.judge_id;
 const contestants = computed(() => store.state.contestants.data);

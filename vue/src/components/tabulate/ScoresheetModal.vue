@@ -81,7 +81,7 @@
               </td>
               <td>
                 <span class="ml-6 text-xl font-bold text-slate-600">{{
-                  total
+                  isNaN(total) ? 0 : total
                 }}</span>
               </td>
             </tr>
@@ -142,9 +142,10 @@ const total = computed(() => {
     for (let i = 0; model.value.scoreSheet.length > i; i++) {
       result += parseFloat(model.value.scoreSheet[i].score);
     }
-  } else {
-    result = model.value.contestant.total;
   }
+  // else {
+  //   result = model.value.contestant.total;
+  // }
   return result;
 });
 
