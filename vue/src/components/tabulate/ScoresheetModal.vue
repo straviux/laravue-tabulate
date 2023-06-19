@@ -181,6 +181,7 @@ watch(
 );
 
 const resetModal = () => {
+  window.location.reload();
   emit("closeModal");
   model.value.scoreSheet = [];
   model.value.forUpdate = false;
