@@ -96,11 +96,12 @@
 <script setup>
 import store from "../../store";
 import { ref, computed, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import ScoresheetModal from "./ScoresheetModal.vue";
 import Loader from "../Loader.vue";
 
 const route = useRoute();
+const router = userRouter();
 const contest_id = route.params.contest_id;
 const judge_id = route.params.judge_id;
 const contestants = computed(() => store.state.contestants.data);
@@ -144,7 +145,7 @@ const refreshData = () => {
     contest_id: contest_id,
     judge_id: judge_id,
   });
-  window.location.reload();
+  router.go(router.currentRoute);
 };
 
 const changeContestant = (data) => {
