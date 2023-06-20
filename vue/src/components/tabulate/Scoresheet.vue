@@ -1,6 +1,6 @@
 <template>
   <Loader v-if="currentJudgeLoading" />
-  <div v-else class="bg-white p-4 rounded-lg">
+  <div v-else class="p-4 rounded-lg">
     <h1 class="text-3xl uppercase font-semibold text-gray-600">
       Tabulating System
     </h1>

@@ -98,8 +98,8 @@
       </div>
     </div>
   </div>
-  <div class="max-w-5xl mx-auto py-12">
-    <router-view></router-view>
+  <div class="h-screen py-12">
+    <div class="max-w-5xl mx-auto"><router-view></router-view></div>
   </div>
   <Notification class="z-30" />
 </template>
@@ -146,4 +146,8 @@ const getScoreSheet = () => {
   });
 };
 </script>
-<style scoped></style>
+<style lang="scss" scoped>
+.bg-image {
+  background-image: url("../assets/img/login_bg.jpg");
+}
+</style>
