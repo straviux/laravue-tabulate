@@ -147,6 +147,10 @@ const total = computed(() => {
       // }
     }
   }
+  // console.log(model.value.total);
+  // else {
+  //   result = model.value.total;
+  // }
 
   return result;
 });
@@ -190,13 +194,13 @@ const resetModal = () => {
 };
 
 const dataChange = (data) => {
-  console.log(model.value.scoreSheet);
+  // console.log(data);
   model.value.forUpdate = data.forUpdate;
   if (!model.value.forUpdate) {
     const newSheet = {
       uuid: uuidv4(),
       criteria_id: data.criteria.criteria_id,
-      score: data.score,
+      score: data.score == "" ? 0 : data.score,
     };
     model.value.scoreSheet[data.criteria.criteria_id - 1] = newSheet;
     return;
@@ -206,7 +210,7 @@ const dataChange = (data) => {
         return {
           id: data.score_id,
           criteria_id: data.criteria.criteria_id,
-          score: data.score,
+          score: data.score == "" ? 0 : data.score,
         };
       }
       return {

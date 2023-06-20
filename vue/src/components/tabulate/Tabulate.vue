@@ -129,7 +129,7 @@ watch(
 
 const getScoreSheet = () => {
   model.value.uuid = uuidv4();
-  console.log(model.value);
+  // console.log(model.value);
   router.push({
     name: "ScoresheetForm",
     params: {

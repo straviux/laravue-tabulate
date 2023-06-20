@@ -42,7 +42,7 @@ watch(
   () => model.value.score,
   (newVal, oldVal) => {
     if (oldVal !== newVal) {
-      console.log(model.value);
+      // console.log(model.value);
       dataChange();
     }
   }
@@ -68,7 +68,8 @@ const getInput = (maxInput) => {
 
 // Emit the data change
 function dataChange() {
-  const data = model.value;
+  let data = model.value;
+  // data.score = data.score == "" ? 0 : data.score;
   emit("change", data);
 }
 </script>
