@@ -116,6 +116,7 @@ const login = (ev) => {
       router.push({ name: "Admin" });
     })
     .catch((err) => {
+      console.log(err);
       errorMessage.value = err.response.data.error;
     });
 };
