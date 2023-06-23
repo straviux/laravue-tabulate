@@ -69,6 +69,7 @@ const getInput = (maxInput) => {
 // Emit the data change
 function dataChange() {
   let data = model.value;
+
   // data.score = data.score == "" ? 0 : data.score;
   emit("change", data);
 }

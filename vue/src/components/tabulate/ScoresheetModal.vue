@@ -60,7 +60,7 @@
               :class="index !== criterias.length - 1 ? 'border-b' : ''"
             >
               <ScoreSheetEditor
-                :key="index"
+                :key="criteria.id"
                 :score="0"
                 :score_id="null"
                 :criteria="{
@@ -138,12 +138,14 @@ const model = ref({ scoreSheet: [], contestant: {}, forUpdate: false });
 const modal_toggle = ref();
 const total = computed(() => {
   let result = 0;
-
+  // console.log(model.value.scoreSheet.length);
   // return false;
   if (model.value.scoreSheet.length) {
     for (let i = 0; model.value.scoreSheet.length > i; i++) {
       // if (Number.isInteger(model.value.scoreSheet[i].score)) {
-      result += parseInt(model.value.scoreSheet[i].score);
+      if (model.value.scoreSheet[i]) {
+        result += parseInt(model.value.scoreSheet[i].score);
+      }
       // }
     }
   }
@@ -202,7 +204,8 @@ const dataChange = (data) => {
       criteria_id: data.criteria.criteria_id,
       score: data.score == "" ? 0 : data.score,
     };
-    model.value.scoreSheet[data.criteria.criteria_id - 1] = newSheet;
+    model.value.scoreSheet[data.criteria.criteria_id] = newSheet;
+
     return;
   } else {
     model.value.scoreSheet = model.value.scoreSheet.map((q) => {
@@ -223,6 +226,7 @@ const dataChange = (data) => {
 };
 
 const getCurrentScore = (data) => {
+  // console.log(data);
   const scoreSheet = {
     id: data.score_id,
     criteria_id: data.criteria.criteria_id,
@@ -230,38 +234,6 @@ const getCurrentScore = (data) => {
   };
   model.value.forUpdate = true;
   model.value.scoreSheet.push(scoreSheet);
-};
-
-const nextContestant = () => {
-  const _contestants = JSON.parse(JSON.stringify(props.contestants));
-  const _contestants_count = _contestants.length;
-  const currentContestant = model.value.contestant;
-  let currentIndex = _contestants.findIndex(
-    (x) => x.order === currentContestant.order
-  );
-
-  if (currentIndex !== _contestants_count) {
-    if (currentIndex == _contestants_count - 1) return;
-    const nextContestant = _contestants[currentIndex + 1];
-    emit("changeContestant", nextContestant);
-  }
-  model.value.scoreSheet = [];
-  return;
-};
-
-const prevContestant = () => {
-  const _contestants = JSON.parse(JSON.stringify(props.contestants));
-  const currentContestant = model.value.contestant;
-  let currentIndex = _contestants.findIndex(
-    (x) => x.order === currentContestant.order
-  );
-  if (currentIndex >= 0) {
-    if (currentIndex === 0) return;
-    const nextContestant = _contestants[currentIndex - 1];
-    emit("changeContestant", nextContestant);
-  }
-  model.value.scoreSheet = [];
-  return;
 };
 
 const saveScore = (event) => {
@@ -278,6 +250,7 @@ const saveScore = (event) => {
       }
     }
   }
+  model.value.scoreSheet = model.value.scoreSheet.filter((n) => n);
   const contestantScore = {
     contestant_id: props.contestant.contestant_id,
     contest_id: contest_id,
@@ -285,6 +258,7 @@ const saveScore = (event) => {
     scores: JSON.parse(JSON.stringify(model.value.scoreSheet)),
   };
 
+  // console.log(model.value.scoreSheet);
   store
     .dispatch("saveScore", {
       scores: contestantScore,
